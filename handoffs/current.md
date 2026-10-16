@@ -41,3 +41,7 @@ Created report.md with the design, flow/evidence links, R/D reasoning, planned a
 ## Submission branch preparation
 
 Local Git is now initialized on part1-submission, based on the supplied remote main initial commit a0ae23ea4a57b4dde7f2171582429f340db18a05. The remote README heading was retained above the local documentation. Tests (4/4) and build passed again. Intended milestone includes source/config/lockfile, project docs, report draft, AI-use disclosure, curated screenshots, and diagram. Generated dependencies/build output remain ignored. Next: push milestone, then update report with its exact hash and hosted links in a separate commit, preserving main. Earlier no-Git statements describe the historical preparation stages.
+
+## Verified milestone and report update
+
+Milestone `2475ce0e59aa627d05725b4bdd9d9c8805abdf26` was pushed and verified on origin/part1-submission at https://github.com/mallorypierz/mentalhealth_app. Remote main remains its original commit; no merge or force-push. Public repository visibility confirmed. report.md now records the milestone and uses hosted links pinned to it; this report update is a separate successor commit. Upload the later report, not the placeholder-bearing copy inside the milestone. Student review and instructor-specific access confirmation remain outstanding. Historical statements about missing repository identity describe earlier stages.

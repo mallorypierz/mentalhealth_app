@@ -6,15 +6,15 @@
 
 **Prepared:** October 15, 2026
 
-**Submission status:** Draft; repository identity and hosted access remain unverified.
+**Submission status:** Milestone pushed and verified; this report update is committed separately. Student review remains required.
 
 | Required submission field | Status |
 | --- | --- |
-| Repository URL | **PENDING — no repository URL supplied or verified.** |
-| Submitted milestone commit | **PENDING — Part 1 milestone commit will be recorded in a separate report-update commit.** |
-| Instructor access to linked materials | **PENDING — local file links checked; hosted access not verified.** |
+| Repository URL | [https://github.com/mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) — verified public repository. |
+| Submitted milestone commit | [`2475ce0e59aa627d05725b4bdd9d9c8805abdf26`](https://github.com/mallorypierz/mentalhealth_app/commit/2475ce0e59aa627d05725b4bdd9d9c8805abdf26) — verified on remote `part1-submission` before this report update. |
+| Instructor access to linked materials | Repository visibility confirmed PUBLIC; linked paths verified in the pushed milestone. Access from the instructor’s own environment has not been tested. |
 
-Links below are repository-relative. They work when these files are kept together, but an isolated report.md uploaded to Canvas may not resolve them. Before submission, replace or supplement them with verified hosted links to the submitted version. No local machine path or localhost address is presented as remotely accessible evidence.
+**Submission branch:** [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission). The milestone above identifies the source/design/evidence snapshot; its report still contains the earlier placeholders. Upload this separately committed report update instead. Links below point to files at that exact milestone, so the uploaded report does not depend on local paths. Remote main retains the original initial commit; no force-push or merge was performed.
 
 ## Purpose, scenario, and chosen skill
 
@@ -26,7 +26,7 @@ The chosen skill is **paced breathing: inhale for four seconds, exhale for six s
 
 **Entry → optional introduction or direct Start → breathing practice → stopped/completed result → optional history.** Practice presents one current instruction with a count and an optional moving cue. Pause and Stop remain available. Opening crisis support pauses running practice; closing support leaves it paused until an explicit Resume. Mock introduction failure permits retry without blocking Start or support, and starting practice invalidates pending introduction responses.
 
-[Initial flow diagram (SVG)](docs/diagrams/part1-flow.svg) · [PNG preview](docs/diagrams/part1-flow.png) · [Editable flow and behavior notes](docs/diagrams/part1-flow.md)
+[Initial flow diagram (SVG)](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.svg) · [PNG preview](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.png) · [Editable flow and behavior notes](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.md)
 
 The diagram is **initial design, not a completed Figma capture**. It labels selected future revisions separately from the current prototype.
 
@@ -46,7 +46,7 @@ Source: the supplied Assignment 3 study table, **R1–R4 and D1–D6**. The over
 | **D5:** personalization without configuration burden (49 mentions) | Proposed optional “Remember my display choice,” with visible saved status and change/forget controls. | Silent automatic saving reduces one decision but weakens transparency. Opt-in adds a small choice; persistence is not implemented. |
 | **D6:** low-stimulus, non-judgmental presentation (97 mentions) | Restrained colors, neutral wording, and a still text/count cue. System reduced motion takes precedence over a future saved animated preference. | Less motion is less expressive; visual calm must not compromise contrast or discoverability. Universal comfort and full accessibility are not established. |
 
-The [full decision table](docs/design-pipeline.md#decisions-alternatives-and-checks) includes each finding's supporting evidence, implementation status, alternative, tradeoff, and proposed check.
+The [full decision table](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/design-pipeline.md#decisions-alternatives-and-checks) includes each finding's supporting evidence, implementation status, alternative, tradeoff, and proposed check.
 
 ## Planned architecture, model role, and data
 
@@ -58,7 +58,7 @@ Proposed records are conversations, ordered user/assistant messages, exercise se
 
 The student selected optional preference remembering and confirmed system reduced-motion precedence. Users may skip remembering, change the effective display, or forget a saved choice. This saves repeated configuration without treating clicks or stopped sessions as emotional evidence. Current choices and records reset on refresh.
 
-[Architecture, record relationships, request contracts, and behavior proposal](docs/design-pipeline.md#planned-architecture-and-behavior-part-1-proposal)
+[Architecture, record relationships, request contracts, and behavior proposal](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/design-pipeline.md#planned-architecture-and-behavior-part-1-proposal)
 
 ## Crisis boundaries and user control
 
@@ -72,12 +72,12 @@ A working application is not required for Part 1. The optional Vue experiment ma
 
 | Evidence | What it shows | Limit |
 | --- | --- | --- |
-| [Desktop entry](docs/evidence/desktop-entry.jpg) | Direct Start, optional scripted introduction, still-cue control, and demo/reset labels. | Screenshot only; not measured emotional effort or usability for a clinical population. |
-| [Narrow paused practice](docs/evidence/narrow-practice.jpg) | Paused state with Resume/Stop at 390px width; general navigation still visible. | Full-page image cannot prove viewport-persistent support or timer behavior. |
-| [Narrow history](docs/evidence/narrow-history.jpg) | A completed 60-second temporary session with a stable ID, separate from a labeled fixture. | No SQLite persistence, API/database comparison, or clinical outcome. |
-| [Recorded checks](docs/verification.md) | Agent observed mock failure/retry, delayed response cancellation, support pause/explicit Resume, stopped/completed history, refresh reset, and keyboard activation/focus. Four unit tests and production build previously passed. | Not a new test run or full accessibility audit. The 60-second browser run preceded the final cue refinement; only affected behavior plus unit tests/build were rechecked afterward. |
+| [Desktop entry](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/desktop-entry.jpg) | Direct Start, optional scripted introduction, still-cue control, and demo/reset labels. | Screenshot only; not measured emotional effort or usability for a clinical population. |
+| [Narrow paused practice](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/narrow-practice.jpg) | Paused state with Resume/Stop at 390px width; general navigation still visible. | Full-page image cannot prove viewport-persistent support or timer behavior. |
+| [Narrow history](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/narrow-history.jpg) | A completed 60-second temporary session with a stable ID, separate from a labeled fixture. | No SQLite persistence, API/database comparison, or clinical outcome. |
+| [Recorded checks](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/verification.md) | Agent observed mock failure/retry, delayed response cancellation, support pause/explicit Resume, stopped/completed history, refresh reset, and keyboard activation/focus. Four unit tests and production build previously passed. | Not a new test run or full accessibility audit. The 60-second browser run preceded the final cue refinement; only affected behavior plus unit tests/build were rechecked afterward. |
 
-[Curated evidence and prompt/change/decision trail](docs/evidence/README.md) explains these limits and the revised approaches. In particular, the supplied Figma Activity frame was blank, so the student requested a README-based prototype instead of claiming a design-to-code match. The agent also replaced an independent CSS animation with a clock-derived cue to avoid a potential mismatch when re-enabling motion mid-cycle. These are documented observations and decisions, not invented user-test findings.
+[Curated evidence and prompt/change/decision trail](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/README.md) explains these limits and the revised approaches. In particular, the supplied Figma Activity frame was blank, so the student requested a README-based prototype instead of claiming a design-to-code match. The agent also replaced an independent CSS animation with a clock-derived cue to avoid a potential mismatch when re-enabling motion mid-cycle. These are documented observations and decisions, not invented user-test findings.
 
 ## Completion status, open questions, and next steps
 
@@ -89,7 +89,7 @@ Open questions include preference-control placement and forgetting semantics, cr
 
 Next: review the proposal and disclosure, finalize submission links and commit, then plan a small backend save/read and one frontend/backend round trip. Later work will implement and verify persistence/RAG, the selected UI revisions, and any requested Figma comparison. Paid calls require an agreed limit; routine checks use mocks and fictional data.
 
-[README and run instructions](README.md) · [Project instructions](AGENTS.md) · [Current handoff](handoffs/current.md) · [AI-USE.md](AI-USE.md)
+[README and run instructions](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/README.md) · [Project instructions](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/AGENTS.md) · [Current handoff](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/handoffs/current.md) · [AI-USE.md](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/AI-USE.md)
 
 The disclosure identifies documented tools and roles, known versions and unknown model identifiers, generated/reused material, student-confirmed choices, and review limits. Agent-run checks are not represented as personal student testing. A scoped privacy review found no common credential patterns or unnecessary private content in selected screenshots; it was not an exhaustive security audit.
 
@@ -103,7 +103,7 @@ The disclosure identifies documented tools and roles, known versions and unknown
 | Describe model role, expected stored data, personalization, and user control | Covered as proposed capabilities, distinct from the baseline. |
 | Explain timing, independent crisis access, and testing boundaries | Covered, including present visibility/timing limits and unresolved crisis-text design. |
 | Maintain project context and disclose AI use with curated evidence | Local documents and disclosure exist; student review is still required. |
-| Include repository URL and submitted-version commit | **Missing/unverified; placeholders intentionally retained above.** |
-| Provide accessible design/evidence links | Local targets exist; **hosted links and instructor access still unverified.** |
+| Include repository URL and submitted-version commit | **Verified:** repository URL and exact milestone hash recorded above; report update follows in a separate commit. |
+| Provide accessible design/evidence links | Linked files exist in the pushed milestone and the repository is public; instructor-specific access remains to be checked. |
 
-Before uploading: supply and verify the repository URL; commit the intended milestone and verify its hash; add hosted version-specific links; confirm instructor access; and personally review the report and AI-use disclosure for accuracy. A future commit cannot be inferred from these local files. The current draft is not yet a verified submission package.
+Before uploading: personally review this report and AI-use disclosure for accuracy, confirm the instructor can open the hosted links, and upload the report from the later report-update commit on part1-submission. Repository identity, milestone push, and version-specific file paths have been verified; those checks do not substitute for student review or an instructor access check.
