@@ -1,0 +1,6 @@
+# Initial prototype requirements
+Build a Vue/JavaScript frontend from the README's paced-breathing flow. Preserve six 4/6 cycles, start/pause/resume/stop, support-induced pause with explicit resume, still cue, successful/failed/delayed mock introductions with retry and stale-response protection, accurate stopped/completed temporary history, refresh reset disclosure, keyboard access, and narrow layout. Use fictional fixtures and clearly disclose missing backend/database/live AI. Verify observed behavior before claiming success.
+
+User approved project-local installation: npm install vue@3; npm install --save-dev vite@7 @vitejs/plugin-vue@6.
+
+AI-use record: Codex generated initial Vue source, timing controller, tests, CSS and documentation; model identifier was not exposed as a verified session value. Tools: shell, Figma MCP design context (blank Activity frame), required helpline lookup, browser automation. Initial browser access failed before the user configured site permissions; subsequent localhost access failed because no app existed. A temporary nested scaffold directory was corrected before source creation. Sandbox blocked server binding, so an approved escalated local run was used. No remote code was published or committed.

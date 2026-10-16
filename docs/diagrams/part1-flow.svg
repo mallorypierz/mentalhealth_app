@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1600" viewBox="0 0 1600 1600" role="img" aria-labelledby="title desc"><title id="title">Part 1 initial design: breathing practice flow</title><desc id="desc">Three sections show practice, optional mock introduction, and crisis support from every relevant state. Support pauses running practice; closing leaves it paused until explicit Resume. This is an initial design, not a Figma capture.</desc><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#53675e" stroke-width="1.5"/></marker></defs><style>text{font-family:Arial,Helvetica,sans-serif;fill:#253c33}.title{font-size:32px;font-weight:bold}.section{font-size:23px;font-weight:bold}.label{font-size:18px;font-weight:bold}.body{font-size:17px}.small{font-size:16px;fill:#52675b}.edge{fill:none;stroke:#53675e;stroke-width:2;marker-end:url(#arrow)}.dash{stroke-dasharray:6 5}</style><rect width="100%" height="100%" fill="#f7f6f0"/>
+<g transform="translate(80,0)">
+<text x="40" y="48" class="title" text-anchor="start">A little space · Part 1 flow</text>
+<text x="40" y="79" class="small" text-anchor="start">INITIAL DESIGN · Not a completed Figma capture · Coursework / fictional scenarios only</text>
+<text x="40" y="108" class="small" text-anchor="start">Solid arrows = transitions. Dashed arrows = available bypasses. Support rules apply across all sections.</text>
+<rect x="30" y="135" width="1380" height="535" rx="18" fill="#ffffff" stroke="#d9dfd4"/>
+<text x="55" y="172" class="section" text-anchor="start">1  Practice, result, and history</text>
+<text x="55" y="200" class="small" text-anchor="start">Direct Start needs no introduction, check-in, typing, or model response.</text>
+<rect x="55" y="235" width="220" height="112" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="71" y="264" class="label" text-anchor="start">Entry</text>
+<text x="71" y="290" class="body" text-anchor="start">Choose display cue.</text>
+<text x="71" y="313" class="body" text-anchor="start">Optional introduction.</text>
+<text x="71" y="336" class="body" text-anchor="start">Start when ready.</text>
+<rect x="335" y="235" width="240" height="112" rx="12" fill="#eaf0e2" stroke="#bdcabc"/>
+<text x="351" y="264" class="label" text-anchor="start">Practice · running</text>
+<text x="351" y="290" class="body" text-anchor="start">6 cycles: 4s in / 6s out</text>
+<text x="351" y="313" class="body" text-anchor="start">One instruction at a time.</text>
+<text x="351" y="336" class="body" text-anchor="start">60s planned active time.</text>
+<rect x="665" y="235" width="220" height="112" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="681" y="264" class="label" text-anchor="start">Completed</text>
+<text x="681" y="290" class="body" text-anchor="start">Final cycle finishes.</text>
+<text x="681" y="313" class="body" text-anchor="start">Record completed once.</text>
+<text x="681" y="336" class="body" text-anchor="start">Duration: 60 seconds.</text>
+<rect x="945" y="235" width="190" height="112" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="961" y="264" class="label" text-anchor="start">Result</text>
+<text x="961" y="290" class="body" text-anchor="start">Stopped or completed.</text>
+<text x="961" y="313" class="body" text-anchor="start">No score or penalty.</text>
+<text x="961" y="336" class="body" text-anchor="start">Choose next action.</text>
+<rect x="1190" y="235" width="195" height="112" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="1206" y="264" class="label" text-anchor="start">History</text>
+<text x="1206" y="290" class="body" text-anchor="start">Status, duration, ID.</text>
+<text x="1206" y="313" class="body" text-anchor="start">Fixture is labeled.</text>
+<text x="1206" y="336" class="body" text-anchor="start">No wellbeing inference.</text>
+<polyline points="275,290 335,290" class="edge"/>
+<text x="285" y="277" class="small" text-anchor="start">Start</text>
+<polyline points="575,290 665,290" class="edge"/>
+<text x="602" y="277" class="small" text-anchor="start">60s</text>
+<polyline points="885,290 945,290" class="edge"/>
+<polyline points="1135,290 1190,290" class="edge"/>
+<text x="1146" y="277" class="small" text-anchor="start">View</text>
+<rect x="335" y="430" width="240" height="112" rx="12" fill="#edf0e9" stroke="#bdcabc"/>
+<text x="351" y="459" class="label" text-anchor="start">Practice · paused</text>
+<text x="351" y="485" class="body" text-anchor="start">Timer does not advance.</text>
+<text x="351" y="508" class="body" text-anchor="start">Keep Stop available.</text>
+<text x="351" y="531" class="body" text-anchor="start">Resume is explicit.</text>
+<rect x="665" y="430" width="220" height="112" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="681" y="459" class="label" text-anchor="start">Stopped</text>
+<text x="681" y="485" class="body" text-anchor="start">Record stopped once.</text>
+<text x="681" y="508" class="body" text-anchor="start">Active seconds only.</text>
+<text x="681" y="531" class="body" text-anchor="start">No completion claim.</text>
+<polyline points="390,347 390,430" class="edge"/>
+<text x="401" y="390" class="small" text-anchor="start">Pause</text>
+<polyline points="530,430 530,347" class="edge"/>
+<text x="542" y="394" class="small" text-anchor="start">Resume</text>
+<polyline points="575,486 665,486" class="edge"/>
+<text x="602" y="473" class="small" text-anchor="start">Stop</text>
+<polyline points="575,320 620,320 620,455 665,455" class="edge"/>
+<text x="627" y="402" class="small" text-anchor="start">Stop</text>
+<polyline points="885,486 1040,486 1040,347" class="edge"/>
+<polyline points="1030,235 1030,205 455,205 455,235" class="edge"/>
+<text x="650" y="194" class="small" text-anchor="start">Practice again → new session</text>
+<polyline points="1287,347 1287,590 165,590 165,347" class="edge"/>
+<text x="770" y="580" class="small" text-anchor="start">Back to practice / entry (from history)</text>
+<text x="55" y="633" class="small" text-anchor="start">Entry/setup time is separate. User pauses and support time are excluded. Results do not force an exit.</text>
+<rect x="30" y="695" width="1380" height="330" rx="18" fill="#ffffff" stroke="#d9dfd4"/>
+<text x="55" y="732" class="section" text-anchor="start">2  Optional introduction · no gate to practice</text>
+<text x="55" y="760" class="small" text-anchor="start">Start and Crisis support remain available while waiting, after success, and after failure.</text>
+<rect x="55" y="800" width="250" height="100" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="71" y="829" class="label" text-anchor="start">Entry / result</text>
+<text x="71" y="855" class="body" text-anchor="start">Select mock response.</text>
+<text x="71" y="878" class="body" text-anchor="start">Show introduction.</text>
+<rect x="385" y="800" width="260" height="100" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="401" y="829" class="label" text-anchor="start">Waiting</text>
+<text x="401" y="855" class="body" text-anchor="start">Success / Failed: ~0.5s</text>
+<text x="401" y="878" class="body" text-anchor="start">Delayed: ~8s; no duplicate.</text>
+<rect x="775" y="780" width="270" height="85" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="791" y="809" class="label" text-anchor="start">Success</text>
+<text x="791" y="835" class="body" text-anchor="start">Show fixed app guidance.</text>
+<rect x="775" y="910" width="270" height="85" rx="12" fill="#f7eee8" stroke="#bdcabc"/>
+<text x="791" y="939" class="label" text-anchor="start">Failure</text>
+<text x="791" y="965" class="body" text-anchor="start">Explain failure; offer retry.</text>
+<rect x="1130" y="800" width="250" height="135" rx="12" fill="#eaf0e2" stroke="#bdcabc"/>
+<text x="1146" y="829" class="label" text-anchor="start">Start practice</text>
+<text x="1146" y="855" class="body" text-anchor="start">Available in every</text>
+<text x="1146" y="878" class="body" text-anchor="start">introduction state.</text>
+<text x="1146" y="901" class="body" text-anchor="start">Cancel pending request;</text>
+<text x="1146" y="924" class="body" text-anchor="start">ignore late responses.</text>
+<polyline points="305,850 385,850" class="edge"/>
+<text x="312" y="838" class="small" text-anchor="start">Request</text>
+<polyline points="645,825 775,825" class="edge"/>
+<text x="676" y="812" class="small" text-anchor="start">Success</text>
+<polyline points="645,870 710,870 710,950 775,950" class="edge"/>
+<text x="655" y="923" class="small" text-anchor="start">Failure</text>
+<polyline points="775,975 515,975 515,900" class="edge"/>
+<text x="535" y="962" class="small" text-anchor="start">Retry (same or changed mode)</text>
+<polyline points="1045,820 1130,820" class="edge dash"/>
+<polyline points="1045,945 1085,945 1085,900 1130,900" class="edge dash"/>
+<text x="55" y="954" class="small" text-anchor="start">Entry has a direct Start route.</text>
+<text x="55" y="982" class="small" text-anchor="start">Waiting also permits Start immediately.</text>
+<rect x="30" y="1050" width="1380" height="420" rx="18" fill="#ffffff" stroke="#d9dfd4"/>
+<text x="55" y="1087" class="section" text-anchor="start">3  Crisis support · independent of mock/model/classifier</text>
+<text x="55" y="1115" class="small" text-anchor="start">Selected proposal: persistent bottom bar in every state; include Stop while running or paused.</text>
+<rect x="55" y="1155" width="300" height="165" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="71" y="1184" class="label" text-anchor="start">Open from any relevant state</text>
+<text x="71" y="1210" class="body" text-anchor="start">Entry · introduction waiting</text>
+<text x="71" y="1233" class="body" text-anchor="start">Introduction success / failure</text>
+<text x="71" y="1256" class="body" text-anchor="start">Running · paused</text>
+<text x="71" y="1279" class="body" text-anchor="start">Stopped/completed result</text>
+<text x="71" y="1302" class="body" text-anchor="start">History</text>
+<rect x="420" y="1155" width="305" height="165" rx="12" fill="#eaf0e2" stroke="#bdcabc"/>
+<text x="436" y="1184" class="label" text-anchor="start">Support panel open</text>
+<text x="436" y="1210" class="body" text-anchor="start">Running → pause immediately.</text>
+<text x="436" y="1233" class="body" text-anchor="start">Already paused → stay paused.</text>
+<text x="436" y="1256" class="body" text-anchor="start">Other states → retain context.</text>
+<text x="436" y="1279" class="body" text-anchor="start">No automatic Resume.</text>
+<text x="436" y="1302" class="body" text-anchor="start">Stop remains usable.</text>
+<rect x="805" y="1140" width="570" height="85" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="821" y="1169" class="label" text-anchor="start">Close after running or paused practice</text>
+<text x="821" y="1195" class="body" text-anchor="start">Return to paused practice → explicit Resume → running.</text>
+<rect x="805" y="1250" width="570" height="85" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="821" y="1279" class="label" text-anchor="start">Close from entry, introduction, result, or history</text>
+<text x="821" y="1305" class="body" text-anchor="start">Return to underlying state; no exercise starts.</text>
+<rect x="805" y="1360" width="570" height="80" rx="12" fill="#fffefa" stroke="#bdcabc"/>
+<text x="821" y="1389" class="label" text-anchor="start">Stop from support while practice is active</text>
+<text x="821" y="1415" class="body" text-anchor="start">Record stopped once; result stays behind the open panel.</text>
+<polyline points="355,1235 420,1235" class="edge"/>
+<text x="365" y="1222" class="small" text-anchor="start">Open</text>
+<polyline points="725,1190 805,1190" class="edge"/>
+<text x="740" y="1177" class="small" text-anchor="start">Close</text>
+<polyline points="725,1270 760,1270 760,1290 805,1290" class="edge"/>
+<text x="740" y="1255" class="small" text-anchor="start">Close</text>
+<polyline points="575,1320 575,1400 805,1400" class="edge"/>
+<text x="643" y="1388" class="small" text-anchor="start">Stop</text>
+<text x="55" y="1370" class="small" text-anchor="start">No support time counts toward practice.</text>
+<text x="55" y="1397" class="small" text-anchor="start">Closing never silently resumes a timer.</text>
+<text x="55" y="1430" class="small" text-anchor="start">Start / Resume stay disabled while support is open.</text>
+<text x="40" y="1510" class="label" text-anchor="start">DESIGN STATUS</text>
+<text x="40" y="1538" class="small" text-anchor="start">Bottom bar, hidden practice navigation, and optional remembered display choice are selected proposals, not implemented.</text>
+<text x="40" y="1565" class="small" text-anchor="start">System reduced motion takes precedence. Current prototype history/preferences reset on refresh; no backend or live AI.</text>
+</g></svg>
