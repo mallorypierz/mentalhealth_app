@@ -1,0 +1,72 @@
+{
+  "sessions": [
+    {
+      "id": "8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3",
+      "status": "stopped",
+      "active_duration_ms": 8580,
+      "paused_duration_ms": 11149,
+      "started_at": "2026-10-22T05:31:16.427000+00:00",
+      "ended_at": "2026-10-22T05:31:36.157000+00:00"
+    },
+    {
+      "id": "60c50e57-77b8-4b6e-8666-6b22e43268f0",
+      "status": "completed",
+      "active_duration_ms": 60000,
+      "paused_duration_ms": 0,
+      "started_at": "2026-10-22T05:29:55.687000+00:00",
+      "ended_at": "2026-10-22T05:30:55.688000+00:00"
+    }
+  ],
+  "conversation_id": "b95bcf01-ca77-4e3d-9233-e3617f8e5a3c",
+  "messages": [
+    {
+      "id": "0a6229e9-1269-4cb1-bff6-372fd454cabc",
+      "request_id": "0480ce29-6b39-493e-8759-bad86d9c03d2",
+      "role": "user",
+      "content": "For this fictional final Part 2 check, what happened in my most recent breathing practice?",
+      "sequence": 1
+    },
+    {
+      "id": "96e96250-d2a9-4bed-ae72-a12af7355695",
+      "request_id": "0480ce29-6b39-493e-8759-bad86d9c03d2",
+      "role": "assistant",
+      "content": "Mock RAG reply: The retrieved practice was stopped with 8.58 seconds of confirmed active practice. Record [8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3]. This describes activity, not emotional state or improvement.",
+      "sequence": 2
+    }
+  ],
+  "request": {
+    "id": "0480ce29-6b39-493e-8759-bad86d9c03d2",
+    "conversation_id": "b95bcf01-ca77-4e3d-9233-e3617f8e5a3c",
+    "status": "succeeded",
+    "attempt_count": 1,
+    "provider_call_count": 2,
+    "error_code": null,
+    "user_message_id": "0a6229e9-1269-4cb1-bff6-372fd454cabc",
+    "assistant_message_id": "96e96250-d2a9-4bed-ae72-a12af7355695",
+    "assistant_content": "Mock RAG reply: The retrieved practice was stopped with 8.58 seconds of confirmed active practice. Record [8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3]. This describes activity, not emotional state or improvement.",
+    "created_at": "2026-10-22T05:31:57.343139Z",
+    "updated_at": "2026-10-22T05:31:57.604969Z",
+    "retrieval_outcome": "records",
+    "retrieved_record_ids": [
+      "8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3"
+    ],
+    "citations": [
+      "8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3"
+    ],
+    "failure_stage": null,
+    "provider": "mock",
+    "model": null,
+    "user_persistence": "saved",
+    "assistant_persistence": "saved"
+  },
+  "health": {
+    "provider": "mock",
+    "model": null,
+    "configured": true,
+    "live_calls_used": 6,
+    "live_call_limit": 6,
+    "live_calls_remaining": 0
+  },
+  "replay_message_count": 2,
+  "restart_verification": "API records unchanged after backend restart; browser refresh showed completed/stopped history and the same two saved messages. Live ledger remains 6."
+}

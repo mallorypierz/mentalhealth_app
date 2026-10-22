@@ -1,3 +1,41 @@
+# Verification — Part 2 final preparation, October 22, 2026
+
+Current evidence below supersedes older current-state claims. Older sections are retained as dated historical observations, not proof of today's UI. All checks were agent-run with fictional data. The student verified the earlier SmokeTest report and recent UI cleanup; final preparation results still await their review.
+
+## Fresh final checks
+
+| Check | Observed result |
+| --- | --- |
+| `backend/.venv/bin/python -m unittest discover -s backend/tests -q` |35 passed; mocked/temporary-database tests, no paid calls. Starlette TestClient deprecation warning remains. |
+| `npm --prefix frontend test` |10 passed |
+| `npm --prefix frontend run build` |Production build passed |
+| `git diff --check` |Passed before final documentation edits; repeated after preparation |
+| Secret/database boundaries |backend/.env and runtime SQLite ignored and not tracked; no credential values printed |
+| Browser completed practice |New six-cycle run; setup 5036ms separately. Pre-Start-click to observed completed state72336ms, a conservative bound including tool/observation delay. First cue observed1091ms after click. No pause/support/hidden interval excluded. |
+| Stored completed session |ID 60c50e57-77b8-4b6e-8666-6b22e43268f0; active 60000ms, paused 0; timestamp span 60001ms. Capped active duration alone is not the timing proof. |
+| Support/pause/stop/fullscreen |Second run in fullscreen/still mode; support paused practice and disabled Resume while open; closing required explicit Resume. Stop saved 8580ms active,11149 ms paused. Escape restored normal view. No crisis link activated. |
+| Mock RAG answer |New question about most recent practice retrieved stopped session 8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3. Actual scripted reply says stopped/8.58 seconds; records outcome, two mock calls, one attempt. |
+| Exact replay |Reposting identical request 0480ce29-6b39-493e-8759-bad86d9c03d2 retained exactly2 messages and attempt_count 1, with no duplicate assistant. |
+| Restart and refresh |Backend terminated/restarted; browser reloaded. Completed/stopped sessions and same two-message conversation persisted. API values unchanged; SQLite one row per session. Live ledger unchanged 6/6. |
+
+Inspection used Python sqlite3 URI `mode=ro`, parameterized SELECTs and HTTPX GETs against localhost, not a separate viewer installation. The saved [fictional record extract](evidence/part2-final-records.json) contains IDs, exact durations, actual reply and status. API/SQLite messages matched IDs/content/role/sequence. Session comparisons normalized UTC timestamps (`Z` versus `+00:00`); an initial string-only equality assertion was revised to compare instants, not an application fix. Vue shows floored whole seconds in the session table (8s for8580ms), and8.58 seconds in the generated answer. UI hides the mock citation sentence while raw stored/API text retains it.
+
+Screenshots: [completed](evidence/part2-final-completed.png), [support in fullscreen](evidence/part2-final-support.png), [mock conversation](evidence/part2-final-chat.png), [history after restart](evidence/part2-final-history.png). These show current appearance; they do not independently prove timing or persistence.
+
+## Evidence boundaries and repeatable review
+
+Fresh tests cover deterministic failure paths; historical browser evidence below covers backend/save outage, retry, missing configuration, provider failure, empty retrieval, rejected writes, scoped access and instruction-like stored text. These are mock/temporary-database checks, not new live-model trials. Historical Chrome hidden-tab pause/explicit Resume and refresh interruption were observed separately; they were not repeated in this final run.
+
+Historical live request 8cfe378a-6795-4a94-ab2c-016a33aeafe7 in conversationdc043c5e-b2ed-4ed3-bf24-a9c450e01a57 produced an actual saved OpenAI answer from interrupted sessionbca4b56e-e2b6-484a-a609-089474646545 (20430 ms). Initial provider/authentication failures saved user input without invented replies. Historical successful live evidence does not make today's mock reply live. Local live ledger is now6/6; earlier4/6 entries below are historical.
+
+To repeat without live calls: verify mock in `/api/health`; run the commands above; complete one practice and stop another; ask a fictional latest-practice question; inspect the IDs returned by API against SQLite; replay the same request ID/body; restart backend/reload browser and inspect again. Use temporary databases and mock providers for destructive/failure injections as the test suite does, never inject failures into the working database. New runtime records and any configuration change need the user's scoped authorization.
+
+Untested/incomplete: editable Figma round trip, saved preferences, normal-view persistent support bar, comprehensive keyboard/contrast/zoom audit, physical mobile fullscreen, device sleep, cleared/disabled browser storage, cross-browser recovery, >100-message UI pagination, clean-checkout reproduction and Part 3 recordings/evaluation. No clinical efficacy or production security claim.
+
+## Historical verification log
+
+The following dated records preserve the development trail. Their implementation-status statements and process IDs describe those earlier moments only.
+
 # Verification — October 15, 2026
 
 ## Environment and commands observed
@@ -74,3 +112,118 @@ Remote inspection found main at a0ae23ea4a57b4dde7f2171582429f340db18a05 with on
 Reran npm --prefix frontend test: four tests passed. Reran npm --prefix frontend run build: passed, 11 modules. No browser checks or live provider calls were rerun. Dependencies and dist output are excluded from the submission. Remote push verification will follow the milestone and separate report update.
 
 Milestone pushed: `2475ce0e59aa627d05725b4bdd9d9c8805abdf26` on `part1-submission`. `git ls-remote` matched the local milestone; remote main remained `a0ae23ea4a57b4dde7f2171582429f340db18a05`. GitHub CLI confirmed the supplied repository URL and PUBLIC visibility. The separate report-update commit pins links to this milestone. Instructor-specific access is not tested. Git used its automatically derived local author/committer identity; no identity was fabricated or rewritten.
+
+
+## Part 2 inspection — October 21, 2026
+
+Read-only audit of source/notes confirmed mock introduction, in-memory history, unchanged six-cycle timing, and empty backend/data. No new browser/build/unit checks performed. `python3 --version`, `python3 -m pip --version`, `node --version`, `npm --version`, `npm --prefix frontend ls --depth=0`, and Python SQLite/package metadata inspection returned Python 3.12.5, pip 24.2, Node 24.20.0, npm 11.19.0, SQLite 3.45.3, Vue 3.5.44, Vite 7.3.7, plugin-vue 6.0.10. Backend packages are absent from system Python; no backend environment exists.
+
+`git check-ignore -v backend/.env data/app.sqlite3 data/app.sqlite3-wal data/app.sqlite3-shm` confirmed all four paths ignored. No credentials or database created. Approved branch creation initially failed due to sandbox Git write restriction; elevated retry succeeded. Planned backend checks (not run): validated session save/read, persistence across connections/restart, project-relative path from another working directory, identical replay/no duplicate, conflicting replay rejection, invalid inputs/no writes, and transactional rollback. Full browser/API/database verification follows a separately approved frontend integration.
+
+
+## Minimal backend verification — October 21, 2026
+
+Approved project-local venv creation and `pip install fastapi uvicorn httpx` completed. First install failed because sandbox networking could not resolve the package host; authorized elevated retry succeeded. `pip freeze > backend/requirements.txt` records installed dependencies. `pip check` returned No broken requirements found. Actual versions: FastAPI 0.158.1, Uvicorn 0.54.0, HTTPX 0.28.1, Pydantic 2.14.1, Starlette 1.9.0; Python 3.12.5 / SQLite 3.45.3. Starlette emits a deprecation warning for HTTPX TestClient support; checks still pass. No replacement package installed.
+
+`backend/.venv/bin/python -m unittest discover -s backend/tests -v`: 6/6 passed. Cases: create/read/replay and new-app startup over the same database; conflicting operation or session ID; malformed inputs/extra owner field/SQL-like skill rejected with zero writes; missing record; forced operation-insert failure rolls back the session; absolute database path remains unchanged after chdir. Tests use temporary SQLite files. App-lifespan restart was tested; a separate process restart was not tested in this increment.
+
+Real localhost Uvicorn smoke check (after sandbox port/network restrictions required elevated execution): POST fictional session 11111111-1111-4111-8111-111111111111 using operation 22222222-2222-4222-8222-222222222222 returned 201; identical POST returned 200/replayed=true; GET returned in_progress, active_duration_ms=0, revision=1. Read-only SQLite URI inspection matched ID/status/duration and COUNT=1. Working DB contains this single submitted fictional session. Server stopped cleanly after checks. No actual breathing duration is claimed for this API-only record.
+
+No browser round trip, frontend changes, completed/stopped persistence, full process restart, hidden-tab recovery, live provider, or Figma work was performed. These remain next-increment checks. No credentials or environment file created.
+
+
+## Session integration checks — October 21, 2026
+
+Commands: `backend/.venv/bin/python -m unittest discover -s backend/tests -v` (9/9 passed), `npm --prefix frontend test` (8/8 passed), `npm --prefix frontend run build` (passed), `git diff --check` (passed before final docs update). Backend additions cover terminal update/replay/list, ownership/revision rejection, last-confirmed interrupted duration and invalid completion. Frontend additions cover pause accounting, offline final retry, lost response after commit reusing operation, and recovery skipping live owners/preserving database duration. Provider behavior is still scripted; no live calls.
+
+Real browser through cua_repl at http://127.0.0.1:5173/: full six-cycle run showed saved completed 60s; observed cycle 1, cycle 4, then completion about 65.9 seconds after first instruction (observation upper bound, not a precise rendering timestamp). Stored start/end delta was 60.003 seconds. Setup excluded; no accelerated timer. Session fca29a4f-6a7d-47f4-9f8a-838bfc5501a9: completed, active 60000ms, paused 0. Still-cue run ca2f5134-1aaa-46ef-9243-dd1bfb2c3037: support paused practice, Resume disabled while support open, closing retained pause, explicit Resume worked; stopped at 14424ms active/3674ms paused (UI floors to 14s). Backend deliberately stopped before final save: UI reported unconfirmed save with Retry and preserved Stop/support. New backend process started; Retry succeeded. Read-only SQLite URI query and HTTP GET matched both records' IDs/status/durations and COUNT=1 each. Browser history matched and retained both after refresh. Full completion preceded final recovery-only refinement; affected recovery and all automated tests/build rechecked afterward.
+
+Second-tab history kept live session e39b067a-3d7e-4cdc-a12a-cc33da5bb5ba in_progress; refreshing owner later recovered it as interrupted with 15s displayed. Earlier hot-reload during initial timing check interrupted a94e0736-6469-4870-8622-0ed66e98846d at 15s; test restarted on final pacing code rather than claiming that run completed. Initial API-only 11111111-1111-4111-8111-111111111111 remains in_progress/0s, explicitly legacy test data without browser ownership. A final visibility experiment produced another stopped fictional record; all records preserved.
+
+Hidden-page limitation: creating another in-app tab and hiding/showing browser panel did not trigger document.hidden/automatic pause. This does not verify real background-tab behavior. Device sleep, another browser/origin, disabled storage, large histories/pagination under concurrent writes, screen readers and a new narrow-width audit remain untested. Support content was preserved, not reverified or contacted. Saved screenshot docs/evidence/part2-saved-history.jpg shows actual records; it is not Figma capture. Screenshot visually inspected. Local backend/frontend remain running for user review; process/session IDs are ephemeral.
+
+
+## Mock chat verification — October 21, 2026
+
+Commands: backend/.venv/bin/python -m unittest discover -s backend/tests -v: 16/16 passed (seven chat cases plus nine session cases). npm --prefix frontend test: existing eight checks passed. npm --prefix frontend run build passed; git diff --check passed. Existing Starlette HTTPX deprecation warning remains. Chat tests cover success/replay/provider call count, failure/retry with one user row, initial-save rollback, assistant-save rollback then retry, invalid/conflicting/concurrent-pending submissions, interrupted app restart without regeneration, ownership denial and message pagination. Save failures were injected with SQLite triggers only in temporary test databases. Those tests are mock/deterministic evidence, not live API calls.
+
+Browser via cua_repl: empty conversation list and empty selected conversation observed; submitted fictional text, saw saved user/pending response with Send disabled, then actual saved mock reply. Conversation 6278e5b0-e6ee-4972-b340-bae197e1263a contains initial successful request a613f489-0109-436d-84bb-a2c58699c6a0 (user 8d0fcc3a-ddce-4f13-8eb7-9a7d84b72a40, assistant 8f87c26d-06a8-4939-95a5-31c80d9593a7). Failed request 9ac16518-cccf-41d3-bb6e-e9986a6a1cd8 retained user ddc0784c-6307-43d5-bc5a-3080654a0f37 and had zero assistant rows, verified by read-only SQLite. Retry success added assistant 8c046b4d-1246-4c1a-9ffb-75a5f8d46979, preserving user ID; one row per role. Refresh retained all four ordered messages.
+
+Second conversation a6eea6bc-cd99-4928-85c8-f9e19b235279: delayed request completed in its own conversation after switching back to the first; first view stayed unchanged. Actual backend process stop/restart preserved messages. An intended mid-request interruption completed before the shutdown reached it, so that browser run proves restart persistence, NOT mid-request cancellation; interrupted-pending recovery is covered by automated tests. Backend offline submission displayed failed/unconfirmed state and preserved original text/request for retry across refresh. Retry after server restoration produced one user/assistant pair for 6145057a-7c6a-49c1-bb66-697a3fb43d67. Final exact API/read-only SQLite comparison matched four first-conversation and six second-conversation messages by IDs, role, content, sequence, request ID and timestamp instant. Initial raw timestamp-string assertion failed because API uses Z and SQLite +00:00; comparison corrected to UTC instants, not data changed.
+
+Browser check found previous-request success text beside a new uncertain save; fixed by clearing current request on submission and suppressing old success/failure controls while an uncertain submission exists, including reload recovery. Rechecked corrected UI and successful original-ID retry. Screenshots part2-chat-failure.jpg and part2-chat-saved.jpg capture actual fictional records; saved screenshot visually inspected. No resources contacted. No new full-duration breathing run, exhaustive accessibility audit, large-history stress test, real provider, or RAG checks in this increment.
+
+## Mock RAG verification — October 21, 2026
+
+Actual commands: `backend/.venv/bin/python -m unittest discover -s backend/tests -v` passed 26 tests; `npm --prefix frontend test` passed eight; `npm --prefix frontend run build` passed. Existing TestClient deprecation warning remains. Ten new RAG tests cover relevant scoped records/two calls, empty results, complete unsafe-query rejection, bound injection strings, owner/conversation isolation, read-only authorizer, missing database without creation, deadline exhaustion, row/context truncation, stored instruction-like text as data, planning/answer failure counts, invalid citations, and actual generated reply persisted through the normal operation. Temporary fictional databases only. Mock prompt-injection evidence does not establish live-model behavior.
+
+Browser RAG verification is NOT complete. Existing backend process 78013 stopped normally. Restart required port-binding approval; automatic approval review failed because its usage limit was reached, so the restart was not executed. No bypass attempted. Backend is stopped; prior chat screenshots/API comparisons are historical, not RAG browser evidence. No live calls, live configuration tests or live-provider failures were tested. Git ignore check again confirmed backend/.env and data/app.sqlite3 ignored. No credentials created or printed.
+
+
+## Live provider and exercise verification — October 21, 2026
+
+Commands: backend/.venv/bin/python -m unittest discover -s backend/tests -q: 32 passed. npm --prefix frontend test: eight passed; npm --prefix frontend run build passed; git diff --check passed. No packages installed. Existing HTTPX TestClient deprecation warning unchanged. New provider tests use httpx.MockTransport and temporary fictional databases, covering strict configuration, missing key/no network/no budget consumption, checked Responses payload, repeated-stage prevention, durable ledger, HTTP failure, timeout, refusal, incomplete/malformed output, six-call exhaustion without seventh network call, actual two-stage reply persistence and failure with no assistant. These tests are NOT live model evidence.
+
+Live run: conversation dc043c5e-b2ed-4ed3-bf24-a9c450e01a57; request 8cfe378a-6795-4a94-ab2c-016a33aeafe7; user message 9ddbc7e7-253f-4b7b-aa62-623796876df3. First planning attempt failed with generic provider_failure (original implementation did not retain safe HTTP status). User approved one diagnostic retry after safe HTTP/connection error distinction; second planning attempt returned provider_http_401. Read-only SQLite confirmed exactly one user and zero assistant rows. User corrected local key and explicitly authorized another retry. Planning and answer succeeded: actual assistant 98924f0c-5d62-40c8-83a0-d2632bbf8f85 stated latest session bca4b56e-e2b6-484a-a609-089474646545 was interrupted with 20430ms active. Exact API/SQLite message IDs/content/order/time match; citation/status/duration match source row and visible Vue text. One user and one assistant after retries. Refresh/backend restart preserved reply and four ledger attempts; no regeneration. Successful calls reported 364/38 and 398/82 input/output tokens respectively; failed attempts have unknown token usage, not assumed zero billing. Four of six approved attempts consumed. Screenshots part2-live-auth-failure.jpg and part2-live-saved.jpg; saved screenshot visually inspected. No secrets displayed/captured. Live evidence does not establish general groundedness or injection robustness.
+
+Actual full-duration exercise d6e9094b-071e-4a4b-a671-36c6eaee1cdc: setup observation-to-Start interval 3326ms; first cue observed 407ms after pre-click timestamp; final completion observed 67503ms after pre-click timestamp (67096ms after first observed cue). This is a conservative observation upper bound including application delays, not an exact rendering timestamp. SQLite start/end span 60002ms; active 60000ms, paused 0. No voluntary pause, support visit or hidden interval was subtracted from this timed run. Backend restarted during practice: checkpoint save became unconfirmed but cues continued and completion occurred under 90 seconds. Explicit Retry saved the original completed record once. A selector wait timed out before completion; subsequent timed observations captured cycle 6 and completion, rather than treating that timeout as a failed exercise.
+
+Stopped test 14626005-9c08-4da7-99af-62cd3eb24488: still cue, voluntary Pause/Resume, support-induced pause, Resume disabled while support open, closing support did not resume, Stop while paused succeeded. Stored active6389ms/paused10904ms; Vue floors to6s. Refresh-interruption test bca4b56e-e2b6-484a-a609-089474646545 saved interrupted at last checkpoint20430ms. HTTP/read-only SQLite compared IDs/status/active/paused durations exactly against all three records; Vue shows60s completed,6s stopped,20s interrupted.
+
+Hidden-tab gap resolved using user-authorized native Google Chrome: browser connector unavailable, so used native UI without installing anything. Started session49c91d2f-f545-409d-8e11-46e111f66a13, opened a temporary blank tab, returned and observed explicit hidden-tab pause notice with Resume/Stop. No automatic resume; explicit Resume restored pacing, then Stop saved active7016ms/paused14256ms. Temporary tabs closed; original user tabs preserved. This separate interruption trial is not the uninterrupted timing measurement.
+
+Support panel opened while backend was stopped, after live authentication failure. Static resource links remained available; no call/text/chat service contacted. Required helpline lookup on October21 confirmed existing US/territories 988 service and exact phone/SMS/chat links. No new crisis-input handling applied. Device sleep, exhaustive accessibility testing, and clinical validity are not verified.
+
+
+## Crisis-chat increment — October 22, 2026
+
+35 backend tests and10 frontend tests pass; build and git diff --check pass. Three backend tests cover phrase limits, direct422 before repository write even without configuration/budget, and legacy saved-input handling with zero calls/no invented reply. Two frontend tests cover phrase variants and known misses/false positives. Initial backend run exposed an indentation error from a duplicated insertion; removed the duplicate guard and reran successfully. No dependencies changed.
+
+Browser: entered “Fictional test quotation: I am not suicidal.” and pressed Send. Fixed notice appeared, draft remained editable, no new message/reply displayed. Read-only SQLite before/after counts unchanged:12 messages,6 requests,4 provider attempts; exact fictional input count0. Stopped backend and repeated Send/opened support successfully, then fully reloaded with backend offline: configuration/history failures remained honest and standing notice/support still rendered. No service links activated. Source support URL/region checked against required helpline lookup on October 22, review date updated. Screenshot part2-crisis-notice.jpg shows the actual notice and independent panel, visually inspected. Old-success text was suppressed beside blocked new input; final build rechecked. Full60s run/Chrome hidden-tab checks from October21 were not repeated because timers/recovery were unchanged. No paid calls.
+
+Figma inspection only: metadata node1:6 and page0:1 plus whoami succeeded. No Figma writes, capture, frame selection or implementation occurred. Read access confirmed; edit access remains unverified with reported Starter/View seat. Available capture tool is not evidence of successful editable capture.
+
+
+## SmokeTest — October 22, 2026 (user-confirmed results)
+
+Agent-run checks; the user subsequently stated “I verify and approve.” This confirms review of the reported results, not a claim that the user personally performed these tests. No application source was edited. SHA-256 over sorted paths and contents in frontend/src and backend/app (excluding __pycache__) matched before/after: 2465a38b8685f1e494776c825b449b00e0c77988e5d9d14d95a01dee03d252a6.
+
+Commands actually run: `backend/.venv/bin/python -m unittest discover -s backend/tests -v` (35 passed), `npm --prefix frontend test` (10 passed), `npm --prefix frontend run build` (passed), and `git diff --check` (passed). Existing Starlette HTTPX TestClient deprecation warning remains; no dependency change. No unexpected defect found; AutoLoop corrections: zero.
+
+### Newly observed browser/API/SQLite evidence
+
+Unaccelerated six-cycle completion: setup observation 3,812 ms, first cue observed 437 ms after pre-click timestamp, completion observed 61,529 ms after that timestamp (61,092 ms after first observed cue). The conservative Start-to-completion bound includes application and observation delays and is below 90 seconds; it is not an exact render timestamp. No voluntary pause or support time was excluded. Stored active duration is 60,000 ms, not independent evidence of wall-clock performance or breathing adherence.
+
+| Session ID | SQLite/API status | Active ms | Paused ms | Revision | Row count |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 23824a84-6e8b-4c54-84b3-85a5d6683446 | completed | 60000 | 0 | 13 | 1 |
+| 0324f43b-72a6-4c42-84ab-f59bec4fd3dc | stopped | 7923 | 3690 | 3 | 1 |
+
+During the second practice, the backend was stopped. Support opened, paused practice, and allowed Stop with still cue enabled. The UI honestly showed Save not confirmed. Restarting Uvicorn and selecting Retry save saved the same ID. Browser refresh showed both records (60s completed and 7s stopped; whole-second display). Python sqlite3 with mode=ro and GET /api/sessions/{id} agreed exactly on ID/status/active/paused duration/revision; each ID had one row. No service links were activated.
+
+Evidence: [offline save failure and independent support](evidence/part2-smoketest-save-failure.jpg), [history after retry, restart and refresh](evidence/part2-smoketest-history.jpg). Screenshots show UI state; the recorded API/SQLite checks establish the underlying comparisons.
+
+### Newly run simulated evidence
+
+Temporary SQLite databases and FastAPI TestClient additionally checked: empty retrieval with an honest mock reply; provider failure retaining one user and no assistant; retry operation submitted twice leaving one user/one actual mock reply; an assistant-insert failure induced by a temporary database trigger yielding reply_save_failed without an assistant; DELETE proposal rejected before answer generation; and missing live key yielding configuration_unavailable with no provider ledger rows while session GET remained available. No external requests were made. The trigger existed only in a disposable test database. The automated suite separately covers ownership, stored instruction-like text, query limits, and initial-save rollback.
+
+### Historical live evidence, freshly rechecked
+
+October 21 live conversation dc043c5e-b2ed-4ed3-bf24-a9c450e01a57 and request 8cfe378a-6795-4a94-ab2c-016a33aeafe7 were compared again across SQLite, API and refreshed Vue after backend restart. User message 9ddbc7e7-253f-4b7b-aa62-623796876df3 and actual assistant 98924f0c-5d62-40c8-83a0-d2632bbf8f85 matched content, roles, order, IDs and timestamp instants. The reply cites bca4b56e-e2b6-484a-a609-089474646545 as interrupted with 20430 ms, matching its saved row. Exactly one message per role exists for the request. This is reinspection of an earlier live answer, not newly generated live evidence.
+
+Health and SQLite usage remained four of six live attempts consumed. No new paid calls. Historical native Chrome hidden-tab pause/explicit resume was not rerun. Missing-key, injected provider/database failures and rejected SQL were not individually replayed in the browser this run; actual browser backend-outage support and save recovery were checked. Device sleep, exhaustive accessibility, live-model variation and clean-checkout reproducibility remain unverified.
+
+
+## Chat layout cleanup — October 22, 2026
+
+Approved chat layout check: 10 frontend tests passed, production build passed, and git diff --check passed. Actual existing desktop (1280px) and narrow browser tabs showed removed copy and composer before both history sections; existing saved conversation remained visible. Keyboard Tab from empty textarea skipped disabled Send to New conversation; with a temporary unsent fictional draft, Tab focused Send. Draft was cleared without submission. No model calls or new database records were initiated. Review screenshots are temporary /tmp/chat-layout-desktop.jpg and /tmp/chat-layout-narrow.jpg, not curated submission evidence. No full exercise/backend regression rerun for this template-only change.
+
+
+## Newest question and reply layout — October 22, 2026
+
+Chat pair ordering check: 10 frontend tests/build/diff check passed. Focused in-memory check of the actual grouping code passed newest-group order, question/reply order, failed single-question group, empty input and nonmutation of stored-order input. Existing desktop and narrow browser conversations show newest question first, previous successful question immediately followed by its actual reply, and conversation history below. Latest existing request 2bf7b7cb-d24c-4cfb-aeb9-0e6f363352bd displays budget_exhausted beside its question; read-only SQLite confirms failed/budget_exhausted/zero provider calls for this request and six ledger attempts overall. This is newly observed existing data, not a call made by this layout check. No messages submitted or budget changed. Screenshot /tmp/chat-newest-pairs.jpg is temporary review evidence. Multi-page loading is implemented but not browser-tested with a >100-message conversation; no new pending request was generated.
+
+
+## Practice fullscreen — October 22, 2026
+
+Fullscreen increment: 10 frontend tests, build and diff check passed. Actual browser verified native fullscreen, Minimize, Escape and keyboard Enter activation; same session retained paused progress at3s and still-cue choice across transitions. Resume/support induced pause worked, closing support did not resume, and Stop saved session3c0ae768-509a-4404-a0cc-f81db5301515. Read-only SQLite status/duration: ('stopped', 3768). Desktop fullscreen and narrow normal layout inspected; introduction absent. No paid calls/service contacts. Browser-denied fullscreen fallback and physical mobile fullscreen remain untested. No new full60s timing run; engine unchanged. Temporary review screenshot /tmp/practice-fullscreen.png.

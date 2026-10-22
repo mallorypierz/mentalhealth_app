@@ -22,3 +22,9 @@ test('late responses cannot update state after cancellation or replacement', asy
 test('provider failure is reported without an invented response',async()=>{
  const r=new LatestRequest();let result;await r.run(async()=>{throw new Error('failed')},x=>result=x);assert.equal(result.error.message,'failed');assert.equal(result.value,undefined);
 });
+test('pause accounting survives repeated pause calls and stops once', () => {
+ let time=0; const e=new Exercise(()=>time); e.start(); time=12000;e.pause();time=32000;e.pause();
+ assert.equal(e.snapshot().elapsed,12000); assert.equal(e.snapshot().paused,20000);
+ e.resume();time=38000;e.stop();assert.equal(e.snapshot().elapsed,18000);assert.equal(e.snapshot().paused,20000);
+ time=45000;e.stop();assert.equal(e.snapshot().paused,20000);
+});

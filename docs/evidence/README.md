@@ -1,37 +1,34 @@
-# Curated Part 1 evidence
+# Curated evidence — Part 2
 
-This is a small evidence set for a **design milestone**, not proof of a complete mental-health application. All prototype scenarios are fictional. The images are existing screenshots from the initial prototype; they were visually reviewed again for this curation, not recaptured. Interaction results below refer to the earlier [verification log](../verification.md); no runtime tests or paid model calls were run for this evidence task.
+October 22,2026. All demonstrated records are fictional. Screenshots are supporting views, not standalone proof of timing, persistence or live generation. Agent-run results and student verification are distinguished in [verification](../verification.md). The [AI disclosure](../../AI-USE.md) links selected prompts, changes, checks and decisions, including failed/revised approaches.
 
-## Selected observations and limits
+## Current final preparation
 
-| Evidence | Observation | Design implication | What it establishes | What it does not establish |
-| --- | --- | --- | --- | --- |
-| **E1 — [Desktop entry](desktop-entry.jpg)** | Start is available without a questionnaire or typing; introduction is optional and labeled scripted; still-cue control and reset disclosure are visible. | R1/D3: direct entry reduces required setup; D6: restrained presentation with a motion alternative. | The captured entry layout contains these controls and disclosures. | Whether the wording feels supportive to others, measured emotional cost, keyboard behavior, or actual 60-second timing. The image is a full-page capture, not proof that every control fits simultaneously in a 900px-high viewport. |
-| **E2 — [Narrow paused practice](narrow-practice.jpg)** | A 390px-wide layout shows Paused, explicit Resume, Stop, and a still-cue option. General navigation is still present, with History disabled. | R3/R4: preserve control. D1/D2: motivates the selected proposal to hide unrelated navigation during practice. D4: support must remain visible when scrolling. | The paused layout and controls were rendered at narrow width. | This static image cannot prove timer freeze, motion behavior, or persistent viewport visibility. The still-cue checkbox is unchecked; the circle is paused because practice is paused. It is not a screenshot of still mode enabled. The bottom-bar proposal has not been implemented. |
-| **E3 — [Narrow history](narrow-history.jpg)** | One completed 60-second session is shown with ID `7120f8e9-ed9e-4d0b-b668-48d743b19294`, alongside the separately labeled fictional fixture `fixture-001`. Reset and no-database disclosures remain visible. | R4/D6: show factual activity without interpreting wellbeing; D5: illustrates the limit of session-only memory before optional persistence. | The captured history distinguishes a temporary session from a fixture and displays status, duration, and IDs. | SQLite persistence, restart durability, API/database agreement, actual breathing adherence, emotional change, or therapeutic benefit. Timestamp and UUID are generated test metadata, not a participant record. |
-| **E4 — [Recorded interruption and failure checks](../verification.md#observed-real-browser-checks)** | Earlier checks recorded failed mock introduction and retry, Start during a pending delayed response, support-induced pause, explicit keyboard Resume/Stop, and refresh reset. | R2–R4: core controls must not depend on a successful model request; D3: failure should not impose extra work before practice. | These specific outcomes were observed in the prior browser session and recorded by the coding agent. Unit tests separately exercised late-response cancellation/replacement. | A new SmokeTest, comprehensive failure coverage, live-provider behavior, or a video record. There is no saved failure/support screenshot in this selected set; the supporting artifact is the written observation log. |
+| Artifact | What it demonstrates | Limits |
+| --- | --- | --- |
+| [Completed practice](part2-final-completed.png) | Current UI, six-cycle result, saved state | Timing comes from observation log plus records |
+| [Fullscreen support](part2-final-support.png) | Support panel and paused controls during practice | No service contacted; not a clinical assessment |
+| [Mock conversation](part2-final-chat.png) | Question and actual saved mock answer, order/time/status | Clearly mock; displayed citation sentence hidden by approved formatting |
+| [History after restart](part2-final-history.png) | Current completed/stopped records retained after restart/refresh | Table floors milliseconds to whole seconds |
+| [API/SQLite record extract](part2-final-records.json) | Exact session/message/request IDs, raw actual reply, duration/status, replay and restart comparison | Selected fictional records only; not a database dump or independent live call |
 
-The full 60-second browser completion was observed before the final visual-only clock-synchronization refinement. Timing unit tests/build were rerun afterward and the affected cue-toggle behavior rechecked, as documented in verification.md. Do not describe this as a complete post-refinement 60-second browser rerun.
+Observed full run bound 72.336 seconds; setup 5.036 seconds separate, no pauses excluded. Stopped run8580 ms active / 11149 ms paused. Exact request replay retained 2 messages / 1 attempt. See verification for commands/method and report for requirement mapping.
 
-The [initial flow diagram](../diagrams/part1-flow.svg) is a **design artifact**, not a captured screen or runtime result. The [research decision table](../design-pipeline.md#decisions-alternatives-and-checks) connects the observations to R/D findings. Study mention counts are not effect sizes or claims of clinical effectiveness.
+## Historical Part 2 evidence
 
-## Curated prompt → evidence → decision record
+| Artifact | Evidence category |
+| --- | --- |
+| [Live reply](part2-live-saved.jpg) | Historical actual OpenAI reply; older UI, not today's mock mode |
+| [Authentication failure](part2-live-auth-failure.jpg) | Historical failed live attempt, user saved without invented assistant |
+| [Save outage](part2-smoketest-save-failure.jpg) | Historical backend-unavailable save; Stop/support usable and explicit retry |
+| [SmokeTest history](part2-smoketest-history.jpg) | Historical completed/stopped records after retry/restart |
+| [Crisis notice](part2-crisis-notice.jpg) | Fictional phrase-rule input, application-owned notice; not clinical detection |
+| [Earlier mock success](part2-chat-saved.jpg), [failure](part2-chat-failure.jpg), [saved sessions](part2-saved-history.jpg) | Earlier integration milestones, not final appearance |
 
-These are concise paraphrases of selected requests and decisions, not a full chat transcript. [Initial prototype requirements](../../prompts/01-prototype.md) preserves the reusable build scope.
+Historical live request 8cfe378a-6795-4a94-ab2c-016a33aeafe7 used modelgpt-5.4-mini-2026-03-17 and cited interrupted20430ms recordbca4b56e-e2b6-484a-a609-089474646545. Initial failure/401 diagnostic led to local credential correction, then success. All six approved live attempts are now consumed. Final verification made no paid calls.
 
-| Step | Request / approach | Evidence and result | Resulting decision and owner |
-| --- | --- | --- | --- |
-| **P1 — Establish the baseline** | Student requested the initial prototype, then approved project-local Vue/Vite installation. Requirements included six 4/6 cycles, Stop, support pause/explicit Resume, still cue, and mock failures/delays. | Initial source did not exist. Agent built the Vue baseline, recorded four passing tests and a passing build, and operated the browser. E1–E4 document selected outputs. | Student authorized the build. Agent supplied implementation details; the app was labeled a temporary mock prototype without backend/live AI. |
-| **P2 — Incomplete Figma reference (revised approach)** | Earlier request sought implementation from the selected Figma direction. | MCP returned frame 1:6, named Activity, as a blank white frame with no useful layout. No successful capture or populated design comparison occurred. | Agent reported the limitation; student then requested building the initial prototype. The README-based baseline replaced the attempted design-to-code route. No claim of Figma fidelity is made. |
-| **P3 — Motion synchronization refinement** | Agent reviewed the initial CSS animation during prototype verification. | Source inspection identified that re-enabling motion mid-cycle could restart the CSS animation independently of the exercise clock. This was a potential mismatch found during review, not a recorded user incident. After refinement, the browser showed a paused scale of 0.859994 → 1 in still mode → 0.859994 when motion was restored. | Agent changed circle size to derive from the same elapsed clock as the instruction. A focused browser check and automated build/tests followed; see verification.md. |
-| **P4 — Safety visibility and choice (selected future revision)** | Student supplied the complete R1–R4/D1–D6 table and requested a documentation-only decision proposal. | Source inspection found support in normal document flow, so it can scroll offscreen; general navigation remained visible during practice. Screenshots do not prove persistent safety access. | Student selected a persistent bottom bar with Crisis support and active-practice Stop; hidden general navigation during practice; optional remembered display choice; and system reduced-motion precedence over saved animation. These are documented proposals, not implemented changes. |
+## Preserved Part 1 and unfinished artifacts
 
-## Submission privacy review
+[Part 1 submitted report](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md) preserves its design/evidence links. Local [entry](desktop-entry.jpg), [paused practice](narrow-practice.jpg), [history](narrow-history.jpg) and [initial flow notes](../diagrams/part1-flow.md) are historical, not current screenshots.
 
-Reviewed repository-owned Markdown, source/configuration, lockfile, and existing diagrams, excluding dependency/build directories and Git internals. Pattern checks looked for common provider-token/private-key forms, suspicious literal credential assignments, personal email addresses, and absolute user-home paths; output reported only filenames/categories, never candidate values. No matches or environment files were found in this review. Pattern checks are limited and are not a guarantee that every possible secret format was detected.
-
-Visually reviewed all three selected screenshots: no personal chat text, account email, credentials, browser account chrome, or research-participant information was visible. The only session metadata shown is fictional demonstration activity (timestamp, status, duration, and generated ID). Retained those values to support record traceability. No screenshot edits or redaction were needed. No private third-party conversations or raw classroom chat exports were added.
-
-The existing Figma reference in the design notes is relevant project provenance, not a secret credential. Its share permissions and instructor accessibility have not been verified; do not broaden access automatically. Localhost links are run instructions, not remotely accessible evidence. Repository-relative links here will work when these files are committed together. The repository is not yet initialized, and no hosted access or submitted commit has been verified.
-
-`.gitignore` excludes frontend dependencies/build output, backend environment/virtual environment, and working SQLite files. Ignore rules do not establish that a future commit is clean: inspect staged files and the final repository before submission. No new runtime test, provider call, install, or application-source change occurred during this curation.
+No editable Figma capture, selected-frame comparison or recording is included. Existing blank Figma frames were preserved. Screenshots do not substitute for editable design layers. No full chat export, private credentials, research-participant content or runtime database is submitted. Hosted Part 2 links must be checked after a separately approved commit and push.

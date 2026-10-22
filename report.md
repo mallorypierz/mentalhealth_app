@@ -1,109 +1,89 @@
-# Assignment 3.1 — Part 1: Design proposal
+# Assignment 3.2 — Part 2: Working prototype
 
-**Project:** A little space — mental health skills coursework prototype
+**Project:** A little space · **Prepared:** October 22,2026 · **Status:** ready for student review, not yet committed/submitted.
 
-**Milestone:** Part 1 design proposal with an optional frontend experiment
-
-**Prepared:** October 15, 2026
-
-**Submission status:** Milestone pushed and verified; this report update is committed separately. Student review remains required.
-
-| Required submission field | Status |
+| Submission field | Value |
 | --- | --- |
-| Repository URL | [https://github.com/mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) — verified public repository. |
-| Submitted milestone commit | [`2475ce0e59aa627d05725b4bdd9d9c8805abdf26`](https://github.com/mallorypierz/mentalhealth_app/commit/2475ce0e59aa627d05725b4bdd9d9c8805abdf26) — verified on remote `part1-submission` before this report update. |
-| Instructor access to linked materials | Repository visibility confirmed PUBLIC; linked paths verified in the pushed milestone. Access from the instructor’s own environment has not been tested. |
+| Repository | [mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) |
+| Working branch | `codex/part2` |
+| Submitted Part 2 commit | **PENDING separate commit approval.** Current HEAD e958bdcf11e69b5c4451f986742989acd01b497e is Part 1 and must not be used as the Part 2 version. |
+| Evidence access | Local relative links below work within this repository. Before uploading this report alone, replace them with verified commit-specific hosted links after approved push. Instructor access is not yet verified for Part 2. |
+| Preserved Part 1 | [Part 1 report](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md) and [submission branch](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission) remain intact. |
 
-**Submission branch:** [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission). The milestone above identifies the source/design/evidence snapshot; its report still contains the earlier placeholders. Upload this separately committed report update instead. Links below point to files at that exact milestone, so the uploaded report does not depend on local paths. Remote main retains the original initial commit; no force-push or merge was performed.
+## Purpose and scope
 
-## Purpose, scenario, and chosen skill
+A fictional college student can practice one short skill before an assignment without explaining how they feel. Six cycles preserve the supplied paced-breathing sequence: four seconds in, six seconds out. The interface offers direct Start, Pause, explicit Resume, Stop, still cue, fullscreen/minimize and neutral results. Optional chat and saved history are outside timed practice.
 
-The application is intended to let someone practice one short skill with little reading, typing, or setup, while retaining control over starting, pausing, stopping, and accessing support. The fictional scenario is a college student choosing a brief breathing practice before starting an assignment. The app does not assume the student is distressed or infer their emotional state from interaction.
+This is a localhost coursework prototype, not therapy, diagnosis, monitoring or a service to rely on during distress. All tests use fictional scenarios. No clinical outcomes are inferred from duration, stopping or clicks. No questionnaires, emotional-state measurements, extra skills or conversational datasets were added.
 
-The chosen skill is **paced breathing: inhale for four seconds, exhale for six seconds, repeated for six cycles**. Its planned guided duration is 60 seconds. The design preserves the skill sequence rather than having a language model invent or modify instructions. This is a coursework prototype tested only through fictional scenarios, not therapy, diagnosis, a monitored service, or evidence of clinical effectiveness. It must not be offered to someone as a support tool to rely on during distress.
+## Requirement audit
 
-## Main experience and timing
-
-**Entry → optional introduction or direct Start → breathing practice → stopped/completed result → optional history.** Practice presents one current instruction with a count and an optional moving cue. Pause and Stop remain available. Opening crisis support pauses running practice; closing support leaves it paused until an explicit Resume. Mock introduction failure permits retry without blocking Start or support, and starting practice invalidates pending introduction responses.
-
-[Initial flow diagram (SVG)](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.svg) · [PNG preview](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.png) · [Editable flow and behavior notes](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/diagrams/part1-flow.md)
-
-The diagram is **initial design, not a completed Figma capture**. It labels selected future revisions separately from the current prototype.
-
-Timing is measured from the first actionable exercise cue through the final planned exhale, including application delays within the sequence. Six cycles × ten seconds gives 60 seconds at the intended pace, below the assignment's 90-second limit. Entry reading, optional introduction, and display setup are reported separately; voluntary pauses and support time are excluded without double-counting. No typing or breath confirmations are required. The timer cues intended pacing, not actual breathing adherence. Completion leaves a result rather than forcing an exit. External timing under rendering delays, background tabs, and device sleep remains to be checked; a capped display counter is not sufficient proof of experienced duration.
-
-## Research-grounded decisions and tradeoffs
-
-Source: the supplied Assignment 3 study table, **R1–R4 and D1–D6**. The overview describes 15 patients, 13 clinicians, and 15 prototype evaluation sessions. Mention counts identify concerns in the study; they are not effect sizes or evidence that this app improves mental health. Applying these findings to the fictional college-student scenario is a design hypothesis.
-
-| Findings | Design response | Alternative and tradeoff |
-| --- | --- | --- |
-| **R1:** attention declined beyond 90–100 seconds (38 mentions) | Use six 4/6 cycles for a fixed 60-second practice. | A duration picker offers flexibility but adds setup; the fixed duration simplifies entry. |
-| **R2 / D4:** frictionless, persistently visible safety (30 / 31 mentions) | Keep support independent of model results. The student selected a persistent bottom bar with support and active-practice Stop. | The current in-flow button occupies less fixed space but can scroll offscreen. A bottom bar needs reserved space to avoid covering controls. **The bar is not implemented.** |
-| **R3 / R4:** permission to stop and control the journey (39 / 68 mentions) | Pause, explicit Resume, consequence-free Stop, optional introduction/history, and neutral results. | Mandatory completion or automatic routing reduces choice. Easy stopping allows accidental exits but avoids coercive confirmation or penalties. |
-| **D1 / D2:** less interface and one atomic skill (54 / 100 mentions) | One breathing cue at a time. The student selected hiding general navigation during active practice, then restoring it. | Keeping navigation visible aids discovery but competes with the cue. The proposed simplification follows explicit Start, not detected distress. **General navigation is still visible today.** |
-| **D3:** minimize emotional cost (148 mentions) | No required questionnaire, disclosure, or typing before Start. | Required check-ins provide more context but demand more effort; this app does not claim to know how the person feels. |
-| **D5:** personalization without configuration burden (49 mentions) | Proposed optional “Remember my display choice,” with visible saved status and change/forget controls. | Silent automatic saving reduces one decision but weakens transparency. Opt-in adds a small choice; persistence is not implemented. |
-| **D6:** low-stimulus, non-judgmental presentation (97 mentions) | Restrained colors, neutral wording, and a still text/count cue. System reduced motion takes precedence over a future saved animated preference. | Less motion is less expressive; visual calm must not compromise contrast or discoverability. Universal comfort and full accessibility are not established. |
-
-The [full decision table](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/design-pipeline.md#decisions-alternatives-and-checks) includes each finding's supporting evidence, implementation status, alternative, tradeoff, and proposed check.
-
-## Planned architecture, model role, and data
-
-The proposed stack is Vue/JavaScript → FastAPI/Python over HTTP/JSON → SQLite. Vue owns interface state, local exercise timing and controls; backend controllers validate scope and requests, coordinate provider calls, and save through parameterized transactions. Only backend code opens the project-relative database or holds provider credentials. None of that backend/persistence flow exists yet.
-
-The model's planned role is limited to reviewed app/skill explanations and grounded descriptions of saved history. It cannot alter steps, timers, exits, support access, preferences, or saving rules. Proposed SQL RAG uses a first call to suggest retrieval from a reviewed schema; the backend structurally validates a single restricted read-only query, independently enforces ownership scope, binds values, and limits time/rows/context. A second call receives only permitted relevant records with IDs and reviewed context. Stored text is data, not governing instructions. The actual reply is saved through the normal transaction. Empty retrieval, rejected SQL, database failure and provider failure remain distinct. Neither call is implemented.
-
-Proposed records are conversations, ordered user/assistant messages, exercise sessions, explicit opted-in motion preferences, and request bookkeeping. Stable IDs and ownership relationships support retry protection and traceable history. Users would review actual messages with roles/times/status, sessions with active duration and stopped/completed status, and the current/saved display choice. A failed save must not be displayed as saved; summaries cannot turn activity into a diagnosis or improvement claim.
-
-The student selected optional preference remembering and confirmed system reduced-motion precedence. Users may skip remembering, change the effective display, or forget a saved choice. This saves repeated configuration without treating clicks or stopped sessions as emotional evidence. Current choices and records reset on refresh.
-
-[Architecture, record relationships, request contracts, and behavior proposal](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/design-pipeline.md#planned-architecture-and-behavior-part-1-proposal)
-
-## Crisis boundaries and user control
-
-Support must remain available without a questionnaire, classifier result, model response, or successful save. The current independent panel contains region-labeled US/territories resource information checked through the helpline lookup; no service was contacted for testing. Its button is present in each view but scrolls with the page, so persistent viewport visibility is an identified limitation.
-
-For future free-text chat, the proposal considers a reviewed application-owned cue check that offers support and explains the unmonitored coursework role. It would not diagnose, promise safety, contact anyone, or force a skill. Exact wording and coverage remain unresolved. Such a check can miss indirect or unfamiliar wording and falsely flag quotations; no-match cannot establish safety. A model may also fail or misinterpret a message. These limitations are why support access cannot depend on detection. The current prototype has no free-text crisis detector or real chatbot.
-
-## Optional prototype experiment and evidence
-
-A working application is not required for Part 1. The optional Vue experiment makes the initial flow concrete; it does not complete Parts 2 or 3.
-
-| Evidence | What it shows | Limit |
-| --- | --- | --- |
-| [Desktop entry](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/desktop-entry.jpg) | Direct Start, optional scripted introduction, still-cue control, and demo/reset labels. | Screenshot only; not measured emotional effort or usability for a clinical population. |
-| [Narrow paused practice](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/narrow-practice.jpg) | Paused state with Resume/Stop at 390px width; general navigation still visible. | Full-page image cannot prove viewport-persistent support or timer behavior. |
-| [Narrow history](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/narrow-history.jpg) | A completed 60-second temporary session with a stable ID, separate from a labeled fixture. | No SQLite persistence, API/database comparison, or clinical outcome. |
-| [Recorded checks](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/verification.md) | Agent observed mock failure/retry, delayed response cancellation, support pause/explicit Resume, stopped/completed history, refresh reset, and keyboard activation/focus. Four unit tests and production build previously passed. | Not a new test run or full accessibility audit. The 60-second browser run preceded the final cue refinement; only affected behavior plus unit tests/build were rechecked afterward. |
-
-[Curated evidence and prompt/change/decision trail](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/docs/evidence/README.md) explains these limits and the revised approaches. In particular, the supplied Figma Activity frame was blank, so the student requested a README-based prototype instead of claiming a design-to-code match. The agent also replaced an independent CSS animation with a clock-derived cue to avoid a potential mismatch when re-enabling motion mid-cycle. These are documented observations and decisions, not invented user-test findings.
-
-## Completion status, open questions, and next steps
-
-**Prepared for Part 1:** design rationale and research mapping; initial flow diagram; model/data/personalization and behavior proposal; optional frontend experiment; curated evidence; AI-use disclosure.
-
-**Unfinished:** FastAPI backend, SQLite persistence, SQL RAG, live conversational AI, persistent preferences, selected bottom-bar/navigation revisions, and Figma capture/editable-layer verification/design round trip. No Parts 2 or 3 completion is claimed. No recording is provided for this design milestone; the supplied overview places finished-app demonstrations/process screencasts in the later milestone.
-
-Open questions include preference-control placement and forgetting semantics, crisis-text wording/coverage and resource updates, retention/deletion and demo identity, recovery from interrupted saves/sessions, hidden-tab/sleep handling, and provider/parser choices and call budgets. These are explicitly unresolved design details, not completed features.
-
-Next: review the proposal and disclosure, finalize submission links and commit, then plan a small backend save/read and one frontend/backend round trip. Later work will implement and verify persistence/RAG, the selected UI revisions, and any requested Figma comparison. Paid calls require an agreed limit; routine checks use mocks and fictional data.
-
-[README and run instructions](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/README.md) · [Project instructions](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/AGENTS.md) · [Current handoff](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/handoffs/current.md) · [AI-USE.md](https://github.com/mallorypierz/mentalhealth_app/blob/2475ce0e59aa627d05725b4bdd9d9c8805abdf26/AI-USE.md)
-
-The disclosure identifies documented tools and roles, known versions and unknown model identifiers, generated/reused material, student-confirmed choices, and review limits. Agent-run checks are not represented as personal student testing. A scoped privacy review found no common credential patterns or unnecessary private content in selected screenshots; it was not an exhaustive security audit.
-
-## Part 1 audit and remaining submission gaps
-
-| Supplied Part 1 requirement | Audit result |
+| Part 2 requirement from supplied assignment | Evidence and completion status |
 | --- | --- |
-| Explain purpose, skill, and fictional use | Covered in this report. |
-| Show the main experience with a sketch or flow | Linked initial SVG/PNG and editable flow notes exist locally. |
-| Connect important choices to R/D findings and alternatives/tradeoffs | Covered here and individually in the detailed decision table. |
-| Describe model role, expected stored data, personalization, and user control | Covered as proposed capabilities, distinct from the baseline. |
-| Explain timing, independent crisis access, and testing boundaries | Covered, including present visibility/timing limits and unresolved crisis-text design. |
-| Maintain project context and disclose AI use with curated evidence | Local documents and disclosure exist; student review is still required. |
-| Include repository URL and submitted-version commit | **Verified:** repository URL and exact milestone hash recorded above; report update follows in a separate commit. |
-| Provide accessible design/evidence links | Linked files exist in the pushed milestone and the repository is public; instructor-specific access remains to be checked. |
+| Complete at least one chosen skill in running interface | Implemented: six 4/6cycles; [current completion](docs/evidence/part2-final-completed.png) and fresh measured run |
+| Demonstrate model contribution with relevant context | Implemented two-call SQL RAG; [historical live answer](docs/evidence/part2-live-saved.jpg) plus [current mock answer](docs/evidence/part2-final-chat.png), clearly distinguished |
+| Conversation/session persistence in SQLite | Browser/API/read-onlySQLite comparison, exact replay, refresh/restart; [record extract](docs/evidence/part2-final-records.json) |
+| Measure intended exercise ≤90 seconds including delays | Fresh conservative observed bound 72.336 seconds; setup 5.036 seconds separate; no pauses excluded |
+| Independent crisis-support route | Static route works without model/classifier/budget; [fullscreen support](docs/evidence/part2-final-support.png), historical outage checks; normal-view viewport visibility limitation disclosed |
+| Show request failure and leaving practice | [Provider failure](docs/evidence/part2-live-auth-failure.jpg), [save failure](docs/evidence/part2-smoketest-save-failure.jpg), stopped/interrupted records and explicit recovery |
+| Coherent scope and honest unfinished work | Core skill/persistence/RAG implemented; preferences/Figma/normal-view safety refinements remain unfinished |
+| Research-grounded decisions and AI-use/evidence trail | [Design notes](docs/design-pipeline.md), [AI-USE](AI-USE.md), [curated evidence](docs/evidence/README.md) |
+| Report with submitted commit and accessible links | **Pending** commit/push approval and final hosted-link update/check before upload |
 
-Before uploading: personally review this report and AI-use disclosure for accuracy, confirm the instructor can open the hosted links, and upload the report from the later report-update commit on part1-submission. Repository identity, milestone push, and version-specific file paths have been verified; those checks do not substitute for student review or an instructor access check.
+The working evidence supports the core Part 2 milestone, not completion of every originally proposed feature. Part 3's broader 15 fictional scenarios, 3 behavior checks, varied live evaluation, clean-checkout reproduction and finished-app process recordings are not claimed completed here. No recording is provided for this milestone.
+
+## Research rationale and tradeoffs
+
+The supplied R1–R4/D1–D6 findings describe 15 patients, 13 clinicians and 15 prototype evaluations. Mention counts identify study concerns, not clinical effect sizes. The fictional student scenario is a design application of those findings, not a validated clinical population.
+
+R1 supports the fixed short sequence; a duration picker was deferred to reduce setup. R3/R4 support explicit control and stopping without penalties. D1/D2 support a single cue and atomic skill, while optional chat avoids disrupting pacing. D3 motivates no mandatory questionnaire or disclosure. D6 motivates restrained motion, a still alternative and neutral language. R2/D4 motivate support independent of model success; normal-view scrolling remains a gap against persistent visibility. D5 motivates explicit optional preference remembering, but current display choice remains temporary. The gain is low setup effort; the loss is repeated choice after refresh. Full alternatives and limits appear in the design notes.
+
+## Model contribution and architecture
+
+Vue sends HTTP/JSON to FastAPI; only the backend opens project-relative SQLite or contacts OpenAI. Application code owns timing, exits, support, validation and saving. The model's bounded job is to explain reviewed app/skill context and describe permitted saved history without claiming improvement.
+
+The first RAG call proposes retrieval from the question and reviewed schema. Backend code structurally parses a narrow SQL grammar, restricts tables/columns, reconstructs SQL with bound values and backend-owned scope, and uses a read-only connection with row/time/context limits. It does not execute raw model SQL or trust a SELECT-prefix check. The second call receives permitted records and reviewed skill context; stored text is data, not instructions. The actual reply is saved through ordinary application transactions. Empty results, rejected queries, database failures and provider failures stay distinct.
+
+Current runtime uses a labeled deterministic mock provider. Historical live evidence used OpenAI `gpt-5.4-mini-2026-03-17`: request 8cfe378a-6795-4a94-ab2c-016a33aeafe7 returned a saved answer citing an interrupted20430ms session. Configuration/key presence alone was never counted as success. Both stages and failed attempts consume a durable six-attempt budget; all six are used. Final checks made no paid calls. Mock tests establish repeatable software behavior, not live-model quality or robustness.
+
+## Saved data and inspection
+
+One fictional demo profile owns sessions and conversations. Messages retain stable IDs, roles, actual content, sequence, timestamps and linked request status. Sessions retain active/paused durations, stopped/completed/interrupted status, checkpoints and revisions. Operation IDs/input hashes and uniqueness constraints prevent duplicate writes. No preference records currently exist.
+
+The final completed session 60c50e57-77b8-4b6e-8666-6b22e43268f0 contains 60000ms active/0paused. The stopped session 8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3 contains 8580ms active/11149 ms paused. Conversationb95bcf01-ca77-4e3d-9233-e3617f8e5a3c contains one question and one actual mock reply describing stopped 8.58 seconds. The same IDs/content/status were compared in SQLite/API and the rendered Vue record. Exact replay left two messages, and backend restart plus browser refresh preserved them.
+
+The table displays floored whole seconds; raw/API values retain milliseconds. Approved UI formatting hides technical message/session IDs and the mock `Record [UUID].` sentence. The [curated extract](docs/evidence/part2-final-records.json) retains actual raw reply/citations for inspection. This is a display transformation, not a change to stored model output. No generated answer becomes a clinical interpretation.
+
+## Timing, failure and interruptions
+
+Fresh final run: setup 5.036 seconds measured separately. Pre-Start-click to observed completed UI was 72.336 seconds, a conservative bound including click/observation overhead and application delays. First instruction was observed 1.091 seconds after the click, so the bound covers the entire instructed sequence. No voluntary pause, support or hidden interval was excluded. Stored start/end span was 60.001 seconds with 60000ms active; the capped counter alone is not the timing proof. No typing or breathing confirmations are required; actual breathing adherence is not measured. Results do not force an exit.
+
+The second run verified fullscreen, still cue, opening support pauses practice, Resume is disabled while support is open, and closing requires explicit Resume. Stop then produced a distinct saved stopped record. Historical Chrome background-tab testing verified automatic pause and explicit Resume; refresh recovery uses only the last confirmed checkpoint and labels interrupted. Cleared storage/different browsers and device sleep are limitations.
+
+Failed model requests retain the user message without fabricating an assistant reply. Failed saves display uncertainty/failure with retry, while practice/Stop/support continue. Historical outage/retry evidence and automated temporary-database failures establish these cases. New final verification passed 35 backend tests, 10 frontend tests and production build; [verification](docs/verification.md) separates fresh, historical, mocked, live and untested claims.
+
+## Independent support and crisis-related text
+
+Support information is static and independent of model, phrase rule, database and call budget. Resource content was rechecked through the required helpline lookup October 22; no service was contacted during tests. A limited application-owned phrase rule offers the approved notice and prevents matching new input from being saved/sent. It can flag quotations/negations and miss indirect wording; no-match is not evidence of safety. The app does not assess safety or imply monitoring. Fullscreen provides a sticky support header; normal-view support can scroll away, and the selected persistent bottom-bar refinement remains unfinished.
+
+## A revised approach and generated-code explanation
+
+An early live planning request failed; a scoped diagnostic change distinguished connection errors from HTTP status failures without exposing bodies or secrets. The retry returned 401. The student corrected the key locally, after which an actual two-call answer was saved. Failed attempts remained in the budget. This illustrates why configured status is distinct from working provider evidence and why failure must not fabricate success.
+
+Relevant generated code: [rag/validator.py](backend/app/rag/validator.py) converts a proposed SQL string into a small `Query` structure. Its tokenizer rejects unsupported tokens; parsing requires allowed columns (including ID), one allowlisted table, bound comparisons, permitted ordering and a final limit with no trailing SQL. The [reader](backend/app/rag/reader.py) reconstructs SQL from that structure and adds ownership itself. Values are bound rather than interpolated. A separate read-only connection/authorizer prevents retrieval writes. This deliberately limited parser rejects many legitimate SQL forms in exchange for a smaller reviewable surface. It is not a general SQL sanitizer, and valid citations do not guarantee the model's claims are semantically correct. Parameterized application repositories save messages separately.
+
+A design revision also replaced independent animation with a clock-derived cue, avoiding drift when motion is toggled mid-cycle. The later smoothing request changed visuals without adding the proposed half-second holds. The student verified that UI cleanup; agent-run test results are not represented as personal student test execution.
+
+## Unfinished work and submission checklist
+
+Saved preferences/change/forget, editable Figma capture/alternative/selected-frame round trip, normal-view persistent support/Stop bar and navigation refinements remain unfinished. Figma inspection found a blank Activity frame; current Vue is README-based, not a verified Figma implementation. No clinical testing, multi-user authentication, full accessibility audit, physical-mobile fullscreen proof, >100 message UI pagination check or clean-checkout reproduction is claimed.
+
+Before upload:
+
+- [ ] Student reviews report, AI disclosure and evidence for accuracy.
+- [ ] Approve a Part 2 source/evidence commit separately; record its actual hash.
+- [ ] Approve push separately; verify branch/commit reached the supplied remote.
+- [ ] Replace local report links with commit-specific hosted links and verify access; separately commit that report update if needed.
+- [ ] Confirm Part 1 remains accessible and upload the finalized `report.md` for Part 2.
+
+Nothing has been merged, deployed or submitted to the course site. [README/run instructions](README.md) and [handoff](handoffs/current.md) document the current local state.

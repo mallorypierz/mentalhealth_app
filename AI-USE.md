@@ -1,49 +1,44 @@
-# AI-use disclosure — Assignment 3 Part 1
+# AI-use disclosure — Assignment 3 Part 2
 
-Prepared from the project files and available conversation/tool record on October 15, 2026. This disclosure describes the work actually recorded; it does not certify student review or tests that have not been reported. The student should review this file before submitting it.
+Updated October 22,2026. This is an AI-assisted coursework prototype. The student selected the skill, flow, scope and interface revisions, approved implementation increments, and reviewed reported results. This disclosure does not claim the student personally ran the agent's tests or authored every generated line. Final submission review remains necessary.
 
-## Tools, identifiers, and roles
+## Tools, models and roles
 
-| Tool / service | Known identifier or version | Recorded role |
+| Tool/model | Known identifier | Role |
 | --- | --- | --- |
-| OpenAI Codex coding assistant in the desktop app | Product known; exact serving model/snapshot and app build were not verified in the project record. No precise model version is claimed. | Generated initial Vue/JavaScript source, CSS, timing/stale-response controller, tests, and documentation; inspected files; executed build/tests; operated the browser; helped connect supplied study findings to design decisions. |
-| Shell / local development tools | Observed Node v24.20.0, npm 11.19.0, Python 3.12.5. Dependency versions: Vue 3.5.44, Vite 7.3.7, @vitejs/plugin-vue 6.0.10. | Installed approved project-local dependencies, ran commands/tests/build, created SVG/docs with Python standard-library tooling, and performed file/hash checks. These are tool/dependency versions, not AI model identifiers. |
-| Browser automation (`cua_repl`, in-app browser) | Exact automation/browser build not recorded. | Operated fictional prototype flows, checked visible states, keyboard activation/focus and viewport width, and saved screenshots. It is an observation tool, not an independent human evaluation. |
-| Figma MCP connector | `whoami`, `get_design_context`; exact connector/server build not verified. | Checked connection/account plan and tool availability; read Activity frame 1:6 and its returned screenshot. Frame was blank. No Figma capture or design modification was completed. Account email and plan identifiers are omitted as unnecessary personal information. |
-| Helpline lookup connector | `get_local_hotline`; exact version not verified. | Retrieved region-labeled US/territories resource details used in the support panel. No calls, texts, or chats with that service were made as tests. |
-| Web documentation lookup | Tool build not verified. | Consulted official OpenAI browser-permission documentation while troubleshooting local browser access. This was not a source for the assignment's research findings. |
-| macOS Quick Look and local image viewing | Exact utility versions not recorded. | Rendered the original SVG flow diagram to a PNG and inspected layout; reviewed saved prototype screenshots. No image-generation model or external stock imagery was used. |
+| Codex desktop coding agent | GPT-6-based agent; exact serving snapshot not exposed in this task | Proposed architecture, generated/refined Vue/Python/tests/docs, inspected files and ran authorized checks |
+| OpenAI application provider | `gpt-5.4-mini-2026-03-17`, Responses API | Historical live retrieval planning and grounded reply generation; bounded six-attempt ledger |
+| Mock provider | Repository `backend/app/providers/mock.py` | Deterministic SQL proposals/replies/failures; current application mode; not live AI |
+| Browser/computer tools | Codex in-app browser and native Chrome UI; tool build identifiers unavailable | Operated fictional scenarios, inspected rendered state and captured evidence; Chrome used for real hidden-tab event |
+| Terminal/Python/Node | Python 3.12.5, SQLite 3.45.3, Node 24.20.0/npm 11.19.0 | Tests, API/SQLite inspection, build and document preparation |
+| Figma MCP | Tool/plugin version not captured for historical calls | Read-only metadata/design screenshot/account access inspection; no completed editable capture or round trip |
+| Required helpline lookup | Version not exposed | Checked existing resource content October 15 andOctober 22; no service contacted |
 
-The application itself has **no live conversational model integration**. Introduction replies are fixed, local mock strings. Assistant-generated source/documentation must not be confused with an AI service running inside the prototype. No paid model/API calls were initiated for the evidence-preparation task; this does not assert that the coding-assistant session has no account cost.
+Dependencies include Vue 3.5.44, Vite 7.3.7, FastAPI 0.158.1, Uvicorn 0.54.0 and HTTPX 0.28.1; manifests/lockfiles declare the environment. No external therapy dataset or research-participant data was used. Research rationale came from the user-supplied assignment study table, not an invented clinical study. Existing Part 1 application code and course Vue/FastAPI/SQLite/RAG patterns were extended; no specific travel-app source was copied in this work.
 
-## Student input, decisions, and review evidence
+## Human choices and generated work
 
-The recorded student actions were:
+The student chose one six-cycle 4/6breathing skill, direct Start, optional chat, still cue, one fictional demo profile, interruption/pause rules, mock-first testing and a finite live budget. They approved crisis wording and later requested simpler UI, fullscreen arrows, unchanged timing with smoother visuals, and hidden technical metadata. They explicitly returned chat to mock mode. Preference remembering/forgetting and Figma work were planned but not completed.
 
-- Supplied project instructions and assignment material, including the complete R1–R4/D1–D6 research table.
-- Requested the initial prototype after clarifying that no source code existed; approved the specific project-local Vue/Vite installation.
-- Provided the Assignment-3 Figma link and chose it as the future capture destination.
-- Requested a research-grounded, documentation-only proposal, the initial flow diagram, planned architecture, and curated evidence.
-- Explicitly selected a persistent bottom bar with Crisis support and active-practice Stop, hidden general navigation during active practice with restoration afterward, and optional “Remember my display choice.” Confirmed that system reduced motion should override a saved animated preference.
+The agent generated and revised backend schemas/routes/repositories, restricted SQL retrieval, provider code, persistence coordination, frontend components and tests, plus report/document drafts. Application code—not a model response—owns timers, exits, support and writes. The student explicitly verified the earlier SmokeTest report and latest UI cleanup. Final documentation and fresh verification are offered for review; no personal student test execution is inferred.
 
-Those choices demonstrate review of the presented design questions. The record does **not** establish that the student personally ran every test, inspected every generated code line, reviewed every screenshot/document, or approved all draft API/schema/crisis-text details. Browser and automated checks in verification.md were carried out by the agent. Unresolved proposal details remain labeled in the design notes; they must not be attributed to the student as settled decisions.
+## Selected prompt → change → evidence → decision trail
 
-## Generated material and reuse
+| Selected instruction (paraphrased) | Work/evidence | Decision or limit |
+| --- | --- | --- |
+| Preserve Part 1 and inspect environment before installation | Local environment/declarations inspected; minimal FastAPI save/read and duplicate replay checked before expansion | Project-local dependencies; existing data/config preserved |
+| Save completed/stopped practice and show honest failures | Session journal, revision/operation IDs, asynchronous saves; browser outage/retry and SQLite comparison | Cues never await network; recovery uses last confirmed checkpoint |
+| Mock chat first; no fabricated replies | User/pending transaction then actual reply/success transaction; failure/retry tests and saved history screenshots | Failed generation retains user input, no assistant fabrication |
+| Structurally validate two-call SQL RAG | Restricted parser/reconstructed SQL/read-only scoped reader; write/scope/empty/instruction-like tests | Raw model SQL never executed; citation membership is not semantic truth verification |
+| Approve bounded live example | Initial call failed; diagnostic retry returned 401; student corrected key locally; later actual live answer saved | Generic errors revised into safe diagnostic codes; failed attempts still counted; credentials never pasted |
+| Check real hidden-tab behavior | IAB did not yield the necessary event; separately approved native Chrome did | Report genuine Chrome observation separately from IAB limitations |
+| Use existing Assignment-3 Figma design | Activity frame was blank; later read-only access inspection | README-based implementation, no invented Figma match or editable capture |
+| Smoother visuals, same timing | Clock-derived cue smoothing instead of adding a breath hold | Six4/6cycles unchanged; final measured run below 90 seconds |
+| Remove technical IDs/citations from UI | Display-only metadata removals and mock-assistant citation filter | Stored/API reply and traceable IDs preserved for evidence |
+| Prepare Part 2 submission | Fresh35/10 tests/build; browser/API/SQLite/replay/restart checks and curated evidence | No paid calls/source edits; final commit/push needs separate approval |
 
-- Agent-generated work: initial frontend components/controller/styles/configuration/tests; supporting design, verification, handoff and prompt notes; initial SVG/Mermaid flow and its PNG preview; this disclosure and evidence index.
-- Existing project inputs: README.md and AGENTS.md were already present. The README supplied paced-breathing direction and stack boundaries; the agent did not independently establish the student's original authorship of all starter text. AGENTS.md was preserved, while README received verified run instructions.
-- Research: the assignment overview and student-supplied R/D table supplied the design evidence. Counts describe mentions in that study, not prototype clinical outcomes. No study participant records or separate clinical research dataset were imported.
-- Code/assets: no earlier hotel/travel-app code reuse is documented or claimed. Vue/Vite/plugin-vue are package dependencies with their own upstream terms. The interface uses CSS shapes, text/Unicode symbols, and system font stacks; no stock photos, downloaded icon pack, generated raster art, or Figma assets were imported. The Figma response was a blank-frame example, not a populated design reused in Vue.
-- Screenshots are browser captures of the local fictional prototype. The diagram is an original generated design artifact, explicitly not a completed Figma capture. Referenced resource links are external destinations, not copied therapist conversations or a training dataset.
+Another revised approach: independent CSS pacing could drift when motion was re-enabled mid-cycle; clock-derived cue scaling replaced it. Final API/SQLite timestamp comparison initially compared strings, then correctly normalized equivalent UTC instants (`Z`/`+00:00`). This was a verification correction, not an app failure.
 
-## Selected evidence and revised approaches
+## Disclosure and limits
 
-The [curated evidence index](docs/evidence/README.md) links three screenshots and a small set of prior observations, stating what each establishes and its limits. It traces selected prompt summaries to changes and decisions, including the incomplete Figma reference, the clock-synchronized motion refinement, and the support-visibility limitation that led to a proposed bottom bar.
-
-[Verification notes](docs/verification.md) record actual prior commands and observations, including a wrong-directory npm invocation and the corrected command, sandbox server-binding failure and approved local run, refresh reset, and test limitations. [Initial prototype prompt](prompts/01-prototype.md) preserves the reusable scope. A full chat export is neither included nor needed.
-
-## Limits and submission review
-
-Current records are in memory and reset on refresh. FastAPI, SQLite persistence, RAG, real provider calls, persistent preferences, and the selected bottom bar/navigation revisions remain unfinished. The Part 1 architecture is a proposal, not implementation evidence. No clinical efficacy, real distress detection, or monitored support service is claimed.
-
-The evidence review found no common credential patterns, personal email addresses, or absolute user-home paths in repository-owned text, and no unnecessary private content visible in the three selected screenshots. This is a scoped review, not a complete security audit. See the evidence index for exclusions and access limitations. Before submission, the student should review these disclosures, explain the relevant generated code, verify report/repository links and permissions, and correct any missing personal review or reuse information rather than marking it complete without evidence.
+[Verification](docs/verification.md) separates newly observed, historical, mock and live evidence. [Evidence index](docs/evidence/README.md) contains selected prompts/decisions and screenshots rather than a full private chat export. Fictional record IDs are deliberate traceability data; keys, runtime database and environment are excluded from submission. No recordings, clinical evaluation, full accessibility assurance, completed personalization, Figma round trip or deployment is claimed. Preserve this disclosure with the submitted source; review the generated code explanation in [report](report.md).
