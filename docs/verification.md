@@ -1,6 +1,6 @@
 # Verification — Part 2 final preparation, October 22, 2026
 
-Current evidence below supersedes older current-state claims. Older sections are retained as dated historical observations, not proof of today's UI. All checks were agent-run with fictional data. The student verified the earlier SmokeTest report and recent UI cleanup; final preparation results still await their review.
+Current evidence below supersedes older current-state claims. Older sections are retained as dated historical observations, not proof of today's UI. All checks were agent-run with fictional data. The student verified the earlier SmokeTest report and recent UI cleanup; the student subsequently confirmed review and approved commit/push.
 
 ## Fresh final checks
 
@@ -227,3 +227,7 @@ Chat pair ordering check: 10 frontend tests/build/diff check passed. Focused in-
 ## Practice fullscreen — October 22, 2026
 
 Fullscreen increment: 10 frontend tests, build and diff check passed. Actual browser verified native fullscreen, Minimize, Escape and keyboard Enter activation; same session retained paused progress at3s and still-cue choice across transitions. Resume/support induced pause worked, closing support did not resume, and Stop saved session3c0ae768-509a-4404-a0cc-f81db5301515. Read-only SQLite status/duration: ('stopped', 3768). Desktop fullscreen and narrow normal layout inspected; introduction absent. No paid calls/service contacts. Browser-denied fullscreen fallback and physical mobile fullscreen remain untested. No new full60s timing run; engine unchanged. Temporary review screenshot /tmp/practice-fullscreen.png.
+
+## Submission publication verification — October 22, 2026
+
+Student explicitly confirmed review and authorized commit/push plus final report update. Source/evidence milestone `080ad6393a2ade204f6f2b417b422a5778a8ed4c` pushed on `codex/part2`. All15 unique source/document/evidence paths linked by report were fetched from the public commit-specific raw GitHub URLs without authentication: HTTP200 for every file. Part1 pinned report also returned200; remote Part1 branch remained e958bdcf11e69b5c4451f986742989acd01b497e. No new application code or live model calls in this publication step. Final report replaces approval placeholders with actual review/commit/link status; course upload remains unperformed by the agent.

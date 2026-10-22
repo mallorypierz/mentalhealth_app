@@ -4,7 +4,7 @@ A localhost coursework prototype for one skill: six cycles of four seconds in an
 
 **Current:** Vue → FastAPI → SQLite, persistent sessions/conversations, bounded two-call SQL RAG, and independent crisis-support information. Chat currently uses clearly labeled **mock replies**. A prior live OpenAI example is separately documented; configuration alone is not evidence of a successful call. See [Part 2 report](report.md), [verification](docs/verification.md), and [evidence](docs/evidence/README.md).
 
-**Submission:** work is on `codex/part2`, uncommitted pending review. Part 1 remains at [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission), report commit `e958bdcf11e69b5c4451f986742989acd01b497e`. Do not label that Part 1 hash as the Part 2 submission.
+**Submission:** the student reviewed and approved commit/push. The source/evidence milestone `080ad6393a2ade204f6f2b417b422a5778a8ed4c` is pushed on `codex/part2`; the finalized report follows as a documentation-only update. Course-site upload remains the student’s action. Part 1 remains at [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission), report commit `e958bdcf11e69b5c4451f986742989acd01b497e`. Do not label that Part 1 hash as the Part 2 submission.
 
 ## Run locally
 

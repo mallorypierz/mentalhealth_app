@@ -1,13 +1,13 @@
 # Assignment 3.2 — Part 2: Working prototype
 
-**Project:** A little space · **Prepared:** October 22,2026 · **Status:** ready for student review, not yet committed/submitted.
+**Project:** A little space · **Prepared:** October 22,2026 · **Status:** student reviewed and approved; source/evidence milestone committed and pushed. Finalized report prepared for the student to upload.
 
 | Submission field | Value |
 | --- | --- |
 | Repository | [mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) |
 | Working branch | `codex/part2` |
-| Submitted Part 2 commit | **PENDING separate commit approval.** Current HEAD e958bdcf11e69b5c4451f986742989acd01b497e is Part 1 and must not be used as the Part 2 version. |
-| Evidence access | Local relative links below work within this repository. Before uploading this report alone, replace them with verified commit-specific hosted links after approved push. Instructor access is not yet verified for Part 2. |
+| Submitted Part 2 commit | [`080ad6393a2ade204f6f2b417b422a5778a8ed4c`](https://github.com/mallorypierz/mentalhealth_app/commit/080ad6393a2ade204f6f2b417b422a5778a8ed4c) — reviewed source/evidence milestone, committed and pushed to `codex/part2`. This finalized report is a subsequent documentation-only update on the same branch. |
+| Evidence access | All 15 linked Part 2 source/document/evidence files were verified publicly readable without authentication at the submitted milestone on October 22, 2026. Links below are pinned to that commit. This verifies public access, not access from the instructor’s particular device. |
 | Preserved Part 1 | [Part 1 report](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md) and [submission branch](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission) remain intact. |
 
 ## Purpose and scope
@@ -20,15 +20,15 @@ This is a localhost coursework prototype, not therapy, diagnosis, monitoring or 
 
 | Part 2 requirement from supplied assignment | Evidence and completion status |
 | --- | --- |
-| Complete at least one chosen skill in running interface | Implemented: six 4/6cycles; [current completion](docs/evidence/part2-final-completed.png) and fresh measured run |
-| Demonstrate model contribution with relevant context | Implemented two-call SQL RAG; [historical live answer](docs/evidence/part2-live-saved.jpg) plus [current mock answer](docs/evidence/part2-final-chat.png), clearly distinguished |
-| Conversation/session persistence in SQLite | Browser/API/read-onlySQLite comparison, exact replay, refresh/restart; [record extract](docs/evidence/part2-final-records.json) |
+| Complete at least one chosen skill in running interface | Implemented: six 4/6cycles; [current completion](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-final-completed.png) and fresh measured run |
+| Demonstrate model contribution with relevant context | Implemented two-call SQL RAG; [historical live answer](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-live-saved.jpg) plus [current mock answer](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-final-chat.png), clearly distinguished |
+| Conversation/session persistence in SQLite | Browser/API/read-onlySQLite comparison, exact replay, refresh/restart; [record extract](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-final-records.json) |
 | Measure intended exercise ≤90 seconds including delays | Fresh conservative observed bound 72.336 seconds; setup 5.036 seconds separate; no pauses excluded |
-| Independent crisis-support route | Static route works without model/classifier/budget; [fullscreen support](docs/evidence/part2-final-support.png), historical outage checks; normal-view viewport visibility limitation disclosed |
-| Show request failure and leaving practice | [Provider failure](docs/evidence/part2-live-auth-failure.jpg), [save failure](docs/evidence/part2-smoketest-save-failure.jpg), stopped/interrupted records and explicit recovery |
+| Independent crisis-support route | Static route works without model/classifier/budget; [fullscreen support](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-final-support.png), historical outage checks; normal-view viewport visibility limitation disclosed |
+| Show request failure and leaving practice | [Provider failure](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-live-auth-failure.jpg), [save failure](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-smoketest-save-failure.jpg), stopped/interrupted records and explicit recovery |
 | Coherent scope and honest unfinished work | Core skill/persistence/RAG implemented; preferences/Figma/normal-view safety refinements remain unfinished |
-| Research-grounded decisions and AI-use/evidence trail | [Design notes](docs/design-pipeline.md), [AI-USE](AI-USE.md), [curated evidence](docs/evidence/README.md) |
-| Report with submitted commit and accessible links | **Pending** commit/push approval and final hosted-link update/check before upload |
+| Research-grounded decisions and AI-use/evidence trail | [Design notes](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/design-pipeline.md), [AI-USE](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/AI-USE.md), [curated evidence](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/README.md) |
+| Report with submitted commit and accessible links | Completed: reviewed milestone committed/pushed, actual hash recorded, and commit-specific linked files verified publicly accessible |
 
 The working evidence supports the core Part 2 milestone, not completion of every originally proposed feature. Part 3's broader 15 fictional scenarios, 3 behavior checks, varied live evaluation, clean-checkout reproduction and finished-app process recordings are not claimed completed here. No recording is provided for this milestone.
 
@@ -52,7 +52,7 @@ One fictional demo profile owns sessions and conversations. Messages retain stab
 
 The final completed session 60c50e57-77b8-4b6e-8666-6b22e43268f0 contains 60000ms active/0paused. The stopped session 8097f4b9-ff32-4d1e-bce5-b4317a0e0ba3 contains 8580ms active/11149 ms paused. Conversationb95bcf01-ca77-4e3d-9233-e3617f8e5a3c contains one question and one actual mock reply describing stopped 8.58 seconds. The same IDs/content/status were compared in SQLite/API and the rendered Vue record. Exact replay left two messages, and backend restart plus browser refresh preserved them.
 
-The table displays floored whole seconds; raw/API values retain milliseconds. Approved UI formatting hides technical message/session IDs and the mock `Record [UUID].` sentence. The [curated extract](docs/evidence/part2-final-records.json) retains actual raw reply/citations for inspection. This is a display transformation, not a change to stored model output. No generated answer becomes a clinical interpretation.
+The table displays floored whole seconds; raw/API values retain milliseconds. Approved UI formatting hides technical message/session IDs and the mock `Record [UUID].` sentence. The [curated extract](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/evidence/part2-final-records.json) retains actual raw reply/citations for inspection. This is a display transformation, not a change to stored model output. No generated answer becomes a clinical interpretation.
 
 ## Timing, failure and interruptions
 
@@ -60,7 +60,7 @@ Fresh final run: setup 5.036 seconds measured separately. Pre-Start-click to obs
 
 The second run verified fullscreen, still cue, opening support pauses practice, Resume is disabled while support is open, and closing requires explicit Resume. Stop then produced a distinct saved stopped record. Historical Chrome background-tab testing verified automatic pause and explicit Resume; refresh recovery uses only the last confirmed checkpoint and labels interrupted. Cleared storage/different browsers and device sleep are limitations.
 
-Failed model requests retain the user message without fabricating an assistant reply. Failed saves display uncertainty/failure with retry, while practice/Stop/support continue. Historical outage/retry evidence and automated temporary-database failures establish these cases. New final verification passed 35 backend tests, 10 frontend tests and production build; [verification](docs/verification.md) separates fresh, historical, mocked, live and untested claims.
+Failed model requests retain the user message without fabricating an assistant reply. Failed saves display uncertainty/failure with retry, while practice/Stop/support continue. Historical outage/retry evidence and automated temporary-database failures establish these cases. New final verification passed 35 backend tests, 10 frontend tests and production build; [verification](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/docs/verification.md) separates fresh, historical, mocked, live and untested claims.
 
 ## Independent support and crisis-related text
 
@@ -70,7 +70,7 @@ Support information is static and independent of model, phrase rule, database an
 
 An early live planning request failed; a scoped diagnostic change distinguished connection errors from HTTP status failures without exposing bodies or secrets. The retry returned 401. The student corrected the key locally, after which an actual two-call answer was saved. Failed attempts remained in the budget. This illustrates why configured status is distinct from working provider evidence and why failure must not fabricate success.
 
-Relevant generated code: [rag/validator.py](backend/app/rag/validator.py) converts a proposed SQL string into a small `Query` structure. Its tokenizer rejects unsupported tokens; parsing requires allowed columns (including ID), one allowlisted table, bound comparisons, permitted ordering and a final limit with no trailing SQL. The [reader](backend/app/rag/reader.py) reconstructs SQL from that structure and adds ownership itself. Values are bound rather than interpolated. A separate read-only connection/authorizer prevents retrieval writes. This deliberately limited parser rejects many legitimate SQL forms in exchange for a smaller reviewable surface. It is not a general SQL sanitizer, and valid citations do not guarantee the model's claims are semantically correct. Parameterized application repositories save messages separately.
+Relevant generated code: [rag/validator.py](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/backend/app/rag/validator.py) converts a proposed SQL string into a small `Query` structure. Its tokenizer rejects unsupported tokens; parsing requires allowed columns (including ID), one allowlisted table, bound comparisons, permitted ordering and a final limit with no trailing SQL. The [reader](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/backend/app/rag/reader.py) reconstructs SQL from that structure and adds ownership itself. Values are bound rather than interpolated. A separate read-only connection/authorizer prevents retrieval writes. This deliberately limited parser rejects many legitimate SQL forms in exchange for a smaller reviewable surface. It is not a general SQL sanitizer, and valid citations do not guarantee the model's claims are semantically correct. Parameterized application repositories save messages separately.
 
 A design revision also replaced independent animation with a clock-derived cue, avoiding drift when motion is toggled mid-cycle. The later smoothing request changed visuals without adding the proposed half-second holds. The student verified that UI cleanup; agent-run test results are not represented as personal student test execution.
 
@@ -78,12 +78,13 @@ A design revision also replaced independent animation with a clock-derived cue, 
 
 Saved preferences/change/forget, editable Figma capture/alternative/selected-frame round trip, normal-view persistent support/Stop bar and navigation refinements remain unfinished. Figma inspection found a blank Activity frame; current Vue is README-based, not a verified Figma implementation. No clinical testing, multi-user authentication, full accessibility audit, physical-mobile fullscreen proof, >100 message UI pagination check or clean-checkout reproduction is claimed.
 
-Before upload:
+Submission checklist:
 
-- [ ] Student reviews report, AI disclosure and evidence for accuracy.
-- [ ] Approve a Part 2 source/evidence commit separately; record its actual hash.
-- [ ] Approve push separately; verify branch/commit reached the supplied remote.
-- [ ] Replace local report links with commit-specific hosted links and verify access; separately commit that report update if needed.
-- [ ] Confirm Part 1 remains accessible and upload the finalized `report.md` for Part 2.
+- [x] Student reviewed the report, AI disclosure and evidence for accuracy and approved submission preparation.
+- [x] Student approved committing the Part 2 source/evidence milestone; actual hash recorded above.
+- [x] Student approved pushing `codex/part2`; the source/evidence milestone reached the supplied remote.
+- [x] Replaced relative report links with commit-specific hosted links; all 15 linked files verified publicly readable without authentication. Student also approved this final report update and its commit/push.
+- [x] Confirmed Part 1 remains accessible and its branch is unchanged.
+- [ ] Student uploads this finalized `report.md` for Part 2. The student has stated their intention to submit; course-site upload has not been performed by the agent.
 
-Nothing has been merged, deployed or submitted to the course site. [README/run instructions](README.md) and [handoff](handoffs/current.md) document the current local state.
+The source/evidence milestone is committed and pushed. No merge or deployment was performed. [README/run instructions](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/README.md) and [handoff](https://github.com/mallorypierz/mentalhealth_app/blob/080ad6393a2ade204f6f2b417b422a5778a8ed4c/handoffs/current.md) describe the reviewed milestone; their pending-approval wording at that frozen snapshot is historical and superseded by this finalized report.
