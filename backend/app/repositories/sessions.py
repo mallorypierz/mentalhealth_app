@@ -1,7 +1,8 @@
 import hashlib
 import json
 from datetime import datetime, timezone
-from ..db import connect, DEMO_USER_ID
+from ..db import connect
+from ..identity import owner, validate_context
 
 
 class Conflict(Exception):
@@ -26,10 +27,11 @@ def create(path, request):
             # Acquire the write lock before checking duplicates: concurrent callers
             # cannot both pass the check and create separate operation results.
             db.execute('BEGIN IMMEDIATE')
+            validate_context(db)
             existing = db.execute('SELECT * FROM operations WHERE id = ?',
                                   (str(request.operation_id),)).fetchone()
             if existing:
-                if (existing['demo_user_id'] != DEMO_USER_ID or
+                if (existing['demo_user_id'] != owner() or
                         existing['operation_type'] != 'create_session' or
                         existing['input_hash'] != fingerprint):
                     raise Conflict('Operation ID was already used with different input.')
@@ -40,13 +42,13 @@ def create(path, request):
             db.execute('''INSERT INTO exercise_sessions
                 (id, demo_user_id, skill_key, status, started_at, last_checkpoint_at, owner_token)
                 VALUES (?, ?, ?, ?, ?, ?, ?)''',
-                (str(request.session_id), DEMO_USER_ID, request.skill_key, 'in_progress',
+                (str(request.session_id), owner(), request.skill_key, 'in_progress',
                  payload['started_at'], datetime.now(timezone.utc).isoformat(),
                  str(request.owner_token) if request.owner_token else None))
             record = public_record(db.execute('SELECT * FROM exercise_sessions WHERE id = ?',
                                                (str(request.session_id),)).fetchone())
             db.execute('INSERT INTO operations VALUES (?, ?, ?, ?, ?, ?)',
-                       (str(request.operation_id), DEMO_USER_ID, 'create_session',
+                       (str(request.operation_id), owner(), 'create_session',
                         str(request.session_id), fingerprint, json.dumps(record)))
         return {'session': record, 'persistence': 'saved', 'replayed': False}
     finally:
@@ -56,8 +58,9 @@ def create(path, request):
 def get(path, session_id):
     db = connect(path)
     try:
+        validate_context(db)
         row = db.execute('SELECT * FROM exercise_sessions WHERE id = ? AND demo_user_id = ?',
-                         (str(session_id), DEMO_USER_ID)).fetchone()
+                         (str(session_id), owner())).fetchone()
         return None if row is None else public_record(row)
     finally:
         db.close()
@@ -66,8 +69,9 @@ def get(path, session_id):
 def list_sessions(path, cursor, limit):
     db = connect(path)
     try:
+        validate_context(db)
         rows = db.execute('SELECT * FROM exercise_sessions WHERE demo_user_id = ? ORDER BY started_at DESC, id DESC LIMIT ? OFFSET ?',
-                          (DEMO_USER_ID, limit + 1, cursor)).fetchall()
+                          (owner(), limit + 1, cursor)).fetchall()
         return {'sessions': [public_record(row) for row in rows[:limit]],
                 'next_cursor': cursor + limit if len(rows) > limit else None}
     finally:
@@ -81,8 +85,9 @@ def update(path, session_id, request):
     try:
         with db:
             db.execute('BEGIN IMMEDIATE')
+            validate_context(db)
             row = db.execute('SELECT * FROM exercise_sessions WHERE id=? AND demo_user_id=?',
-                             (str(session_id), DEMO_USER_ID)).fetchone()
+                             (str(session_id), owner())).fetchone()
             if row is None:
                 return None
             if row['owner_token'] != str(request.owner_token):
@@ -106,7 +111,7 @@ def update(path, session_id, request):
                         datetime.now(timezone.utc).isoformat(), str(session_id)))
             record = public_record(db.execute('SELECT * FROM exercise_sessions WHERE id=?', (str(session_id),)).fetchone())
             db.execute('INSERT INTO operations VALUES (?, ?, ?, ?, ?, ?)',
-                       (str(request.operation_id), DEMO_USER_ID, 'update_session', str(session_id), fingerprint, json.dumps(record)))
+                       (str(request.operation_id), owner(), 'update_session', str(session_id), fingerprint, json.dumps(record)))
         return {'session': record, 'persistence': 'saved', 'replayed': False}
     finally:
         db.close()

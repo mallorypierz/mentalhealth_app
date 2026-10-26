@@ -1,4 +1,5 @@
 <script setup>
+import { ownerKey } from '../identityAccess.js';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { api } from '../api.js';
 import { matchesCrisisPhrase, CRISIS_NOTICE } from '../crisis.js';
@@ -44,9 +45,9 @@ const errorText = computed(() => ({
   invalid_provider_output: 'The provider returned an invalid response. No assistant reply was saved.',
 }[request.value?.error_code] || 'Request failed. No assistant reply is saved.'));
 const journalKey = id => `coursework-chat-pending:${id}`;
-function readJournal(id) { try { return JSON.parse(sessionStorage.getItem(journalKey(id)) || 'null'); } catch { return null; } }
+function readJournal(id) { try { return JSON.parse(sessionStorage.getItem(ownerKey() + ':' + journalKey(id)) || 'null'); } catch { return null; } }
 function writeJournal(id, body) {
-  try { if (body) sessionStorage.setItem(journalKey(id), JSON.stringify(body)); else sessionStorage.removeItem(journalKey(id)); }
+  try { if (body) sessionStorage.setItem(ownerKey() + ':' + journalKey(id), JSON.stringify(body)); else sessionStorage.removeItem(ownerKey() + ':' + journalKey(id)); }
   catch { storageWarning.value = 'Browser retry storage is unavailable. Keep this tab open until submission is confirmed.'; }
 }
 async function loadConversations(more = false) {

@@ -2,8 +2,21 @@
 import { computed, ref, onMounted, onUnmounted, nextTick } from 'vue';
 import { Exercise, LatestRequest } from './exercise.js';
 import { api } from './api.js';
+import SupportContent from './components/SupportContent.vue';
+import ExerciseLibrary from './components/ExerciseLibrary.vue';
+import CalendarView from './components/CalendarView.vue';
+import ProfileView from './components/ProfileView.vue';
 import ChatView from './components/ChatView.vue';
 import { SessionPersistence } from './sessionPersistence.js';
+const props = defineProps(['identity']);
+const emit = defineEmits(['choose', 'leave', 'delete', 'updated']);
+const switching = ref(false), switchError = ref('');
+async function requestSwitch() { if (active.value) { pause(); switching.value = true; return; } await readySwitch(); }
+async function readySwitch() {
+  try { await persistence.settle(); switching.value = false; if (fullscreen.value) await minimizePractice(); emit('choose'); }
+  catch (e) { switchError.value = e.message; }
+}
+async function stopAndSwitch() { stop(); await readySwitch(); }
 const engine = new Exercise();
 const exercise = ref(engine.snapshot());
 const view = ref('practice');
@@ -81,7 +94,10 @@ function visibilityChanged() {
 }
 onMounted(async () => { document.addEventListener('visibilitychange', visibilityChanged); document.addEventListener('fullscreenchange', fullscreenChanged); document.addEventListener('keydown', fullscreenKey); await persistence.recover(); });
 const heading = ref(null);
-const focusHeading = () => nextTick(() => heading.value?.focus());
+const focusHeading = () => nextTick(() => {
+  const target = heading.value || practiceScreen.value?.querySelector('h1');
+  if (target) { target.setAttribute('tabindex', '-1'); target.focus(); }
+});
 function sync() {
   exercise.value = engine.snapshot();
   if (finished.value && !recorded) {
@@ -123,21 +139,24 @@ onUnmounted(() => { clearInterval(timer); clearInterval(checkpointTimer); histor
           <button :class="{ selected: view === 'practice' }" @click="navigate('practice')" :aria-current="view === 'practice' ? 'page' : undefined"><span aria-hidden="true">◉</span> Practice</button>
           <button :disabled="active" :class="{ selected: view === 'history' }" @click="navigate('history')" :aria-current="view === 'history' ? 'page' : undefined"><span aria-hidden="true">≡</span> Session history</button>
           <button :disabled="active" :class="{ selected: view === 'chat' }" @click="navigate('chat')" :aria-current="view === 'chat' ? 'page' : undefined">Optional chat</button>
+          <button :disabled="active" :class="{ selected: view === 'library' }" @click="navigate('library')" :aria-current="view === 'library' ? 'page' : undefined">Exercises</button>
+          <button :disabled="active" :class="{ selected: view === 'calendar' }" @click="navigate('calendar')" :aria-current="view === 'calendar' ? 'page' : undefined">Calendar</button>
+          <button :disabled="active" :class="{ selected: view === 'profile' }" @click="navigate('profile')" :aria-current="view === 'profile' ? 'page' : undefined">Profile</button>
+          <button @click="requestSwitch">{{ identity?.mode === 'guest' ? 'Guest · switch' : identity?.display_name + ' · switch' }}</button>
         </nav>
         <p v-if="active" class="small muted">History is available after stopping or completing.</p>
         <div class="sidebar-note"><span class="tiny-line"></span><p>A moment of practice.<br>At your own pace.</p><p class="small muted">A fictional coursework experience, not therapy or a monitored service.</p></div>
       </aside>
       <main id="main" ref="practiceScreen" :class="{ 'practice-fullscreen': fullscreen }" tabindex="-1">
-        <div class="page-top"><button v-if="fullscreen" class="secondary fullscreen-icon" aria-label="Minimize" title="Minimize" @click="minimizePractice"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4l6 6M4 10h6V4M20 20l-6-6M14 20v-6h6" /></svg></button><span class="eyebrow">{{ view === 'history' ? 'YOUR RECORDS' : view === 'chat' ? 'OPTIONAL CHAT' : 'A MOMENT TO PRACTICE' }}</span><button class="support-link" @click="openSupport">Crisis support <span aria-hidden="true">↗</span></button></div>
+        <div class="page-top"><button v-if="fullscreen" class="secondary fullscreen-icon" aria-label="Minimize" title="Minimize" @click="minimizePractice"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4l6 6M4 10h6V4M20 20l-6-6M14 20v-6h6" /></svg></button><span class="eyebrow">{{ view === 'library' ? 'EXERCISE LIBRARY' : view === 'history' ? 'YOUR RECORDS' : view === 'chat' ? 'OPTIONAL CHAT' : 'A MOMENT TO PRACTICE' }}</span><button v-if="active" class="stop" @click="stop">Stop practice</button><button class="support-link" @click="openSupport">Crisis support <span aria-hidden="true">↗</span></button></div>
         <section v-if="support" class="support-panel" aria-labelledby="support-title" @keydown.esc="closeSupport">
           <div class="panel-heading"><h2 id="support-title" ref="supportHeading" tabindex="-1">Crisis support</h2><button class="secondary" @click="closeSupport">Close support</button></div>
           <p v-if="active">Practice is paused. Closing this panel will not resume it. Use Resume when you choose.</p>
-          <p>This demo is not monitored. The following resource serves the United States and its territories.</p>
-          <p><strong>988 Suicide &amp; Crisis Lifeline</strong></p>
-          <div class="support-actions"><a href="tel:988?oai_link_source=model_response_hotline">Call 988</a><a href="sms:988?oai_link_source=model_response_hotline">Text 988</a><a href="https://988lifeline.org/chat/?oai_link_source=model_response_hotline" target="_blank" rel="noopener noreferrer">Online chat ↗</a></div>
-          <p class="small">Resource checked through the helpline lookup on October 22, 2026. Availability was not tested by contacting the service.</p>
+          <SupportContent />
           <button v-if="active" class="stop" @click="stop">Stop practice</button>
         </section>
+        <section v-if="switching" class="history-card" role="group" aria-label="Switch profile during practice"><p>Practice paused. Stop and save it before switching?</p><button class="primary" @click="switching = false; resume()">Continue practice</button><button class="stop" @click="stopAndSwitch">Stop and switch</button></section>
+        <p v-if="switchError" role="alert">{{ switchError }}</p>
         <template v-if="view === 'practice'">
           <div class="title-block"><h1 ref="heading" tabindex="-1">{{ active ? 'One breath at a time.' : finished ? (exercise.state === 'completed' ? 'Practice completed.' : 'Practice stopped.') : 'Make a little space.' }}</h1><p>{{ active ? 'Follow the cue. Pause or stop whenever you choose.' : finished ? 'You choose what comes next.' : 'A short breathing practice, with room to go at your own pace.' }}</p></div>
           <p v-if="hiddenPause" role="status">Practice paused when this tab was hidden. Resume when you choose.</p>
@@ -160,8 +179,11 @@ onUnmounted(() => { clearInterval(timer); clearInterval(checkpointTimer); histor
           <section v-if="unresolved.length" aria-label="Unsaved sessions" class="intro-card"><h2>Sessions needing attention</h2><p>These local outcomes are separate from saved history.</p><div v-for="item in unresolved" :key="item.id"><p>{{ item.message }} <code>{{ item.id }}</code></p><button class="secondary" @click="persistence.retry(item.id)">Retry save</button></div></section>
 
         </template>
+        <ExerciseLibrary v-else-if="view === 'library'" @practice="navigate('practice')" />
+        <CalendarView v-else-if="view === 'calendar'" />
+        <ProfileView v-else-if="view === 'profile'" :identity="identity" @choose="requestSwitch" @leave="emit('leave')" @delete="revision => emit('delete', revision)" @updated="name => emit('updated', name)" />
         <ChatView v-else-if="view === 'chat'" @support="openSupport" />
-        <template v-else><div class="title-block"><h1 ref="heading" tabindex="-1">Your practice, recorded.</h1><p>Duration and status only. These records don’t measure wellbeing.</p></div><section class="history-card"><div class="panel-heading"><h2>Session history</h2><span class="pill">SAVED FICTIONAL RECORDS</span></div><p v-if="historyState === 'loading'" role="status">Loading saved history…</p><p v-if="historyState === 'failed'" role="alert">Could not load saved history. Previously displayed rows may be out of date.</p><p v-if="historyState === 'success' && !history.length">No saved sessions yet.</p><button class="secondary" :disabled="historyState === 'loading'" @click="loadHistory()">Refresh history</button><div class="table-scroll"><table><caption class="small muted">SQLite-backed records for one fictional coursework profile. Interrupted duration is the last confirmed checkpoint.</caption><thead><tr><th scope="col">Session</th><th scope="col">Duration</th><th scope="col">Status</th></tr></thead><tbody><tr v-for="row in history" :key="row.id"><td>{{ new Date(row.started_at).toLocaleString() }}<small>{{ row.is_fixture ? 'Fictional fixture' : 'Breathing session · saved' }}</small></td><td>{{ Math.floor(row.active_duration_ms / 1000) }}s</td><td><span class="status-chip">{{ row.status }}</span></td></tr></tbody></table></div><button v-if="nextCursor !== null" class="secondary" :disabled="historyState === 'loading'" @click="loadHistory(true)">Load more</button><button class="secondary" @click="navigate('practice')">Back to practice</button></section></template>
+        <template v-else><div class="title-block"><h1 ref="heading" tabindex="-1">Your practice, recorded.</h1><p>Duration and status only. These records don’t measure wellbeing.</p></div><section class="history-card"><div class="panel-heading"><h2>Session history</h2><span class="pill">SAVED FICTIONAL RECORDS</span></div><p v-if="historyState === 'loading'" role="status">Loading saved history…</p><p v-if="historyState === 'failed'" role="alert">Could not load saved history. Previously displayed rows may be out of date.</p><p v-if="historyState === 'success' && !history.length">No saved sessions yet.</p><button class="secondary" :disabled="historyState === 'loading'" @click="loadHistory()">Refresh history</button><div class="table-scroll"><table><caption class="small muted">Saved records for the active fictional profile or guest. Interrupted duration is the last confirmed checkpoint.</caption><thead><tr><th scope="col">Session</th><th scope="col">Duration</th><th scope="col">Status</th></tr></thead><tbody><tr v-for="row in history" :key="row.id"><td>{{ new Date(row.started_at).toLocaleString() }}<small>{{ row.is_fixture ? 'Fictional fixture' : 'Breathing session · saved' }}</small></td><td>{{ Math.floor(row.active_duration_ms / 1000) }}s</td><td><span class="status-chip">{{ row.status }}</span></td></tr></tbody></table></div><button v-if="nextCursor !== null" class="secondary" :disabled="historyState === 'loading'" @click="loadHistory(true)">Load more</button><button class="secondary" @click="navigate('practice')">Back to practice</button></section></template>
       </main>
     </div>
   </div>

@@ -3,7 +3,7 @@ import sqlite3
 from ..repositories import conversations as records
 from ..providers import mock
 from ..rag.pipeline import run, RAGFailure
-from ..db import DEMO_USER_ID
+from ..identity import owner
 from ..crisis import matches
 
 async def generate(path, request_id, provider=mock, settings=None):
@@ -23,7 +23,7 @@ async def generate(path, request_id, provider=mock, settings=None):
             count_call=lambda stage: None  # Live adapter atomically reserves and counts before HTTP.
         try:
             reply,outcome,citations,source_ids=await run(
-                path,content,DEMO_USER_ID,conversation_id,before_sequence,mode,provider,
+                path,content,owner(),conversation_id,before_sequence,mode,provider,
                 count_call)
             records.retrieval_status(path,request_id,outcome,source_ids,citations)
         except RAGFailure as error:

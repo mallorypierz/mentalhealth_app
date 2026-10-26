@@ -1,6 +1,6 @@
 # AI-use disclosure — Assignment 3 Part 2
 
-Updated October 22,2026. This is an AI-assisted coursework prototype. The student selected the skill, flow, scope and interface revisions, approved implementation increments, and reviewed reported results. This disclosure does not claim the student personally ran the agent's tests or authored every generated line. Final submission review remains necessary.
+Updated October 26, 2026. Earlier sections describe the submitted Part 2 work; the later-milestone section below supersedes current-state statements for the feature branch. This is an AI-assisted coursework prototype. The student selected the skill, flow, scope and interface revisions, approved implementation increments, and reviewed reported results. This disclosure does not claim the student personally ran the agent's tests or authored every generated line. Final submission review remains necessary.
 
 ## Tools, models and roles
 
@@ -42,3 +42,9 @@ Another revised approach: independent CSS pacing could drift when motion was re-
 ## Disclosure and limits
 
 [Verification](docs/verification.md) separates newly observed, historical, mock and live evidence. [Evidence index](docs/evidence/README.md) contains selected prompts/decisions and screenshots rather than a full private chat export. Fictional record IDs are deliberate traceability data; keys, runtime database and environment are excluded from submission. No recordings, clinical evaluation, full accessibility assurance, completed personalization, Figma round trip or deployment is claimed. Preserve this disclosure with the submitted source; review the generated code explanation in [report](report.md).
+
+## Later milestone — profiles/calendar/library
+
+User approved the local chooser model, required display name with optional age/gender, guest refresh retention, explicit transfer/discard, pause-before-switch rules, completed-only calendar using device timezone and completion time, library placeholders and responsive web changes. The agent generated the migration, identity/API/repository code, Vue views and automated tests, then documented actual evidence and gaps. No real authentication, new therapeutic instructions, paid calls or physical-device verification were added. The user approved commit and push of this later milestone; this is not evidence that they personally executed every check.
+
+49 backend and 10 frontend tests passed. Browser observations include guest entry, completion/saved state within a conservative 72.082-second bound, and library navigation without auto-start. Remaining visual/failure coverage and Figma comparison are disclosed in the [later milestone report](docs/later-milestone-report.md). Existing Figma draft references could not be freshly checked because MCP returned its Starter-plan limit. The submitted report.md remains unchanged.

@@ -1,10 +1,12 @@
-# A little space — Assignment 3 Part 2
+# A little space — post-Part 2 profiles/calendar milestone
 
 A localhost coursework prototype for one skill: six cycles of four seconds in and six seconds out. A fictional student can start without typing, pause, stop, use a still cue, and review saved practice. Optional chat explains permitted saved history. This is not therapy, diagnosis, monitoring, or a service to rely on during distress. Tests use fictional scenarios only.
 
-**Current:** Vue → FastAPI → SQLite, persistent sessions/conversations, bounded two-call SQL RAG, and independent crisis-support information. Chat currently uses clearly labeled **mock replies**. A prior live OpenAI example is separately documented; configuration alone is not evidence of a successful call. See [Part 2 report](report.md), [verification](docs/verification.md), and [evidence](docs/evidence/README.md).
+**Current branch:** `codex/profiles-calendar` adds a local profile chooser, direct guest access, profile editing, an identity-scoped calendar of completed exercises, an exercise library and responsive web styles. Display name is required; age and gender are optional. Local profiles are not secure authentication. Guest activity survives refresh/navigation; explicit Exit guest or confirmed discard removes it, and explicit transfer can save it to a profile. Legacy records are preserved under their original owner. See the [later milestone report](docs/later-milestone-report.md).
 
-**Submission:** the student reviewed and approved commit/push. The source/evidence milestone `080ad6393a2ade204f6f2b417b422a5778a8ed4c` is pushed on `codex/part2`; the finalized report follows as a documentation-only update. Course-site upload remains the student’s action. Part 1 remains at [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission), report commit `e958bdcf11e69b5c4451f986742989acd01b497e`. Do not label that Part 1 hash as the Part 2 submission.
+**Core:** Vue → FastAPI → SQLite, persistent sessions/conversations, bounded two-call SQL RAG, and independent crisis-support information. Chat currently uses clearly labeled **mock replies**. A prior live OpenAI example is separately documented; configuration alone is not evidence of a successful call. See [Part 2 report](report.md), [verification](docs/verification.md), and [evidence](docs/evidence/README.md).
+
+**Submission:** the student reviewed and approved commit/push. The source/evidence milestone `080ad6393a2ade204f6f2b417b422a5778a8ed4c` is pushed on `codex/part2`; the finalized Part 2 report is pinned at `f133bf99804246fe4fa34f090db37b196abf69c8`. This branch is a separately approved later milestone, not a replacement submission. Course-site upload remains the student’s action. Part 1 remains at [part1-submission](https://github.com/mallorypierz/mentalhealth_app/tree/part1-submission), report commit `e958bdcf11e69b5c4451f986742989acd01b497e`. Do not label that Part 1 hash as the Part 2 submission.
 
 ## Run locally
 
@@ -34,11 +36,11 @@ Open http://127.0.0.1:5173/ consistently. Vite proxies `/api` to port 8000. Stop
 
 ## Configuration and data
 
-With no `backend/.env`, the backend defaults to mock. If an existing file selects another provider, inspect its nonsecret provider choice locally; do not overwrite it. `backend/.env.example` documents the settings. Configuration is explicitly loaded at startup; changes require backend restart. Keep keys only in ignored `backend/.env`, never in Vue, Git, logs or screenshots. Do not paste keys into chat.
+The profile-enabled runtime forces mock mode without modifying `backend/.env`. The legacy app factory defaults to mock with no settings. If an existing file selects another provider, inspect its nonsecret provider choice locally; do not overwrite it. `backend/.env.example` documents the settings. Configuration is explicitly loaded at startup; changes require backend restart. Keep keys only in ignored `backend/.env`, never in Vue, Git, logs or screenshots. Do not paste keys into chat.
 
 The current local file selects mock. The historical live configuration used OpenAI `gpt-5.4-mini-2026-03-17` with a six-attempt ceiling. All six attempts have been consumed; failed attempts and both RAG stages count. No budget increase or further live calls is authorized. A durable SQLite ledger enforces the cap. Do not reset the database to evade it.
 
-Practice runs without the API/model. Saves are asynchronous and honestly show pending/saved/failed states with retry. Five-second checkpoints support same-origin recovery to interrupted after refresh/closure; only confirmed saved duration is retained. Cleared browser storage, another browser, and legacy ownerless records cannot be automatically recovered. Display choice is temporary; preference persistence is unfinished.
+Once entered, the exercise timer runs without awaiting the API/model. Initial identity bootstrap and profile/guest selection require the backend; the chooser still exposes static support. Saves are asynchronous and honestly show pending/saved/failed states with retry. Five-second checkpoints support same-origin recovery to interrupted after refresh/closure; only confirmed saved duration is retained. Cleared browser storage, another browser, and legacy ownerless records cannot be automatically recovered. Display choice is temporary; preference persistence is unfinished.
 
 ## Files and responsibilities
 
@@ -46,6 +48,9 @@ Practice runs without the API/model. Saves are asynchronous and honestly show pe
 | --- | --- |
 | `frontend/src/App.vue`, `exercise.js` | Views, six-cycle pacing, controls, fullscreen and independent support |
 | `frontend/src/sessionPersistence.js`, `api.js` | Browser recovery journal and HTTP/JSON requests |
+| `frontend/src/ProfileGate.vue`, `identityAccess.js`, `components/ProfileView.vue` | Local chooser, identity state and approved profile fields |
+| `frontend/src/components/CalendarView.vue`, `ExerciseLibrary.vue` | Saved completion events and unavailable skill placeholders |
+| `backend/app/identity.py`, `api/identities.py`, `repositories/identities.py`, `calendar.py` | Identity validation, transactions, ownership and read-only calendar projection |
 | `frontend/src/components/ChatView.vue` | Optional chat, request states and saved conversation history |
 | `backend/app/main.py`, `api/`, `controllers/` | Validation, routes and generation coordination |
 | `backend/app/repositories/`, `db.py`, `migrations/` | Parameterized transactions, relationships and SQLite initialization |
@@ -64,8 +69,10 @@ npm --prefix frontend run build
 git diff --check
 ```
 
-Final preparation: 35 backend and 10 frontend tests passed; production build passed. Browser/API/SQLite verification includes a completed practice, stopped practice, mock history answer, exact replay without duplication, refresh and backend restart. Full details and historical failure/live evidence are in [verification](docs/verification.md).
+Later-milestone checks: 49 backend and 10 frontend tests passed; production build passed. A fresh browser guest run completed and showed saved within a conservative 72.082 seconds of guest entry, including setup and observation delays (entry/setup upper bound 3.770 seconds). Browser/API/SQLite verification includes a completed practice, stopped practice, mock history answer, exact replay without duplication, refresh and backend restart. Full details and historical failure/live evidence are in [verification](docs/verification.md).
 
 ## Remaining work
 
-Explicit remembered/forgotten preferences, editable Figma capture/selected-frame round trip, the proposed normal-view persistent support/Stop bar and navigation refinement remain unfinished. Fullscreen has a sticky support header; normal-view support can scroll out of the viewport. No clinical effectiveness, comprehensive accessibility audit, physical-mobile fullscreen verification, full Part 3 evaluation, clean-checkout reproduction or screencast is claimed. No questionnaires, click-based emotional inference, extra skills, datasets, deployment or multi-user authentication were added.
+Full fresh phone/landscape/zoom/keyboard/failure checks, final Figma editability and viewport comparison, explicit preference remembering/forgetting, and clean-checkout reproduction remain unfinished. The normal-view support/active Stop header is now sticky in source; comprehensive failure-state reachability is not verified. Navigation wraps in document flow rather than matching the selected draft's bottom bar.
+
+Paced breathing (4–6) is the only usable skill. 5-4-3-2-1 sensory grounding, STOP and One-minute cognitive reframe are noninteractive Coming later placeholders. No clinical effectiveness, complete accessibility audit, physical-device validation, native app, PWA, real authentication, deployment or full Part 3 evaluation is claimed.

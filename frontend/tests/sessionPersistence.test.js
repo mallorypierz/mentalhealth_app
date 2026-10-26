@@ -55,7 +55,7 @@ test('lost commit response reuses exact operation instead of duplicating', async
 test('abandoned session uses only the database checkpoint and skips a live owner', async () => {
   const f = setup();
   const id = 'session-recovery';
-  const key = 'coursework-session-outbox:' + id;
+  const key = 'coursework-session-outbox:legacy:' + id;
   f.records.set(id, {id, status:'in_progress', active_duration_ms:5000, paused_duration_ms:0, revision:2});
   const data = {create:{session_id:id, owner_token:'owner'}, saved:null,
     pending:{operation_id:'unsent-checkpoint', status:'in_progress', active_duration_ms:9000},

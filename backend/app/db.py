@@ -13,7 +13,7 @@ def connect(path: Path):
     return db
 
 
-def initialize(path: Path):
+def initialize(path: Path, enable_profiles=False):
     path.parent.mkdir(parents=True, exist_ok=True)
     db = connect(path)
     try:
@@ -37,5 +37,27 @@ def initialize(path: Path):
         with db:
             db.execute('INSERT OR IGNORE INTO demo_users(id, display_name) VALUES (?, ?)',
                        (DEMO_USER_ID, 'Fictional coursework student'))
+        if enable_profiles:
+            migrate_identities(db)
     finally:
         db.close()
+
+
+def migrate_identities(db):
+    # Unlike executescript, execute preserves the enclosing transaction. Serialize
+    # the version check and all DDL so a partial migration can be rolled back.
+    with db:
+        db.execute('BEGIN IMMEDIATE')
+        db.execute('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY)')
+        if db.execute('SELECT 1 FROM schema_migrations WHERE version=4').fetchone():
+            return
+        source = (Path(__file__).parent / 'migrations' / '004_identities.sql').read_text()
+        statement = ''
+        for line in source.splitlines(keepends=True):
+            statement += line
+            if sqlite3.complete_statement(statement):
+                db.execute(statement)
+                statement = ''
+        if statement.strip():
+            raise ValueError('Incomplete identity migration.')
+        db.execute('INSERT INTO schema_migrations(version) VALUES (4)')

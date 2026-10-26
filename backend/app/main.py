@@ -8,11 +8,15 @@ from .repositories import conversations
 from fastapi import FastAPI, Request, Response, Query
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from .db import DATABASE_PATH, initialize
+from .db import DATABASE_PATH, initialize, connect
 from .config import Settings, load
 from .repositories import provider_usage
 from .schemas import SessionCreate, SessionResult, SessionUpdate, SessionList
 from .repositories import sessions
+from .identity import IdentityError, resolve, active_context
+from .api.identities import router as identity_router
+from .calendar import router as calendar_router
+from dataclasses import replace
 
 
 def error(status, code, message, retryable=False, persistence='not_saved'):
@@ -22,12 +26,14 @@ def error(status, code, message, retryable=False, persistence='not_saved'):
     })
 
 
-def create_app(database_path: Path = DATABASE_PATH, settings=None):
+def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profiles=False):
     settings = settings or Settings()
+    if enable_profiles:
+        settings = replace(settings, provider='mock', api_key='', error=None)
     tasks = set()
     @asynccontextmanager
     async def lifespan(app):
-        initialize(database_path)
+        initialize(database_path, enable_profiles=enable_profiles)
         conversations.recover_pending(database_path)
         yield
         for task in list(tasks):
@@ -38,6 +44,43 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None):
     app = FastAPI(title='Coursework session API', lifespan=lifespan)
 
     app.include_router(conversation_router(database_path, tasks, settings))
+    if enable_profiles:
+        app.include_router(identity_router(database_path))
+        app.include_router(calendar_router(database_path))
+
+        @app.middleware('http')
+        async def identity_scope(request, call_next):
+            path = request.url.path
+            protected = path == '/api/calendar' or any(path == prefix or path.startswith(prefix+'/')
+                for prefix in ('/api/sessions', '/api/conversations', '/api/requests'))
+            token = None
+            try:
+                if protected:
+                    db = connect(database_path)
+                    try:
+                        identity = resolve(db, request.headers.get('authorization'))
+                    finally:
+                        db.close()
+                    if not identity.owner_id or identity.kind not in ('profile', 'guest'):
+                        raise IdentityError(401, 'identity_required', 'Continue as guest or choose a profile.')
+                    if request.headers.get('x-context-version') != str(identity.version):
+                        raise IdentityError(409, 'stale_context', 'Profile context changed. Reload before continuing.')
+                    token = active_context.set(identity)
+                response = await call_next(request)
+                if path.startswith('/api/'):
+                    response.headers['Cache-Control'] = 'no-store'
+                return response
+            except IdentityError as exc:
+                return error(exc.status, exc.code, exc.message)
+            except sqlite3.Error:
+                return error(503, 'database_unavailable', 'The database operation could not be completed.', True, 'unknown')
+            finally:
+                if token is not None:
+                    active_context.reset(token)
+
+    @app.exception_handler(IdentityError)
+    async def identity_error(request: Request, exc):
+        return error(exc.status, exc.code, exc.message)
 
     @app.get('/api/health')
     def health():
@@ -98,4 +141,4 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None):
     return app
 
 
-app = create_app(settings=load())
+app = create_app(settings=load(), enable_profiles=True)

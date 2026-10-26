@@ -1,3 +1,4 @@
+import { ownerKey } from './identityAccess.js';
 import { api } from './api.js';
 const PREFIX = 'coursework-session-outbox:';
 const uuid = () => crypto.randomUUID();
@@ -5,9 +6,9 @@ const uuid = () => crypto.randomUUID();
 // This browser journal stores pending operations, not the displayed history.
 // SQLite remains authoritative. Per-session Web Locks protect live tabs.
 export class SessionPersistence {
-  constructor(notify) { this.notify = notify; this.jobs = new Map(); }
+  constructor(notify) { this.prefix = PREFIX + ownerKey() + ':'; this.notify = notify; this.jobs = new Map(); }
   persist(job) {
-    try { localStorage.setItem(PREFIX + job.id, JSON.stringify(job.data)); }
+    try { localStorage.setItem(this.prefix + job.id, JSON.stringify(job.data)); }
     catch { job.journalFailed = true; }
   }
   report(job, state, message) {
@@ -19,7 +20,7 @@ export class SessionPersistence {
     this.jobs.set(id, job);
     this.persist(job);
     if (navigator.locks) {
-      await new Promise(resolve => navigator.locks.request(PREFIX + id, async () => {
+      await new Promise(resolve => navigator.locks.request(this.prefix + id, async () => {
         resolve(); await new Promise(release => { job.release = release; });
       }));
     } else { job.journalFailed = true; }
@@ -58,24 +59,29 @@ export class SessionPersistence {
       }
       this.report(job, 'saved', job.data.saved.status === 'in_progress' ? 'Latest checkpoint saved.' : 'Session saved.');
       if (job.data.saved.status !== 'in_progress') {
-        localStorage.removeItem(PREFIX + job.id); job.release?.();
+        localStorage.removeItem(this.prefix + job.id); job.release?.();
       }
     } catch (error) {
       this.report(job, error.persistence === 'unknown' ? 'unknown' : 'failed',
         error.persistence === 'unknown' ? 'Save not confirmed. Retry to check and save safely.' : `Save failed. ${error.message}`);
     } finally { job.busy = false; }
   }
+  async settle() {
+    const deadline = Date.now() + 6000;
+    while ([...this.jobs.values()].some(job => job.busy) && Date.now() < deadline) await new Promise(resolve => setTimeout(resolve, 50));
+    if ([...this.jobs.values()].some(job => job.busy || ['failed', 'unknown'].includes(job.state))) throw new Error('Retry the session save before switching.');
+  }
   retry(id) { const job = this.jobs.get(id); if (job?.recovering) this.recover(); else if (job) this.flush(job); }
   async recover() {
     if (!navigator.locks) return;
-    const keys = Object.keys(localStorage).filter(key => key.startsWith(PREFIX));
+    const keys = Object.keys(localStorage).filter(key => key.startsWith(this.prefix));
     await Promise.all(keys.map(key => navigator.locks.request(key, { ifAvailable: true }, async lock => {
       if (!lock) return; // A live tab owns this practice, including its failed saves.
       const raw = localStorage.getItem(key);
       if (!raw) return;
       let data;
       try { data = JSON.parse(raw); } catch { return; }
-      const job = { id: key.slice(PREFIX.length), data, busy: false, recovering: true };
+      const job = { id: key.slice(this.prefix.length), data, busy: false, recovering: true };
       this.jobs.set(job.id, job);
       try {
         let saved;

@@ -3,7 +3,8 @@ import json
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from uuid import uuid4
-from ..db import connect, DEMO_USER_ID
+from ..db import connect
+from ..identity import owner, validate_context
 
 class NotFound(Exception):
     pass
@@ -18,6 +19,7 @@ def connection(path, write=False):
         with db:
             if write:
                 db.execute('BEGIN IMMEDIATE')
+            validate_context(db)
             yield db
     finally:
         db.close()
@@ -30,14 +32,14 @@ def fingerprint(value):
 
 def owned(db, conversation_id):
     row = db.execute('SELECT id,created_at,updated_at FROM conversations WHERE id=? AND demo_user_id=?',
-                     (str(conversation_id), DEMO_USER_ID)).fetchone()
+                     (str(conversation_id), owner())).fetchone()
     if row is None:
         raise NotFound('Conversation not found.')
     return dict(row)
 
 def request_row(db, request_id):
     row = db.execute('''SELECT r.* FROM requests r JOIN conversations c ON c.id=r.conversation_id
-                      WHERE r.id=? AND c.demo_user_id=?''', (str(request_id), DEMO_USER_ID)).fetchone()
+                      WHERE r.id=? AND c.demo_user_id=?''', (str(request_id), owner())).fetchone()
     if row is None:
         raise NotFound('Request not found.')
     return row
@@ -57,11 +59,11 @@ def operation(db, operation_id, kind, target, value):
     digest = fingerprint(value)
     old = db.execute('SELECT * FROM conversation_operations WHERE id=?', (str(operation_id),)).fetchone()
     if old:
-        if (old['demo_user_id'],old['operation_type'],old['target_id'],old['input_hash']) != (DEMO_USER_ID,kind,str(target),digest):
+        if (old['demo_user_id'],old['operation_type'],old['target_id'],old['input_hash']) != (owner(),kind,str(target),digest):
             raise Conflict('Operation ID was reused with different input.')
         return False
     db.execute('INSERT INTO conversation_operations VALUES (?,?,?,?,?)',
-               (str(operation_id),DEMO_USER_ID,kind,str(target),digest))
+               (str(operation_id),owner(),kind,str(target),digest))
     return True
 
 def create(path, body):
@@ -71,13 +73,13 @@ def create(path, body):
             if db.execute('SELECT 1 FROM conversations WHERE id=?',(str(body.conversation_id),)).fetchone():
                 raise Conflict('Conversation ID already exists; use the original operation ID.')
             stamp=now()
-            db.execute('INSERT INTO conversations VALUES (?,?,?,?)',(str(body.conversation_id),DEMO_USER_ID,stamp,stamp))
+            db.execute('INSERT INTO conversations VALUES (?,?,?,?)',(str(body.conversation_id),owner(),stamp,stamp))
         return owned(db,body.conversation_id),fresh
 
 def list_conversations(path,cursor,limit):
     with connection(path) as db:
         rows=db.execute('SELECT id,created_at,updated_at FROM conversations WHERE demo_user_id=? ORDER BY created_at DESC,id DESC LIMIT ? OFFSET ?',
-                        (DEMO_USER_ID,limit+1,cursor)).fetchall()
+                        (owner(),limit+1,cursor)).fetchall()
         return {'conversations':[dict(r) for r in rows[:limit]], 'next_cursor':cursor+limit if len(rows)>limit else None}
 
 def list_messages(path,conversation_id,cursor,limit):
