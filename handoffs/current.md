@@ -21,3 +21,9 @@ The runtime database and pre-migration backup are ignored. Original legacy rows 
 ## Next work
 
 Review docs/later-milestone-report.md and finish remaining browser/design checks. Propose smallest fixes for approval before editing source. This is a later milestone, not a replacement Part 2 submission. Publication results are recorded below after Git verification.
+
+## Publication verification — October 26, 2026
+
+User explicitly approved commit/push and documentation updates. Source/tests/documentation commit [e593a522b7a1b0718e1a19987ac133e66cfbc36b](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b) was pushed to codex/profiles-calendar; git ls-remote returned the identical hash. Remote codex/part2 remained f133bf99804246fe4fa34f090db37b196abf69c8 and part1-submission remained e958bdcf11e69b5c4451f986742989acd01b497e. Submitted report.md was unchanged.
+
+Immediately before publication: backend unittest49 passed, frontend tests10 passed, production build passed, diff whitespace checks clean. Existing Starlette/httpx deprecation warning remains. Credentials, runtime SQLite and backups were excluded. Initial staging approval review could not run due to a usage limit; after the user's renewed request, the same approval process succeeded. This did not require bypassing controls. No merge, deployment, live-model call or course upload occurred. This documentation-only follow-up records the verified source commit; remaining verification limitations are unchanged.

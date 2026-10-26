@@ -1,10 +1,10 @@
 # Later milestone: profiles, calendar and exercise library
 
-Status: implemented expansion with incomplete browser verification; work on `codex/profiles-calendar`, approved for commit and push by the user. This is separate from the submitted Assignment3 Part2 milestone.
+Status: implemented expansion with incomplete browser verification; committed and pushed on `codex/profiles-calendar` with user approval. This is separate from the submitted Assignment3 Part2 milestone.
 
 Repository: https://github.com/mallorypierz/mentalhealth_app
 
-The submitted Part2 report commit f133bf99804246fe4fa34f090db37b196abf69c8 and source/evidence commit080ad6393a2ade204f6f2b417b422a5778a8ed4c remain unchanged. Part1 remains at e958bdcf11e69b5c4451f986742989acd01b497e. This report has no new submitted commit and is not a claim of course-site submission.
+The submitted Part2 report commit f133bf99804246fe4fa34f090db37b196abf69c8 and source/evidence commit080ad6393a2ade204f6f2b417b422a5778a8ed4c remain unchanged. Part1 remains at e958bdcf11e69b5c4451f986742989acd01b497e. Later-milestone source/tests/documentation commit: [e593a522b7a1b0718e1a19987ac133e66cfbc36b](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b). Remote branch verification matched this hash. This documentation-only follow-up records publication; no course-site submission is claimed.
 
 Implemented: local profile chooser with required display name and optional age/gender, direct guest entry, identity-scoped saved activity, explicit guest transfer/discard, profile editing/deletion, completed-session calendar, exercise-library navigation, and responsive web styles. Local profile selection is not secure authentication. Guest refresh/navigation retention does not guarantee deletion on tab close. Legacy activity remains under its original owner.
 

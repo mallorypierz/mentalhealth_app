@@ -2,6 +2,8 @@
 
 A localhost coursework prototype for one skill: six cycles of four seconds in and six seconds out. A fictional student can start without typing, pause, stop, use a still cue, and review saved practice. Optional chat explains permitted saved history. This is not therapy, diagnosis, monitoring, or a service to rely on during distress. Tests use fictional scenarios only.
 
+**Published later milestone:** [source/tests commit `e593a52`](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b) was pushed to `codex/profiles-calendar`; the remote hash was verified.
+
 **Current branch:** `codex/profiles-calendar` adds a local profile chooser, direct guest access, profile editing, an identity-scoped calendar of completed exercises, an exercise library and responsive web styles. Display name is required; age and gender are optional. Local profiles are not secure authentication. Guest activity survives refresh/navigation; explicit Exit guest or confirmed discard removes it, and explicit transfer can save it to a profile. Legacy records are preserved under their original owner. See the [later milestone report](docs/later-milestone-report.md).
 
 **Core:** Vue → FastAPI → SQLite, persistent sessions/conversations, bounded two-call SQL RAG, and independent crisis-support information. Chat currently uses clearly labeled **mock replies**. A prior live OpenAI example is separately documented; configuration alone is not evidence of a successful call. See [Part 2 report](report.md), [verification](docs/verification.md), and [evidence](docs/evidence/README.md).
