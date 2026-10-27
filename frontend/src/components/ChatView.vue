@@ -239,6 +239,7 @@ async function retrySpeech() {
 }
 async function endVoice() { stopSpeaking(); await microphone.stop(); return voice.stop(); }
 async function startMockVoice() {
+  try { configuration.value=await api('/health'); } catch { voice.publish({phase:'failed',error:'Could not check the testing session. Try again or type instead.'}); return; }
   if (props.suspended || pending.value || matchingDraft.value || voiceState.value.support || liveVoice.value && voice.session) return;
   stopSpeaking();
   if (!selected.value) await newConversation();

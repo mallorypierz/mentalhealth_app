@@ -93,9 +93,13 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
     @app.get('/api/health')
     def health():
         used = provider_usage.used(database_path)
-        return {'provider': settings.provider, 'model': settings.model if settings.provider == 'openai' else None,
+        from .repositories.voice_budget import effective_settings, status
+        current=effective_settings(database_path,settings) if enable_profiles else settings
+        test_status=status(database_path,settings) if enable_profiles else None
+        return {'provider': current.provider, 'model': current.model if current.provider == 'openai' else None,
+                'testing_session':test_status,
                 'configured': not settings.error and (settings.provider == 'mock' or bool(settings.api_key)),
-                'voice_enabled': bool(enable_profiles and settings.provider=='openai'),
+                'voice_enabled': bool(enable_profiles and current.provider=='openai'),
                 'live_calls_used': used, 'live_call_limit': settings.call_limit,
                 'live_calls_remaining': max(0, settings.call_limit-used)}
 

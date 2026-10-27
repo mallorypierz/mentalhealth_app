@@ -14,12 +14,19 @@ from ..db import connect
 from ..providers.voice import speak
 from ..providers.live_voice import VoiceFailure
 from ..crisis import review_response, NOTICE
+from ..repositories.voice_budget import effective_settings
+from ..config import Settings
 
 
 def router(path, tasks, settings=None):
     api=APIRouter(prefix='/api/voice')
     provider=MockVoice(path,settings)
-    mode="openai" if provider.live else "mock"
+    live_provider=provider
+    mock_provider=MockVoice(path,Settings())
+    def current_provider():
+        return provider if not provider.live or (settings and effective_settings(path,settings).provider=="openai") else mock_provider
+    def current_mode():
+        return "openai" if current_provider().live else "mock"
 
     @api.get('/conversations/{ident}/latest-turn')
     def latest_turn(ident:UUID):
@@ -33,22 +40,26 @@ def router(path, tasks, settings=None):
     def create(body:VoiceSessionCreate,response:Response):
         result,fresh=voice.create(path,body)
         response.status_code=201 if fresh else 200
-        return result | {'provider':mode,'persistence':'saved','replayed':not fresh}
+        return result | {'provider':current_mode(),'persistence':'saved','replayed':not fresh}
 
     @api.get('/sessions/{ident}')
     def get(ident:UUID):
         result=voice.get(path,ident)
-        for turn in result['turns']: turn['provider']=mode
-        return result | {'provider':mode}
+        for turn in result['turns']: turn['provider']=(turn.get('request') or {}).get('provider',current_mode())
+        return result | {'provider':current_mode()}
 
     @api.post('/sessions/{ident}/stop')
     def stop(ident:UUID,body:VoiceStop):
         result=voice.stop(path,ident,body)
         provider.clear(ident)
+        mock_provider.clear(ident)
         return result | {'persistence':'saved'}
 
     @api.post('/turns/{ident}/actions')
     async def action(ident:UUID,body:VoiceAction):
+        with chat.connection(path) as db:
+            stored=voice.turn_in(db,ident)
+        provider=live_provider if (stored.get('request') or {}).get('provider')=='openai' or not live_provider.live else mock_provider
         provider.prune()
         retained=provider.pending_replies.get(str(ident))
         with chat.connection(path) as db:
@@ -93,13 +104,15 @@ def router(path, tasks, settings=None):
         if review_response(turn['request']['assistant_content']):
             return JSONResponse(status_code=422,content={'error':{'code':'response_unavailable','message':'This saved reply is unavailable for playback.','retryable':False},'persistence':'saved'})
         provider.prune()
-        cached=provider.audio.get(str(ident))
+        cached=provider.audio.get(str(ident)) or mock_provider.audio.get(str(ident))
         if cached is None:
             return JSONResponse(status_code=410,content={'error':{'code':'audio_expired','message':'Audio expired. Text remains saved.','retryable':True},'persistence':'saved'})
         return Response(cached[2],media_type='audio/wav',headers={'Cache-Control':'no-store'})
 
     @api.websocket('/stream')
     async def stream(ws:WebSocket):
+        provider=current_provider()
+        mode="openai" if provider.live else "mock"
         origin=ws.headers.get('origin')
         if origin not in ('http://127.0.0.1:5173','http://localhost:5173'):
             await ws.close(code=1008); return

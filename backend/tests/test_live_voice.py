@@ -28,7 +28,8 @@ def wav():
 class AdapterTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.path=Path(self.tmp.name)/'test.sqlite3';initialize(self.path,True)
-        self.settings=Settings(provider='openai',api_key='test-only',voice_enabled=True,voice_prices_verified=True)
+        self.settings=Settings(provider='openai',api_key='test-only',voice_enabled=True,voice_prices_verified=True,voice_call_limit=20,voice_budget_microdollars=1000000,voice_test_session_id='11111111-1111-4111-8111-111111111111')
+        voice_budget.create_test_session(self.path,self.settings.voice_test_session_id,'Mock test',50,2500000)
     def tearDown(self): self.tmp.cleanup()
     def test_disabled_never_calls_transport(self):
         provider=AudioProvider(self.path,Settings(),httpx.MockTransport(lambda r: self.fail('Network must not run')))
@@ -66,14 +67,14 @@ class AdapterTests(unittest.TestCase):
     def test_approved_extension_keeps_previous_usage(self):
         previous=replace(self.settings,voice_call_limit=25,voice_budget_microdollars=1250000)
         for i in range(25): voice_budget.reserve(self.path,str(i),'speech',previous)
-        extended=replace(self.settings,voice_call_limit=65,voice_budget_microdollars=3250000)
-        for i in range(25,65): voice_budget.reserve(self.path,str(i),'speech',extended)
+        extended=replace(self.settings,voice_call_limit=50,voice_budget_microdollars=2500000)
+        for i in range(25,50): voice_budget.reserve(self.path,str(i),'speech',extended)
         with self.assertRaisesRegex(LimitError,'budget_exhausted'):
             voice_budget.reserve(self.path,'extra','speech',extended)
         with connect(self.path) as db:
-            self.assertEqual(tuple(db.execute('SELECT COUNT(*),SUM(reserved_microdollars) FROM voice_provider_attempts').fetchone()),(65,3250000))
+            self.assertEqual(tuple(db.execute('SELECT COUNT(*),SUM(reserved_microdollars) FROM voice_provider_attempts').fetchone()),(50,2500000))
         with self.assertRaises(ValueError):
-            replace(extended,voice_call_limit=66).require_voice()
+            replace(extended,voice_call_limit=51).require_voice()
 
     def test_malformed_audio_and_response(self):
         for value in [b'not audio',wav()[:-2]]:
@@ -92,7 +93,8 @@ class LiveRoundTrip(base.VoiceTests):
     def setUp(self):
         super().setUp()
         self.client.__exit__(None,None,None)
-        self.settings=Settings(provider='openai',api_key='test-only',voice_enabled=True,voice_prices_verified=True)
+        self.settings=Settings(provider='openai',api_key='test-only',voice_enabled=True,voice_prices_verified=True,voice_call_limit=20,voice_budget_microdollars=1000000,voice_test_session_id='11111111-1111-4111-8111-111111111111')
+        voice_budget.create_test_session(self.path,self.settings.voice_test_session_id,'Mock test',50,2500000)
         self.client=TestClient(create_app(self.path,settings=self.settings,enable_profiles=True));self.client.__enter__()
         self.body={'session_id':uid(),'conversation_id':self.conv,'operation_id':uid()}
         self.session=self.client.post('/api/voice/sessions',headers=self.headers,json=self.body).json()

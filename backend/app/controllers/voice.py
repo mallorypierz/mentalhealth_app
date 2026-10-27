@@ -16,7 +16,7 @@ class MockVoice:
     def __init__(self, path, settings=None):
         self.path=path
         self.settings=settings
-        self.live=bool(settings and settings.voice_enabled and settings.voice_prices_verified and settings.api_key and not settings.error)
+        self.live=bool(settings and settings.voice_enabled and settings.voice_prices_verified and settings.api_key and settings.voice_test_session_id and not settings.error)
         self.speech_provider=AudioProvider(path,settings) if self.live else None
         self.audio={}
         self.pending_replies={}

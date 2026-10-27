@@ -6,12 +6,16 @@ from ..crisis import matches, NOTICE
 from ..chat_schemas import ConversationCreate, Conversation, ConversationPage, MessageSubmit, MessagePage, RequestStatus, RetryRequest
 from ..repositories import conversations as records
 from ..controllers.conversations import generate
+from ..repositories.voice_budget import effective_settings
 
 
 def router(path,tasks,settings):
     api=APIRouter(prefix='/api')
-    def schedule(request_id):
-        task=asyncio.create_task(generate(path,request_id,settings=settings))
+    def current_settings():
+        return effective_settings(path,settings) if settings.voice_enabled else settings
+
+    def schedule(request_id, current):
+        task=asyncio.create_task(generate(path,request_id,settings=current))
         tasks.add(task)
         task.add_done_callback(tasks.discard)
 
@@ -35,9 +39,10 @@ def router(path,tasks,settings):
             return JSONResponse(status_code=422, content={
                 'error': {'code': 'support_notice', 'message': NOTICE, 'retryable': False},
                 'persistence': 'not_saved'})
-        result,fresh=records.submit(path,conversation_id,body,settings.provider,settings.model if settings.provider == 'openai' else None)
+        current=current_settings()
+        result,fresh=records.submit(path,conversation_id,body,current.provider,current.model if current.provider == 'openai' else None)
         if fresh:
-            schedule(body.request_id)
+            schedule(body.request_id,current)
         return result
 
     @api.get('/requests/{request_id}',response_model=RequestStatus)
@@ -46,9 +51,10 @@ def router(path,tasks,settings):
 
     @api.post('/requests/{request_id}/retry',response_model=RequestStatus,status_code=202)
     async def retry(request_id:UUID,body:RetryRequest):
-        result,fresh=records.retry(path,request_id,body,settings.provider,settings.model if settings.provider == 'openai' else None)
+        current=current_settings()
+        result,fresh=records.retry(path,request_id,body,current.provider,current.model if current.provider == 'openai' else None)
         if fresh:
-            schedule(request_id)
+            schedule(request_id,current)
         return result
 
     return api

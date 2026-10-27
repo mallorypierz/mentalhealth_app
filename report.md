@@ -76,7 +76,9 @@ Generated code example: [reader.py](https://github.com/mallorypierz/mentalhealth
 
 Unfinished: saved still-cue preferences; fully verified editable Figma round trip and viewport comparison; comprehensive phone/landscape/zoom/keyboard/accessibility and failure-state coverage; clean-checkout reproduction; broader live quality testing and final recordings. [Assignment-3 Figma file](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3) is a historical reference, not newly verified evidence. Prior MCP quota prevented current node verification. No missing result is treated as passed.
 
-Current local cumulative allowance is65 attempts/$3.25 reservations, following separate approvals; failed attempts count and the ledger is not reset. This is not actual billed cost. The assignment says peer tests use mocks by default and, if live, no more than50 model calls per session. The cumulative demo allowance does not enforce that per-session rule; do not represent it as compliant peer-test infrastructure or run live peer testing under that allowance. Use mocks for peer testing pending a separately approved session-cap change. The retained speech model was previously documented as deprecated; longer-term model migration remains a separate decision.
+October27 compliance follow-up: live testing now uses explicit host-created sessions capped at50 calls/$2.50 reservations each. All49 prior voice attempts remain historical/unassigned and are not charged to a new session counter. Refresh/restart/profile changes never reset the selected session. New sessions and live activation require explicit host approval. The template and peer-test default remain mocked. After offline verification, the student separately approved a24-call/$1.20 live demo session; activation used0 paid calls. Historical65-call authorization is superseded. Subsequent live sessions still require explicit approval. Speech model migration remains a separate decision.
+
+The approved [manual Figma fallback](docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. These are simplified source-informed references, not exact captures or editable Figma components; the MCP quota still blocks direct updates. The student has explicitly approved publication of this follow-up; its final source hash and hosted links are being finalized. Prior reportf93bc0d remains preserved.
 
 - [x] Student explicitly verified chatbot completion and approved documentation inclusion.
 - [x] Current implementation, optional features and remaining limitations documented.
@@ -87,5 +89,7 @@ Current local cumulative allowance is65 attempts/$3.25 reservations, following s
 - [x] Student separately approved pushing all updated changes.
 - [x] Verified exact source/evidence hash on remote after push.
 - [x] Replaced local evidence links with verified commit-specific hosted links. Finalized report is published as a documentation follow-up.
-- [ ] Resolve/disclose Figma workflow gap; use mocked peer testing or approve a compliant session-cap change.
+- [x] Use mocked peer testing and enforce an explicit50-call maximum per approved testing session.
+- [x] Prepare approved static Figma fallback; disclose that editable workflow remains incomplete.
+- [ ] Commit/push this follow-up and pin its new fallback evidence link before uploading this report version.
 - [ ] Student uploads the finalized report.md. No course upload, merge or deployment has been performed.

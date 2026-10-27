@@ -201,3 +201,9 @@ October27 budget extension: user explicitly approved40 further attempts. Absolut
 
 
 October27 publication follow-up: user explicitly approved committing/pushing all completed changes and updating the existing Assignment-3 Figma file. Figma create_session succeeded, but get_metadata returned the Starter-plan MCP tool-call limit. No design read/edit or frame verification succeeded; no Figma changes were made. This remains an external-access blocker, not completed design work.
+
+
+Approved October27 follow-up: Figma fallback is docs/figma-fallback/README.md with14 static PNG/SVG reference boards and flow notes; no editable Figma verification. Live hard ceiling is now50 attempts/$2.50 cumulative reservations, stricter than a session cap with no automatic resets. Existing49 voice attempts preserved; ignored .env VOICE_ENABLED=false, other settings/key preserved. Peer demo now mock. No live reactivation authorized.
+
+
+Approved testing-session increment: migration007 creates live_test_sessions (UUID,label,call limit1–50,reservation cap,state,created time) and nullable voice_provider_attempts.test_session_id. Old rows remain NULL; no guess of who initiated them. Host-only CLI creates/closes sessions; no web budget-creation endpoint. Settings selects an explicit VOICE_TEST_SESSION_ID; flags/key alone no longer enable live. Atomic reservations count only selected-session rows, checking both settings and immutable recorded caps. One active session, idempotent same-ID create, explicit close before next. Health/new requests choose mock if unavailable/exhausted; new voice handshake is labeled accordingly. Mid-turn budget failure stays honest, with no automatic retry or fabricated reply. Transient audio remains cached by controller; stopped/old replies are not repurchased automatically.

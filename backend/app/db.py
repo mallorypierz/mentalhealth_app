@@ -41,6 +41,7 @@ def initialize(path: Path, enable_profiles=False):
             migrate_identities(db)
             migrate_voice(db)
             migrate_voice_budget(db)
+            migrate_live_test_sessions(db)
     finally:
         db.close()
 
@@ -87,3 +88,17 @@ def migrate_voice_budget(db):
         if db.execute('SELECT 1 FROM schema_migrations WHERE version=6').fetchone(): return
         db.execute((Path(__file__).parent / 'migrations' / '006_voice_budget.sql').read_text())
         db.execute('INSERT INTO schema_migrations(version) VALUES (6)')
+
+
+def migrate_live_test_sessions(db):
+    with db:
+        db.execute('BEGIN IMMEDIATE')
+        if db.execute('SELECT 1 FROM schema_migrations WHERE version=7').fetchone(): return
+        source=(Path(__file__).parent / 'migrations' / '007_live_test_sessions.sql').read_text()
+        statement=''
+        for line in source.splitlines(keepends=True):
+            statement+=line
+            if sqlite3.complete_statement(statement):
+                db.execute(statement); statement=''
+        if statement.strip(): raise ValueError('Incomplete testing-session migration')
+        db.execute('INSERT INTO schema_migrations(version) VALUES (7)')

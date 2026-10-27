@@ -16,3 +16,14 @@ No application source, runtime configuration, Figma or Git state changed during 
 ## Publication result — October27
 
 User explicitly approved commit/push of all completed changes. Source/evidence commit1b7b834978c78051655bb25e273ff58101e3e4a7 was pushed to codex/profiles-calendar and git ls-remote matched exactly. Original codex/part2f133bf99 and part1-submissione958bdcf remote hashes remained unchanged. All9 report-linked files were verified publicly readable at the new source commit using certificate-verified system curl (Python’s separate local certificate store failed). Report links now pin that source snapshot. Earlier pending/uncommitted wording is historical and superseded here. This documentation follow-up finalizes publication evidence. No merge, deployment or course upload. Figma metadata was blocked by Starter-plan MCP quota; no Figma edit occurred.
+
+
+Latest follow-up supersedes65-call configuration: hard/default cap50 and2500000 microdollars; .env live voice flag disabled, backend session81914 PID82391 using normal uvicorn startup in mock mode.49 historical voice attempts retained, no reset. Static Figma pack in docs/figma-fallback (14 PNGs plus SVG sources and notes) needs manual import; no native editable-frame claim. Changes are not yet committed/pushed under a new approval; report relative fallback link must be pinned after publication.
+
+
+New approved increment supersedes cumulative cap: explicit host-created testing sessions, each max50, with immutable prior unassigned ledger. Live requires VOICE_TEST_SESSION_ID as well as flags/key; no session auto-created. Default runtime remains mock. No new paid allowance activated. Tests/migration verification below; changes still await separate commit/push approval.
+
+Testing-session increment verified:77 backend/26 frontend/build passed. Backend session71807 PID83039; mock mode and no selected/new testing session. Migration007 preserved all49 historical rows against backup. User review and separate live session/budget approval remain next; do not create/activate a paid session automatically.
+
+
+October27 approved live activation: student explicitly approved24 new calls/$1.20 local reservations for3–5 spoken exchanges plus retry margin. Created testing session4078a5d0-8b28-4dc4-8aac-324d5dc16cc9 with immutable24/1200000 caps, selected it in ignored backend/.env and enabled voice. Other settings/key preserved.49 historical attempts remain unassigned and do not count toward this session. Backend restarted in session54339 PID83363. No paid verification call made; this is configuration/ledger evidence, not a new successful model reply. Actual provider charges may differ from reservations. Earlier mock-only current-runtime notes are superseded for this explicitly approved session; peer testing should still use mocks by default.

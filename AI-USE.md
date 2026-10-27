@@ -82,3 +82,9 @@ Agent extended browser microphone capture and provider adapters under explicit a
 ## Publication result — October27
 
 User explicitly approved commit/push of all completed changes. Source/evidence commit1b7b834978c78051655bb25e273ff58101e3e4a7 was pushed to codex/profiles-calendar and git ls-remote matched exactly. Original codex/part2f133bf99 and part1-submissione958bdcf remote hashes remained unchanged. All9 report-linked files were verified publicly readable at the new source commit using certificate-verified system curl (Python’s separate local certificate store failed). Report links now pin that source snapshot. Earlier pending/uncommitted wording is historical and superseded here. This documentation follow-up finalizes publication evidence. No merge, deployment or course upload. Figma metadata was blocked by Starter-plan MCP quota; no Figma edit occurred.
+
+
+October27 approved fallback: generated source-informed annotated desktop/390px reference boards and rendered PNGs using bundled sharp; no new dependency, Figma write or screenshot-capture claim. User approved lowering live budget to assignment limit; implementation now uses stricter50-call cumulative maximum and mock peer-demo mode, retaining49 prior attempts. No paid calls made. These local follow-up changes supersede historical65-call allowance and await publication.
+
+
+Approved explicit testing-session accounting replaces cumulative-only budget. Agent generated migration, host-only CLI, atomic per-session reservations, runtime mode selection and mocked tests. Historical calls are preserved without attributing them to a person; no real session or paid calls created during implementation.

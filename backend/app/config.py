@@ -17,13 +17,15 @@ class Settings:
 
     voice_enabled: bool = False
     voice_prices_verified: bool = False
-    voice_call_limit: int = 20
-    voice_budget_microdollars: int = 1000000
+    voice_call_limit: int = 50
+    voice_budget_microdollars: int = 2500000
+
+    voice_test_session_id: str = ''
 
     def require_voice(self):
-        if self.error or not self.api_key or not self.voice_enabled or not self.voice_prices_verified:
+        if self.error or not self.api_key or not self.voice_enabled or not self.voice_prices_verified or not self.voice_test_session_id:
             raise ValueError('voice_configuration_unavailable')
-        if not 0 < self.voice_call_limit <= 65 or not 0 < self.voice_budget_microdollars <= 3250000:
+        if not 0 < self.voice_call_limit <= 50 or not 0 < self.voice_budget_microdollars <= 2500000:
             raise ValueError('voice_configuration_unavailable')
 
     def require_live(self):
@@ -33,7 +35,7 @@ class Settings:
 
 def load(path=ENV_PATH):
     defaults = dict(MODEL_PROVIDER='mock', OPENAI_MODEL=MODEL, OPENAI_API_KEY='',
-                    VOICE_ENABLED='false', VOICE_PRICES_VERIFIED='false', LIVE_CALL_LIMIT='0', PROVIDER_TIMEOUT_SECONDS='15', MAX_OUTPUT_TOKENS='1024')
+                    VOICE_TEST_SESSION_ID='', VOICE_ENABLED='false', VOICE_PRICES_VERIFIED='false', LIVE_CALL_LIMIT='0', PROVIDER_TIMEOUT_SECONDS='15', MAX_OUTPUT_TOKENS='1024')
     try:
         if not path.exists(): return Settings()
         seen = set()
@@ -50,6 +52,6 @@ def load(path=ENV_PATH):
         if provider not in ('mock','openai') or defaults['OPENAI_MODEL'] != MODEL or not 0 <= limit <= 6 or not 1 <= timeout <= 15 or not 16 <= output <= 1024:
             raise ValueError()
         if defaults['VOICE_ENABLED'] not in ('false','true') or defaults['VOICE_PRICES_VERIFIED'] not in ('false','true'): raise ValueError()
-        return Settings(provider, MODEL, defaults['OPENAI_API_KEY'], limit, timeout, output, voice_enabled=defaults['VOICE_ENABLED']=='true', voice_prices_verified=defaults['VOICE_PRICES_VERIFIED']=='true')
+        return Settings(provider, MODEL, defaults['OPENAI_API_KEY'], limit, timeout, output, voice_enabled=defaults['VOICE_ENABLED']=='true', voice_prices_verified=defaults['VOICE_PRICES_VERIFIED']=='true',voice_test_session_id=defaults['VOICE_TEST_SESSION_ID'])
     except (OSError, ValueError, UnicodeError):
         return Settings(provider='unavailable', error='configuration_unavailable')
