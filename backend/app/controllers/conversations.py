@@ -19,8 +19,9 @@ async def generate(path, request_id, provider=mock, settings=None):
         count_call=lambda stage: records.count_call(path,request_id,stage)
         if settings is not None and settings.provider != 'mock':
             from ..providers.openai import Provider
-            provider=Provider(path,request_id,settings)
-            count_call=lambda stage: None  # Live adapter atomically reserves and counts before HTTP.
+            from ..repositories.voice_budget import RAGLedger
+            provider=Provider(path,request_id,settings,ledger=RAGLedger() if settings.voice_enabled else None)
+            count_call=(lambda stage: records.count_call(path,request_id,stage)) if settings.voice_enabled else (lambda stage: None)  # Live adapter atomically reserves and counts before HTTP.
         try:
             reply,outcome,citations,source_ids=await run(
                 path,content,owner(),conversation_id,before_sequence,mode,provider,

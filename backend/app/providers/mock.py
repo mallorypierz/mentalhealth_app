@@ -16,6 +16,8 @@ async def answer(question,context,skill_context,mode):
     await asyncio.sleep(.125)
     rows=context['records']
     if not rows:
+        if context.get('retrieval_status') in ('rejected_query','database_error','query_timeout'):
+            return {'content':'Mock reply: Saved history could not be checked. General wellbeing discussion remains available; this scripted demonstration does not provide a personal-history answer.', 'citations':[]}
         reason='The context limit omitted the available records.' if context['truncated'] else 'There are no matching saved records in the permitted history.'
         return {'content':'Mock RAG reply: '+reason+' The reviewed practice uses six cycles: four seconds in, six out. Pause or Stop is always your choice.', 'citations':[]}
     row=rows[0]

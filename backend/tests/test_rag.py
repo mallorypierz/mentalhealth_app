@@ -148,7 +148,6 @@ class RAGTests(unittest.TestCase):
         async def failing(*args): raise RuntimeError('simulated failure')
         async def invalid(*args): return {'content':'Invented citation','citations':['not-retrieved']}
         for provider,code,stage,count in [
-          (SimpleNamespace(plan=rejected,answer=mock.answer),'rejected_query','retrieval',1),
           (SimpleNamespace(plan=failing,answer=mock.answer),'provider_failure','planning',1),
           (SimpleNamespace(plan=mock.plan,answer=failing),'provider_failure','answer',2),
           (SimpleNamespace(plan=mock.plan,answer=invalid),'invalid_provider_output','answer',2),
@@ -169,3 +168,44 @@ class RAGTests(unittest.TestCase):
         messages=records.list_messages(self.path,self.cid,0,100)['messages']
         self.assertEqual(messages[1]['content'],status['assistant_content'])
         self.assertIn('23 seconds',status['assistant_content'])
+
+
+    def test_rejected_and_failed_retrieval_can_answer_without_history(self):
+        from unittest.mock import patch
+        from backend.app.rag.reader import RetrievalFailure
+        async def rejected(*args): return {'sql':'DELETE FROM sessions','parameters':{}}
+        seen=[]
+        async def answer(question,context,skill,mode):
+            seen.append(context)
+            self.assertIn('general mental-health and wellbeing',skill)
+            return {'content':'Saved history could not be checked. This is general educational information.', 'citations':[]}
+        for code,planner in [('rejected_query',rejected),('database_error',mock.plan),('query_timeout',mock.plan)]:
+            calls=[]
+            with patch('backend.app.rag.pipeline.retrieve',side_effect=RetrievalFailure(code)) as reader:
+                result=asyncio.run(run(self.path,'How can I discuss stress?',DEMO_USER_ID,self.cid,1,'success',SimpleNamespace(plan=planner,answer=answer),calls.append))
+                if code=='rejected_query': reader.assert_not_called()
+            self.assertEqual(result[1],code);self.assertEqual(result[2:],([],[]))
+            self.assertEqual(seen[-1]['records'],[]);self.assertFalse(seen[-1]['history_available'])
+            self.assertEqual(calls,['planning','answer'])
+
+    def test_fallback_reply_is_saved_with_rejected_outcome(self):
+        async def rejected(*args): return {'sql':'DELETE FROM sessions','parameters':{}}
+        async def answer(*args): return {'content':'I cannot check saved history. We can discuss general wellbeing.', 'citations':[]}
+        body=MessageSubmit(request_id=uuid4(),content='Fictional general wellbeing question',mock_mode='success')
+        records.submit(self.path,self.cid,body)
+        asyncio.run(generate(self.path,body.request_id,provider=SimpleNamespace(plan=rejected,answer=answer)))
+        status=records.get_status(self.path,body.request_id)
+        self.assertEqual(status['status'],'succeeded');self.assertEqual(status['retrieval_outcome'],'rejected_query')
+        self.assertEqual(status['assistant_content'],'I cannot check saved history. We can discuss general wellbeing.')
+
+
+    def test_fallback_keeps_citation_and_response_checks_and_safe_logs(self):
+        async def rejected(*args): return {'sql':'DELETE FROM sessions WHERE secret = private_text','parameters':{}}
+        for reply,code in [({'content':'Invented history','citations':['foreign-id']},'invalid_provider_output'),
+                           ({'content':'I am monitoring your safety.','citations':[]},'response_unavailable')]:
+            async def answer(*args): return reply
+            with self.assertLogs('backend.app.rag.pipeline',level='WARNING') as logs:
+                with self.assertRaises(RAGFailure) as error:
+                    asyncio.run(run(self.path,'Fictional question',DEMO_USER_ID,self.cid,1,'success',SimpleNamespace(plan=rejected,answer=answer),lambda stage:None))
+            self.assertEqual(error.exception.code,code)
+            self.assertNotIn('private_text',' '.join(logs.output));self.assertNotIn('DELETE',' '.join(logs.output))

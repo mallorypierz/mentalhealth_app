@@ -39,6 +39,8 @@ def initialize(path: Path, enable_profiles=False):
                        (DEMO_USER_ID, 'Fictional coursework student'))
         if enable_profiles:
             migrate_identities(db)
+            migrate_voice(db)
+            migrate_voice_budget(db)
     finally:
         db.close()
 
@@ -61,3 +63,27 @@ def migrate_identities(db):
         if statement.strip():
             raise ValueError('Incomplete identity migration.')
         db.execute('INSERT INTO schema_migrations(version) VALUES (4)')
+
+
+def migrate_voice(db):
+    with db:
+        db.execute('BEGIN IMMEDIATE')
+        if db.execute('SELECT 1 FROM schema_migrations WHERE version=5').fetchone():
+            return
+        source=(Path(__file__).parent / 'migrations' / '005_voice.sql').read_text()
+        statement=''
+        for line in source.splitlines(keepends=True):
+            statement+=line
+            if sqlite3.complete_statement(statement):
+                db.execute(statement)
+                statement=''
+        if statement.strip(): raise ValueError('Incomplete voice migration')
+        db.execute('INSERT INTO schema_migrations(version) VALUES (5)')
+
+
+def migrate_voice_budget(db):
+    with db:
+        db.execute('BEGIN IMMEDIATE')
+        if db.execute('SELECT 1 FROM schema_migrations WHERE version=6').fetchone(): return
+        db.execute((Path(__file__).parent / 'migrations' / '006_voice_budget.sql').read_text())
+        db.execute('INSERT INTO schema_migrations(version) VALUES (6)')

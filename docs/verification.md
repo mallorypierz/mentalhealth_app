@@ -1,3 +1,17 @@
+# Latest submission-preparation verification — October27,2026
+
+- `backend/.venv/bin/python -m unittest discover -s backend/tests -q`:74 tests passed (16.244s); existing Starlette/httpx deprecation warning remains.
+- `npm --prefix frontend test`:26 tests passed; `npm --prefix frontend run build`: passed (486ms).
+- `git diff --check`: passed during preparation; local document links checked before handoff.
+- Read-only SQLite aggregate:49 voice attempts/$2.45 reservations; no paid calls made by the agent during this audit.
+- `git rev-parse`: Part1e958bdcf11e69b5c4451f986742989acd01b497e; original Part2f133bf99804246fe4fa34f090db37b196abf69c8; current HEAD6f995d4ff1c7e60de72ce42ac62f1ab301d25e3e. Voice additions remain uncommitted.
+- `git check-ignore` confirms backend/.env and data/app.sqlite3 ignored; neither is tracked.
+- Student explicitly states chatbot is finished and verified; this supersedes previous pending user-confirmation notes, but is not an agent physical-device or full accessibility check.
+
+Evidence categories and current limitations are summarized in [updated evidence](evidence/voice-update.md). No new timing measurement, live-model quality evaluation, Figma verification, clean checkout or course upload occurred in this documentation audit. Earlier results below are historical and must retain their dates/modes.
+
+---
+
 # Verification — Part 2 final preparation, October 22, 2026
 
 Current evidence below supersedes older current-state claims. Older sections are retained as dated historical observations, not proof of today's UI. All checks were agent-run with fictional data. The student verified the earlier SmokeTest report and recent UI cleanup; the student subsequently confirmed review and approved commit/push.
@@ -282,3 +296,81 @@ Exercises navigation showed one available breathing action and three noninteract
 User explicitly approved commit/push and documentation updates. Source/tests/documentation commit [e593a522b7a1b0718e1a19987ac133e66cfbc36b](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b) was pushed to codex/profiles-calendar; git ls-remote returned the identical hash. Remote codex/part2 remained f133bf99804246fe4fa34f090db37b196abf69c8 and part1-submission remained e958bdcf11e69b5c4451f986742989acd01b497e. Submitted report.md was unchanged.
 
 Immediately before publication: backend unittest49 passed, frontend tests10 passed, production build passed, diff whitespace checks clean. Existing Starlette/httpx deprecation warning remains. Credentials, runtime SQLite and backups were excluded. Initial staging approval review could not run due to a usage limit; after the user's renewed request, the same approval process succeeded. This did not require bypassing controls. No merge, deployment, live-model call or course upload occurred. This documentation-only follow-up records the verified source commit; remaining verification limitations are unchanged.
+
+
+## October 26, 2026 — first mock voice increment (uncommitted)
+
+Authorization: implement a mock-backed voice operation, then one Vue round trip; verify before live providers. Python3.12.5; installed websockets17.3 in backend/.venv with pip, declared it, and pip check passed. Initial restricted-environment installation/server binds failed; approved tool escalation succeeded. No credentials were printed or edited; backend/.env and data/*.sqlite3* are ignored.
+
+Automated: `backend/.venv/bin/python -m unittest discover -s backend/tests -q`, `npm --prefix frontend test`, `npm --prefix frontend run build`. Voice tests cover identical/conflicting operation replay, ordered user/assistant messages, restart persistence, origin rejection, cancellation before transcription completion, stale identity, two profiles versus guest access, scoped RAG record IDs, transcription/model/speech failures, injected SQLite user/reply-save failures and save-only retry without new generation. Frontend coordinator tests cover explicit start, duplicate-click guard, late events after stop/profile change, saved text versus failed audio, and a second turn on the same socket. Existing Starlette/httpx deprecation warning remains; no unrelated dependency replacement made.
+
+New browser evidence: at localhost5173, entered a new guest, opened Voice chat, ran fictional voice demo. The fixed transcript “What happened in my last breathing practice?” automatically saved; the scoped mock RAG returned empty retrieval honestly. UI showed user then actual assistant, both Saved/Request succeeded, and “Mock audio finished.” This is browser playback-event evidence for a test tone, not human-audited sound or spoken AI. Refresh and an actual Uvicorn restart retained the same conversation; microphone stayed off. Crisis support opened independently without contacting a service. At browser-emulated390x844, wrapped controls and text were visually inspected; no physical-device or full keyboard/screen-reader verification is claimed.
+
+Observed runtime IDs (fictional guest): conversation5764cd7b-da47-4ad5-87ea-a7e078c63502; voice sessiondc5ce33f-cfe9-4a1b-ad4a-17c76a1849fc; turnb486a55e-1789-4e45-bdad-ef41e2986201; requestfd5c5762-2732-4974-9f5a-5c000be04bf5. Read-only SQLite inspection confirmed transcription succeeded, submission saved, speech ready, turn completed, request succeeded/provider mock/two mock calls/empty retrieval, and message sequence1(user),2(assistant), matching visible text. The browser requested the ordinary API routes; backend integration tests separately compared API response text/IDs to SQLite. No secret browser token was extracted for evidence.
+
+Before migration a SQLite backup was created at ignored data/pre-voice-20261026-202822.sqlite3. Hashes of ordered rows in demo_users, exercise_sessions, conversations, messages, requests and provider_attempts were unchanged immediately after migration; PRAGMA foreign_key_check returned no violations. Historical paid-call ledger remains6. Only subsequent authorized fictional demo activity was added. No breathing timer code changed; existing timing tests passed, but no fresh human-length breathing measurement was made in this increment.
+
+Implementation corrections before final review: removed an accidental duplicate async keyword found by build; kept socket epoch stable for subsequent mock turns; made normal inactivity closure distinct from a connection error. Live microphone, speech recognition, real spoken answer, paid-call budget implementation and live-provider validation remain unfinished. The preview cannot establish those results. User verification is pending.
+
+Final automated result for this increment: 57 backend tests and 14 frontend tests passed; Vite production build and pip check passed. The typed fallback also completed in the real browser after restart: its scoped mock answer referenced the two earlier messages, with new sequence3/4. DOM width at the 390px viewport was390px (no horizontal document overflow). A1280px desktop screenshot showed conversation/history columns. These are browser-emulated layout checks, not physical-device verification.
+
+
+## Voice/chat concern handling — October 26, 2026 (new, uncommitted)
+
+Agent-run checks after user approval: backend unittest discovery **62 passed**; frontend node tests **17 passed**; Vite production build passed. Existing Starlette/httpx deprecation warning remains. No paid calls. Tests use mocks and temporary databases.
+
+New checks cover indirect phrase/apostrophe normalization; quotes/negations and known missed wording; partial recognized-text hold and stale event rejection; backend input hold before planner/speech or conversation persistence; diagnosis/medication/treatment/reassurance/monitoring examples; and output withholding with user-only persistence and no assistant/audio. A deliberately unrecognized reassurance example documents that lexical checks are incomplete. Mock successes do not establish live recognition or clinical reliability.
+
+Actual browser: with the local backend deliberately stopped, typed fictional text “Fictional test: I don't want to be alive” produced the approved concern notice, disabled Send and mock start, and showed draft-not-submitted status. Open Crisis support displayed static resource content while the backend was unavailable. No resource link was activated. Closed support and captured /tmp/voice-crisis-review.png (temporary review artifact). Backend restarted successfully with current code on port8000. No runtime message was submitted in this check.
+
+Resource verification used the required helpline lookup on October26,2026, returning US/territories 988 phone/text/chat information. This is a lookup, not service-availability testing. User approved prior layout and the wording/behavior proposal; verification of this implemented increment is pending. Live microphone errors, actual speech recognition, live model output, physical-device playback and continuous listening remain untested/unimplemented.
+
+
+## Disabled real-voice capability checks — October 26, 2026
+
+User verified the preceding concern wording and approved this implementation, not paid activation. Agent-run final checks: backend unittest discovery68 passed; frontend tests23 passed; Vite build passed; git diff --check passed. Existing Starlette/httpx warning remains; no package installed in this increment.
+
+New backend tests use synthetic WAV, temporary SQLite and intercepted HTTP/adapters: valid transcription/speech payloads; malformed/truncated audio; empty provider transcript; missing configuration with zero HTTP calls;20 failed401 attempts then budget rejection after reopen;30 concurrent reservation requests admitting only20; complete audio-turn → scoped existing RAG → saved actual test reply → audio, replay without duplicate messages or extra four-stage reservations. These are mocked-provider contract checks, not live AI success. Existing isolation, cancellation, save-failure, crisis and RAG suites pass. Frontend tests cover WAV output, silence-only suppression,900ms segmentation,30s cap, cancelled permission with late stream closure, one audio turn at a time, stop/late-event rejection and refusal to send real audio to a mock backend.
+
+Runtime: verified ignored .env/database/backup paths; created data/pre-live-voice.sqlite3 without overwrite, restarted backend to apply migration006. Read-only SQLite comparison found demo_users (including profiles), exercise_sessions, operations, conversations, requests, messages, conversation_operations, provider_attempts, deleted_identities and voice_operations unchanged. Foreign keys clean; new ledger has0 entries. Initial inspection incorrectly assumed a separate profiles table, then corrected to actual schema; this was a verification-script error, not application data loss. Browser inspection after restart showed Voice preview · live access disabled, microphone off, existing history and typed input. Initial browser approval review timed out; one permitted retry succeeded.
+
+Remaining: physical microphone/recognition quality, speaker echo/barge-in reliability, actual spoken fidelity, provider availability/account permissions, exact billing bounds and fresh phone live-mode checks. No live calls, microphone recording, service contact, commit/push, Figma edits or course submission. Temporary screenshot /tmp/voice-disabled-review.png is review evidence only. User verification of this new increment is pending.
+
+
+## Approved live activation and first test — October 27, 2026
+
+User selected the approved speech model for the short coursework demo and explicitly approved live activation plus one four-call fictional test. Changed only VOICE_ENABLED/VOICE_PRICES_VERIFIED totrue in ignored backend/.env; key preserved, not displayed. Restarted backend with a process-level voice_call_limit=4 override; the generic startup command still defaults to20. All four test attempts are now consumed; do not retry or restart with a larger allowance without approval. Reservation total$0.20 is not actual billed cost.
+
+Local macOS synthesized a2.24s fictional question, “What happened in my last breathing practice?”; this was not microphone capture. Initial restricted local synthesis produced an empty WAV rejected before network; permitted local synthesis succeeded. Created separate Fictional voice demo profile and a conversation, without modifying prior activity. Real OpenAI transcription matched the spoken question exactly. Real planning and answer calls completed; retrieval was empty, and the actual reply honestly stated insufficient saved records. The final speech HTTP call returned successfully, but app audio validation rejected the returned representation with invalid_speech. No spoken playback success is claimed. Invalid audio was not retained, so its exact header/content failure is not established.
+
+Conversation7d07b63e-a4c1-4c0d-a7a8-ba3e6629dcc6; turn9f1e104b-8abf-4221-93db-1f4b7fa86ff8; request4e500759-51b7-46c2-9f26-6b9b0acd7398. Read-only SQLite verified exactly two messages, matching API IDs, ordering and text. Vue in a separate review tab selected the fictional demo profile and displayed the same transcript and actual reply. Existing original browser guest tab was preserved. Usage ledger hasfour HTTP successes; that does not mean speech validation/playback succeeded. Evidence /tmp/approved-live-voice-evidence.json and /tmp/live-voice-partial.png is temporary.
+
+Source was not corrected automatically. Proposed next increment needs approval: request documented24kHz16-bit PCM speech and wrap it into a valid WAV locally with byte/duration checks; add regression coverage; restore playback/retry controls for the saved voice turn when reopening a conversation; perform at most one additional speech-only call using the already saved reply. No new transcription or RAG call needed. Browser mic, echo/barge-in and full spoken end-to-end operation remain unverified.
+
+
+## Approved speech correction — October 27, 2026
+
+Backend unittest discovery: 70 tests passed; frontend tests: 24 passed; production build passed. Coverage includes exact PCM/WAV sample lengths, malformed output, ownership-scoped historical-turn restoration, no microphone/WebSocket on restore and ignored stale identity responses. Existing Starlette/httpx deprecation warning remains.
+
+Live evidence: clicked Retry reply audio once for turn 9f1e104b-8abf-4221-93db-1f4b7fa86ff8. Browser showed “Speaking · AI-generated voice.” then “Playback finished.” Read-only SQLite inspection verified speech=ready, submission=saved, state=completed, error_code=null; conversation 7d07b63e-a4c1-4c0d-a7a8-ba3e6629dcc6 still has exactly two messages. Ledger now has one transcription, one planning, one answer and two speech attempts. The first speech attempt failed application validation despite HTTP success; the second produced playable audio. Total reservation $0.25 is not an actual invoice. No further paid call made. Temporary screenshot: /tmp/live-voice-audio-fixed.png.
+
+Backend restarted with voice_call_limit=5; all five attempts consumed. The generic startup default is20, so do not restart uncapped or increase allowance without approval. Historical controls restored after backend restart/browser reload before retry, with microphone off and no autoplay. Live input was locally synthesized fictional speech, not a physical microphone. Browser playback completion does not establish that the user heard it; user confirmation and physical microphone/echo/interruption checks remain pending.
+
+
+### Approved additional voice allowance — October 27
+
+User approved20 additional paid attempts and corrected unsaved-message wording. Running backend uses absolute voice_call_limit=25 and voice_budget_microdollars=1250000, preserving5 previous attempts/$0.25 reservations and leaving20/$1 additional reservations. This is not an invoice guarantee. No paid verification call was made. Settings validation permits this explicit ceiling; defaults remain20/$1. Restart must use the approved25/1250000 overrides to retain this allowance (not add another20). Budget ledger is never reset. Current backend session13139.
+
+Voice errors now distinguish “Your message was not saved,” saved messages, and unknown save status. Checked8 backend live-adapter/budget tests,25 frontend tests and build: passed. Read-only runtime ledger remains5 attempts. No profile deletion or recreation performed; user deleted the demo profile. Submitted milestones unchanged; no commit/push. User microphone verification pending.
+
+
+October27 broader chat check: full backend suite73 passed before the last additional safety test; targeted RAG suite13 then passed including that test. Tests verify rejected writes never reach retrieval, database failure/timeout yield empty explicit context, normal persistence saves actual fallback answer and rejected outcome, and citation/response checks still reject fabricated citations/monitoring. Log assertions exclude SQL/private values. Existing isolation tests passed in the full suite. Mock replies are labeled and no longer mislabel retrieval failure as no matching history. No paid calls made by the agent; no new live model quality or microphone result claimed. Runtime ledger observed14 attempts at finish (11 left against25). Backend restarted with unchanged25-call/$1.25 cumulative reservation ceiling. Frontend unchanged in this increment. User verification pending.
+
+
+October27 playback fix: 26 frontend tests and production build passed; diff whitespace check passed. Added checks for capture rejection during loading/playing, acceptance after finish/manual stop, and continued blocking for hidden/suspended/ended/failed/held states. Existing capture reset and cancellation checks also passed. No paid call or physical microphone test performed. Speaker echo is a plausible explanation for the reported two-word cutoff, not a confirmed historical cause. User audible playback verification remains pending.
+
+
+October27 budget-only increment:8 mocked live-adapter/budget tests passed and diff whitespace checks passed. Extension test retains25 old reservations, admits exactly40 more, rejects a66th attempt and invalid configuration above65. Runtime read-only inspection found25 attempts and1250000 reserved microdollars;40 remain. No paid calls made by the agent. Backend restarted and health returned configured/voice_enabled true; its legacy live_calls fields describe the separate old six-call ledger, not this voice allowance.
+
+
+October27 publication follow-up: user explicitly approved committing/pushing all completed changes and updating the existing Assignment-3 Figma file. Figma create_session succeeded, but get_metadata returned the Starter-plan MCP tool-call limit. No design read/edit or frame verification succeeded; no Figma changes were made. This remains an external-access blocker, not completed design work.

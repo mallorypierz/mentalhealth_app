@@ -1,6 +1,18 @@
+# Current disclosure status — October27,2026
+
+The student now explicitly verifies the chatbot and approves completed additions for updated Part2. Earlier dated sections below are a historical trail; their mock-only/disabled/pending-verification claims do not describe the latest app. No exact serving-agent snapshot is asserted. New submitted commit is still pending.
+
+Live voice uses OpenAI gpt-4o-mini-transcribe, gpt-5.4-mini-2026-03-17 (SQL planning/answer), and gpt-4o-mini-tts with marin. Codex generated adapters, microphone capture, ownership-scoped voice persistence, retry/budget handling, tests and documentation under student-approved increments. Mock fixtures remain for automated tests; live results and student feedback are recorded separately in [updated evidence](docs/evidence/voice-update.md). The agent did not make paid calls during final documentation preparation.
+
+Revisions include valid PCM-to-WAV packaging after failed speech validation, explicit playback interruption after a suspected echo cutoff, and broader educational answers with honest unavailable-history context after rejected queries. These do not establish clinical safety or reliable distress detection. The student selected scope, approved costs/changes, tried the chatbot and explicitly confirmed completion; we do not attribute every agent-run test to the student.74 backend/26 frontend tests and production build passed during this preparation. Official prompt guidance consulted: https://developers.openai.com/api/docs/guides/prompting .
+
+The retained short-demo speech model's deprecation was disclosed before activation. The local65-call cumulative allowance is not the assignment's50-call peer-session enforcement; peer testing must remain mocked pending a compliant session-cap change. Current voice work and revised documentation are uncommitted. [Report](report.md) states remaining Figma, accessibility, preference and publication gaps. No source was copied from a therapy dataset and no clinical study was conducted.
+
+---
+
 # AI-use disclosure — Assignment 3 Part 2
 
-Updated October 26, 2026. Earlier sections describe the submitted Part 2 work; the later-milestone section below supersedes current-state statements for the feature branch. This is an AI-assisted coursework prototype. The student selected the skill, flow, scope and interface revisions, approved implementation increments, and reviewed reported results. This disclosure does not claim the student personally ran the agent's tests or authored every generated line. Final submission review remains necessary.
+Updated October27,2026. Earlier sections describe the submitted Part 2 work; the later-milestone section below supersedes current-state statements for the feature branch. This is an AI-assisted coursework prototype. The student selected the skill, flow, scope and interface revisions, approved implementation increments, and reviewed reported results. This disclosure does not claim the student personally ran the agent's tests or authored every generated line. Final submission review remains necessary.
 
 ## Tools, models and roles
 
@@ -48,3 +60,20 @@ Another revised approach: independent CSS pacing could drift when motion was re-
 User approved the local chooser model, required display name with optional age/gender, guest refresh retention, explicit transfer/discard, pause-before-switch rules, completed-only calendar using device timezone and completion time, library placeholders and responsive web changes. The agent generated the migration, identity/API/repository code, Vue views and automated tests, then documented actual evidence and gaps. No real authentication, new therapeutic instructions, paid calls or physical-device verification were added. The user approved commit and push of this later milestone; this is not evidence that they personally executed every check.
 
 49 backend and 10 frontend tests passed. Browser observations include guest entry, completion/saved state within a conservative 72.082-second bound, and library navigation without auto-start. Remaining visual/failure coverage and Figma comparison are disclosed in the [later milestone report](docs/later-milestone-report.md). Existing Figma draft references could not be freshly checked because MCP returned its Starter-plan limit. The submitted report.md remains unchanged.
+
+
+## October 26, 2026 — mock voice increment
+
+The user approved automatic submission and a single replacement Voice chat tab, then requested one mocked backend operation followed by one Vue round trip before live-provider approval. Codex generated the voice metadata migration, bounded offline controller/fixtures, authenticated transport, Vue state coordinator/UI and targeted tests. Tools: local file/terminal inspection, Python unittest, Node tests/Vite build, CUA browser, read-only SQLite queries; package metadata was checked on PyPI before approved websockets17.3 installation. No live model/audio API call was made.
+
+Selected revised approach: retain the existing validated text-and-citations RAG answer, persist it, then produce audio separately so audio failure cannot erase a saved answer. The first mock uses a fixed transcript and an intentionally non-speech tone; it does not pretend to recognize the user's voice. Epoch/context checks reject late UI results after stop/profile change; repository receipts and unique request/message constraints prevent duplicate writes. A build caught a duplicate async keyword during implementation, which was corrected before the passing build. User verification remains pending; real microphone/live budget/provider work is disclosed as unfinished.
+
+
+### Voice/chat wording follow-up — October 26, 2026
+
+Following user approval, the agent implemented concern wording, held-input states and limited generated-output checks, with reviewed educational refusal instructions. Required helpline lookup was repeated; no service contacted. Agent-run evidence:62 backend tests,17 frontend tests and build passed; browser draft hold and static support worked with backend stopped. The rules intentionally disclose false positives and missed wording; no clinical reliability claim. User verification of this increment remains pending. Live voice was not enabled and no paid calls occurred.
+
+
+### Disabled live-voice capability — October 26
+
+Agent extended browser microphone capture and provider adapters under explicit approval, with no new packages or paid calls. Official OpenAI documentation checked for audio endpoints/pricing; discovered approved speech model deprecation and disclosed it without substitution. Generated a durable reservation ledger and mocked HTTP/SQLite tests, preserving old records.68backend/23frontend tests and build passed. Runtime browser remains mock; real-device recognition/spoken fidelity and live invoice bounds remain unverified. User verified the preceding crisis wording, not this new implementation yet.

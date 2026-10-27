@@ -46,3 +46,44 @@ class CrisisTests(unittest.TestCase):
                 self.assertIsNone(status['assistant_message_id'])
                 self.assertEqual(len(records.list_messages(path,cid,0,100)['messages']),1)
                 self.assertEqual(provider_usage.used(path),0)
+
+class EducationalResponseTests(unittest.TestCase):
+    def test_approved_indirect_phrases_and_known_recognition_limits(self):
+        for text in ["I don't want to be alive", 'I don’t want to be alive', 'I do not want to be alive',
+                     'I might do something to myself', 'I am not going to hurt myself', 'Quote: “I don’t want to be alive.”']:
+            self.assertTrue(matches(text),text)
+        for text in ['I might do something to my shelf', 'I wish I could disappear', 'I cannot go on']:
+            self.assertFalse(matches(text),text)  # Known misses; never interpreted as safety.
+
+    def test_reject_selected_out_of_scope_claims_allow_reviewed_refusals(self):
+        from backend.app.crisis import review_response
+        rejected=['You have depression.', 'You meet the criteria for PTSD.', 'Double your medication dose.',
+                  'Take 50 mg each morning.', 'You must start therapy.', 'This exercise will cure your anxiety.',
+                  "You're definitely safe.", 'Everything will be fine.', 'I am monitoring your safety.',
+                  'Help has been dispatched.', "I'll check on you later."]
+        for text in rejected: self.assertEqual(review_response(text),'response_unavailable',text)
+        permitted=["I can’t determine whether you have a condition. A qualified healthcare professional can assess that.",
+                   "I can explain the reviewed exercise, but I can’t recommend a treatment plan.",
+                   "I can’t recommend starting, stopping or changing medication. Ask your prescriber or pharmacist.",
+                   'Pause or Stop is always your choice.', 'The saved practice lasted 60 seconds.']
+        for text in permitted: self.assertIsNone(review_response(text),text)
+        self.assertEqual(review_response('If you are suicidal, open Crisis support.'),'support_notice')
+        # A demonstrated semantic miss, not an assurance: lexical checks are limited.
+        self.assertIsNone(review_response('All your troubles are certain to vanish.'))
+
+    def test_generated_claim_withheld_before_assistant_save(self):
+        from backend.app.providers import mock
+        async def unsafe(*args): return {'content':'You have depression.','citations':[]}
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'review.sqlite3'
+            with TestClient(create_app(path)):
+                cid=uuid4(); rid=uuid4()
+                records.create(path,ConversationCreate(conversation_id=cid,operation_id=uuid4()))
+                records.submit(path,cid,MessageSubmit(request_id=rid,content='Fictional: what does my saved history show?'))
+                with patch.object(mock,'answer',unsafe): asyncio.run(generate(path,rid))
+                status=records.get_status(path,rid)
+                self.assertEqual(status['error_code'],'response_unavailable')
+                self.assertEqual(status['failure_stage'],'response_review')
+                self.assertEqual(status['provider_call_count'],2)
+                self.assertEqual(status['assistant_persistence'],'not_saved')
+                self.assertEqual(len(records.list_messages(path,cid,0,100)['messages']),1)

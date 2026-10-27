@@ -2,7 +2,7 @@ import asyncio
 from uuid import UUID
 from fastapi import APIRouter, Query, Response
 from fastapi.responses import JSONResponse
-from ..crisis import matches
+from ..crisis import matches, NOTICE
 from ..chat_schemas import ConversationCreate, Conversation, ConversationPage, MessageSubmit, MessagePage, RequestStatus, RetryRequest
 from ..repositories import conversations as records
 from ..controllers.conversations import generate
@@ -33,7 +33,7 @@ def router(path,tasks,settings):
     async def submit(conversation_id:UUID,body:MessageSubmit):
         if matches(body.content):
             return JSONResponse(status_code=422, content={
-                'error': {'code': 'support_notice', 'message': 'This submission was not accepted or sent to AI. Existing records are unchanged.', 'retryable': False},
+                'error': {'code': 'support_notice', 'message': NOTICE, 'retryable': False},
                 'persistence': 'not_saved'})
         result,fresh=records.submit(path,conversation_id,body,settings.provider,settings.model if settings.provider == 'openai' else None)
         if fresh:

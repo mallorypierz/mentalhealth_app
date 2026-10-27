@@ -28,13 +28,19 @@ def error(status, code, message, retryable=False, persistence='not_saved'):
 
 def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profiles=False):
     settings = settings or Settings()
+    voice_settings=settings
     if enable_profiles:
-        settings = replace(settings, provider='mock', api_key='', error=None)
+        live_ready=settings.voice_enabled and settings.voice_prices_verified and bool(settings.api_key) and not settings.error
+        settings = replace(settings, provider='openai' if live_ready else 'mock')
+        voice_settings=settings
     tasks = set()
     @asynccontextmanager
     async def lifespan(app):
         initialize(database_path, enable_profiles=enable_profiles)
         conversations.recover_pending(database_path)
+        if enable_profiles:
+            from .repositories.voice import recover
+            recover(database_path)
         yield
         for task in list(tasks):
             task.cancel()
@@ -45,6 +51,8 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
 
     app.include_router(conversation_router(database_path, tasks, settings))
     if enable_profiles:
+        from .api.voice import router as voice_router
+        app.include_router(voice_router(database_path, tasks, voice_settings))
         app.include_router(identity_router(database_path))
         app.include_router(calendar_router(database_path))
 
@@ -52,7 +60,7 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
         async def identity_scope(request, call_next):
             path = request.url.path
             protected = path == '/api/calendar' or any(path == prefix or path.startswith(prefix+'/')
-                for prefix in ('/api/sessions', '/api/conversations', '/api/requests'))
+                for prefix in ('/api/sessions', '/api/conversations', '/api/requests', '/api/voice'))
             token = None
             try:
                 if protected:
@@ -87,6 +95,7 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
         used = provider_usage.used(database_path)
         return {'provider': settings.provider, 'model': settings.model if settings.provider == 'openai' else None,
                 'configured': not settings.error and (settings.provider == 'mock' or bool(settings.api_key)),
+                'voice_enabled': bool(enable_profiles and settings.provider=='openai'),
                 'live_calls_used': used, 'live_call_limit': settings.call_limit,
                 'live_calls_remaining': max(0, settings.call_limit-used)}
 

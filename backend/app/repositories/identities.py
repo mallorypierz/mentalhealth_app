@@ -141,7 +141,9 @@ def require_idle(db, owner_id):
                          "WHERE c.demo_user_id=? AND r.status='pending'", (owner_id,)).fetchone()
     active = db.execute("SELECT 1 FROM exercise_sessions WHERE demo_user_id=? AND status='in_progress'",
                         (owner_id,)).fetchone()
-    if pending or active:
+    voice = db.execute("SELECT 1 FROM voice_sessions v JOIN conversations c ON c.id=v.conversation_id "
+                       "WHERE c.demo_user_id=? AND v.state IN ('ready','active')", (owner_id,)).fetchone()
+    if pending or active or voice:
         raise IdentityError(409, 'work_in_progress', 'Finish or stop practice and wait for pending saves/replies before switching.')
 
 
@@ -178,6 +180,7 @@ def delete_activity(db, owner_id):
     if db.execute('SELECT 1 FROM provider_attempts p JOIN requests r ON r.id=p.request_id '
                   'JOIN conversations c ON c.id=r.conversation_id WHERE c.demo_user_id=?', (owner_id,)).fetchone():
         raise IdentityError(409, 'protected_evidence', 'Historical provider evidence cannot be deleted here.')
+    db.execute('DELETE FROM voice_sessions WHERE conversation_id IN (SELECT id FROM conversations WHERE demo_user_id=?)', (owner_id,))
     db.execute('DELETE FROM messages WHERE conversation_id IN (SELECT id FROM conversations WHERE demo_user_id=?)', (owner_id,))
     db.execute('DELETE FROM requests WHERE conversation_id IN (SELECT id FROM conversations WHERE demo_user_id=?)', (owner_id,))
     db.execute('DELETE FROM conversation_operations WHERE demo_user_id=?', (owner_id,))

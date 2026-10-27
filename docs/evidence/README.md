@@ -1,8 +1,8 @@
 # Curated evidence — Part 2
 
-October 22,2026. All demonstrated records are fictional. Screenshots are supporting views, not standalone proof of timing, persistence or live generation. Agent-run results and student verification are distinguished in [verification](../verification.md). The [AI disclosure](../../AI-USE.md) links selected prompts, changes, checks and decisions, including failed/revised approaches.
+Original evidence dated October22,2026. See [October27 updated evidence](voice-update.md) for live voice, user verification and current checks. Older images are historical rather than current voice screenshots. All demonstrated records are fictional. Screenshots are supporting views, not standalone proof of timing, persistence or live generation. Agent-run results and student verification are distinguished in [verification](../verification.md). The [AI disclosure](../../AI-USE.md) links selected prompts, changes, checks and decisions, including failed/revised approaches.
 
-## Current final preparation
+## Historical October22 final preparation
 
 | Artifact | What it demonstrates | Limits |
 | --- | --- | --- |
