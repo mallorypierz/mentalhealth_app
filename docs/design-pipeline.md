@@ -1,3 +1,42 @@
+## Selected Figma design and browser comparison — October 27, 2026
+
+The student selected **Option A: top navigation** and approved a comparison/documentation-only increment. This supersedes earlier bottom-bar selection and static-only Figma status. No application implementation was requested or performed in this increment.
+
+The MCP allowance remained unavailable during creation. With explicit approval, the agent used the signed-in Figma browser editor to create **17 frames** on [Part 2 — Updated app](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-110): seven desktop/phone pairs, flow notes, state/tradeoff notes and Option B. Existing Page 1 baseline frames were preserved. SVG descriptions pasted through the editor produced native Figma text and vector layers; a final library text layer exposed editable Text/Typography/Inter controls. This is browser-created, source-informed design work, not an MCP capture, reusable component library, wired prototype or exact rendering of Vue. Inter differs from the app's Arial/Georgia. The desktop voice frame was replaced after clipping was found; use node37:2 below, not removed node31:558.
+
+| View | Desktop | Phone |
+| --- | --- | --- |
+| Entry | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-148) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-115) |
+| Practice | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-174) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-213) |
+| Profile | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-256) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-290) |
+| Calendar | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-335) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-405) |
+| Exercise library | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-481) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-518) |
+| Voice chat | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=37-2) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-600) |
+| Crisis support | [1440px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-649) | [390px](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-679) |
+
+Additional links: [Flow](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-721), [States and tradeoffs](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-773), [Option B — unselected bottom navigation](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-828). Frame IDs came from the editor after creation; the saved 17-frame inventory was re-read after navigation. Access is verified in the student's signed-in browser, not from an instructor/anonymous account.
+
+Option A exposes destinations without a fixed bar covering controls, at the cost of vertical space (R3/R4 choice; D1/D2 effort). Option B reduces primary choices to Practice/Voice/More but adds an extra step for other destinations and requires keyboard-overlap testing. Selecting A does not authorize changes to timing, ownership, saving, voice or support.
+
+### Comparison with the running app
+
+The agent inspected the existing app in the in-app browser at the available **551 × 688** viewport. Figma references are 390px and 1440px wide, viewed scaled in the editor. This is a qualitative structure/content comparison, **not a matched-viewport or pixel-fidelity pass**. Exact 390px/1440px app comparisons and physical-device checks remain unfinished.
+
+| Area | Observed agreement and remaining difference |
+| --- | --- |
+| Navigation | App has top, wrapping navigation and the same destinations, plus the active identity switch. Figma uses uniform pills, shortens Session history to History and omits the identity switch from the repeated header. |
+| Practice | App idle view shows six cycles, 4/6 instruction, Start, fullscreen and still cue. Figma shows an in-progress reference. No new exercise was started; pacing, completion, Stop and interruption behavior were not retested here. |
+| Entry | ProfileGate.vue confirms guest access, optional fields and independent support. The entry chooser was source-inspected only; existing identities were not exited or switched to expose it. Figma shows the create form expanded and simplified empty state. |
+| Profile | Browser inspected both guest and an already selected profile. Vue has actual editable fields, Save, Switch, Leave and Delete; Figma combines guest controls with a descriptive profile-selected note. Vue still says Optional chat in one saved-information sentence; copy correction requires separate approval. No profile values were edited. |
+| Calendar | Observed loading followed by an empty October calendar, explicit America/New_York timezone, previous/next/month picker/refresh and stopped/interrupted exclusion wording. Vue uses a day/event list; Figma illustrates a month grid. The grid is not implemented or approved for implementation. |
+| Library | Available breathing action and all three unavailable Coming later names agree. Figma adds explanatory copy. No unfinished entry has a Start action in the observed app. |
+| Voice | Browser currently displays labeled mock preview, microphone off, typed input, playback controls and saved history. Figma shows a simplified ready-state/live-capable reference with shorter notices. Existing saved replies are historical; no new message, audio, microphone permission or model call was submitted. Current UI mode was observed, not reconfigured or diagnosed. |
+| Support | Opened/closed the app's independent support panel from Profile without voice or exercise. Vue contains actual resource links and a dated lookup notice; Figma intentionally contains resource-placement notes only. No link was activated and no fresh helpline-content verification is claimed. |
+
+**Boundary:** editable browser-created references, explicit A selection and this limited comparison are complete. A new Figma-to-Vue implementation, exact viewport match, full state coverage and instructor link access are not established. The student reviewed this increment and explicitly approved committing and pushing these four documents. Publication is a documentation follow-up; application source remains unchanged. Historical sections below retain their original dates and should not be read as the latest Figma status.
+
+---
+
 # Current contract summary — October27,2026
 
 The student approved inclusion of the complete profile/calendar/library/voice expansion in updated Part2 and explicitly verified the chatbot. The dated sections below retain the decision history; later entries supersede earlier mock-only, disabled-voice and automatic barge-in descriptions.

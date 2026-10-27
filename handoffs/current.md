@@ -1,3 +1,17 @@
+## Current handoff — selected Option A, October 27, 2026
+
+Latest task completed: approved qualitative Vue/Figma comparison and edits to docs/design-pipeline.md, docs/verification.md, handoffs/current.md and report.md only. Branch codex/profiles-calendar; unchanged HEAD175fc28ecadb5d0a50bf48a39208d44e10ef6014; published application source aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8. The student subsequently reviewed this increment and explicitly approved its commit and push. This publication is documentation-only; use Git history for its resulting commit.
+
+Student selected A (top navigation). Browser-created Figma page31:110 now has14 desktop/phone view frames, flow31:721, states31:773 and unselected B31:828. Desktop voice was corrected to37:2. Native text/vector layers were inspected, existing Page 1 preserved and inventory re-read. See the new leading section of design-pipeline.md for all links, research tradeoffs and comparison. No successful MCP capture or new Figma-to-Vue implementation is claimed.
+
+Read-only running-app inspection used available551×688 viewport, not exact390/1440. App top navigation agrees in structure; calendar is an event list (Figma grid), profile and voice have more actual controls/notices, fonts differ, and profile still mentions Optional chat. Entry source-inspected only. Current browser voice UI said mock; no configuration change or call-budget diagnosis was attempted. Do not assume earlier live-activation notes describe the current UI. No new exercise, message, save, microphone or paid call was initiated.
+
+The student approved the documentation and differences and authorized this commit/push. Next: retain the disclosed limitations for submission. Obtain specific approval before any source correction, grid/layout implementation or additional evidence files. Exact viewport/device checks, implementation round trip and instructor Figma access remain incomplete. Original submitted commits and data preserved. README and AI-USE were outside this four-document approval; their older static-only summaries have not been updated in this increment and should be reconciled in a separately approved publication update.
+
+All older handoff entries below are historical, with this section authoritative for the latest comparison/documentation task.
+
+---
+
 ## Latest publication — October27,2026
 
 The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.

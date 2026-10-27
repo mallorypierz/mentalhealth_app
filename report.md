@@ -1,6 +1,6 @@
 # Assignment 3.2 — Part 2: Updated working prototype
 
-Prepared October 27, 2026. The student explicitly confirmed “the chatbot is all finished and verified” and approved inclusion of all completed additions. This report describes the current local implementation, not just the earlier submission. **Published source:** updated source/evidence commit is pushed and its linked files verified publicly readable. This finalized report is a subsequent documentation-only update. Figma remains blocked as disclosed below.
+Prepared October 27, 2026. The student explicitly confirmed “the chatbot is all finished and verified” and approved inclusion of all completed additions. This report describes the current local implementation, not just the earlier submission. **Published source:** updated source/evidence commit is pushed and its linked files verified publicly readable. This finalized report is a subsequent documentation-only update. A subsequent browser-based Figma design update and student selection are documented below. The student reviewed these latest report edits and explicitly approved their commit and push; the submitted application source commit is unchanged.
 
 | Submission field | Value |
 | --- | --- |
@@ -32,7 +32,7 @@ The calendar derives events from the active identity's completed SQLite sessions
 | Request failure and leaving exercise | Saved/failed/unknown states, retry idempotency, stopped/interrupted records, pause/recovery; voice audio failure separate from text persistence |
 | Research rationale and control | R1–R4/D1–D6 tradeoffs below and [design contracts](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/design-pipeline.md) |
 | Report, accessible evidence, source commit, disclosure | Source committed/pushed, hash recorded and10 hosted evidence links verified; [AI disclosure](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/AI-USE.md) |
-| Class Figma workflow in AGENTS.md | Not fully verified; draft access/tool-limit evidence does not prove editable capture, alternative selection and Vue round-trip fidelity |
+| Class Figma workflow in AGENTS.md | Browser-created editable reference frames and explicit Option A selection now verified; qualitative Vue comparison completed. MCP capture, new selected-frame implementation and matched-viewport fidelity remain incomplete. |
 
 Profiles, calendar, exercise placeholders and speech are optional additions to the assignment. Implementing all four skills is not required. The supplied assignment permits honest unfinished work in Part2. Part3's fifteen fictional scenarios, three explicit behavior checks, varied live evaluation, clean-checkout reproduction and final demonstration/process recordings are not claimed complete here. No recording is attached.
 
@@ -40,7 +40,7 @@ Profiles, calendar, exercise placeholders and speech are optional additions to t
 
 The supplied study reports15 patients,13 clinicians and15 prototype evaluations. Mention counts are design concerns, not clinical effect sizes. R1 and D1/D2 motivate one short, fixed, atomic exercise with minimal setup. R3/R4 motivate direct guest access, explicit Start/Stop, pause-before-switch and reversible optional choices. D3 motivates optional age/gender and a typed alternative to speech. D5 motivates saved profile activity and explicit guest transfer instead of silently assigning data; the tradeoff is a chooser and visible profile-selection privacy limits. Still-cue preference itself remains temporary, not persisted. R2/D4 motivate independent support even when chat fails. D6 motivates neutral language, restrained motion and no clinical claims.
 
-Voice lowers typing effort but introduces recognition errors, latency, privacy and cost. We chose automatic silence-based turns only after explicit Start. Playback no longer supports automatic spoken interruption because the microphone could mistake speaker output for user speech; explicit Stop speaking remains. Saved text and typed input preserve access when audio fails. Navigation wraps rather than implementing the drafted mobile bottom bar; comprehensive phone/zoom/keyboard verification remains incomplete.
+Voice lowers typing effort but introduces recognition errors, latency, privacy and cost. We chose automatic silence-based turns only after explicit Start. Playback no longer supports automatic spoken interruption because the microphone could mistake speaker output for user speech; explicit Stop speaking remains. Saved text and typed input preserve access when audio fails. The student selected Option A (top navigation), superseding the earlier mobile bottom-bar draft. Vue already wraps navigation at the top; comprehensive phone/zoom/keyboard verification remains incomplete.
 
 ## Model contribution and data flow
 
@@ -72,24 +72,34 @@ A second revision addressed overly restrictive app-only answers and rejected ret
 
 Generated code example: [reader.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/reader.py) takes a validated `Query`, maps approved fields to physical columns, adds owner/conversation scope with bound parameters, and opens SQLite read-only with an authorizer. The model cannot provide ownership predicates or write data. [pipeline.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/pipeline.py) preserves retrieval status when context is unavailable, checks returned citations and response boundaries, then returns actual content for the repository to save. [microphone.js](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/frontend/src/microphone.js) rejects frames during playback/processing/hidden states so speaker audio does not become a new turn. These checks are software boundaries, not guarantees of medical safety or perfect recognition.
 
+## Selected Figma design and comparison follow-up
+
+The student explicitly selected **A: top navigation**. The agent used the approved browser-editor fallback to add17 frames on [Part 2 — Updated app](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-110), preserving Page1 baselines: seven desktop/390px view pairs, [experience flow](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-721), [state/tradeoff notes](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-773) and [unselected Option B](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-828). Sampled final text exposes native editable typography controls, with individual vector layers. The [selected practice reference](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-213) and [corrected desktop voice reference](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=37-2) are accessible in the student's signed-in browser. Instructor access is not yet verified.
+
+A qualitative comparison inspected the running app at551×688. Top wrapping navigation, the breathing/library scope, profile choices, typed voice alternative and independent support agree in intent. Differences remain: Figma uses Inter and simplified controls, shows a month grid where Vue uses an accessible event list, and summarizes selected-profile and voice states. Vue still has one Optional chat label on the profile page. Existing browser voice UI showed mock mode; no new live success is claimed. Support was opened without activating any resource link. Entry was source-inspected rather than resetting an existing identity.
+
+The new Figma work is an editable design reference, not a pixel-perfect capture or wired prototype. Exact390px/1440px app comparison and a new Figma-to-Vue implementation were not performed. No source, configuration or saved records changed. Full links and observations are in the local [design comparison](docs/design-pipeline.md#selected-figma-design-and-browser-comparison--october-27-2026) and [verification notes](docs/verification.md); their previously pinned hosted versions remain historical; this approved documentation follow-up supplies the new comparison.
+
 ## Remaining work and submission checklist
 
-Unfinished: saved still-cue preferences; fully verified editable Figma round trip and viewport comparison; comprehensive phone/landscape/zoom/keyboard/accessibility and failure-state coverage; clean-checkout reproduction; broader live quality testing and final recordings. [Assignment-3 Figma file](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3) is a historical reference, not newly verified evidence. Prior MCP quota prevented current node verification. No missing result is treated as passed.
+Unfinished: saved still-cue preferences; exact-viewport Figma/Vue fidelity and a new selected-frame implementation; comprehensive phone/landscape/zoom/keyboard/accessibility and failure-state coverage; clean-checkout reproduction; broader live quality testing and final recordings. Browser-based Figma editing now works despite the MCP quota; instructor/anonymous access to the design file remains unverified. No missing result is treated as passed.
 
 October27 compliance follow-up: live testing now uses explicit host-created sessions capped at50 calls/$2.50 reservations each. All49 prior voice attempts remain historical/unassigned and are not charged to a new session counter. Refresh/restart/profile changes never reset the selected session. New sessions and live activation require explicit host approval. The template and peer-test default remain mocked. After offline verification, the student separately approved a24-call/$1.20 live demo session; activation used0 paid calls. Historical65-call authorization is superseded. Subsequent live sessions still require explicit approval. Speech model migration remains a separate decision.
 
-The approved [manual Figma fallback](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. These are simplified source-informed references, not exact captures or editable Figma components; the MCP quota still blocks direct updates. This follow-up is committed and pushed; the source hash above includes testing-session budgets and the static reference pack. Prior reportf93bc0d remains preserved.
+The approved [manual Figma fallback](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. Those earlier files are simplified static references. The later browser-based work described above created native editable Figma text/vector layers; it did not use MCP or turn the PNG pack into a verified capture. That earlier static-pack follow-up is committed and pushed; the source hash above includes testing-session budgets and the static reference pack. The student separately approved publication of the newest Figma comparison/documentation changes. Prior reportf93bc0d remains preserved.
 
 - [x] Student explicitly verified chatbot completion and approved documentation inclusion.
 - [x] Current implementation, optional features and remaining limitations documented.
 - [x] Original Part1 and Part2 commit references preserved.
-- [ ] Student reviews this revised report and disclosures.
+- [x] Student reviewed and approved this revised report and disclosures.
 - [x] Student separately approved committing all updated source/evidence.
 - [x] Created approved source/evidence commit; actual hash recorded above.
 - [x] Student separately approved pushing all updated changes.
 - [x] Verified exact source/evidence hash on remote after push.
 - [x] Replaced local evidence links with verified commit-specific hosted links. Finalized report is published as a documentation follow-up.
 - [x] Use mocked peer testing and enforce an explicit50-call maximum per approved testing session.
-- [x] Prepare approved static Figma fallback; disclose that editable workflow remains incomplete.
-- [x] Committed/pushed this follow-up and pinned its fallback evidence link.
+- [x] Prepare static fallback, then browser-created editable references; student selected A.
+- [x] Record qualitative app comparison and disclose unfinished exact-viewport/implementation checks.
+- [x] Student reviewed and separately approved commit/push of this latest documentation increment.
+- [x] Committed/pushed the earlier static-pack follow-up and pinned its fallback evidence link.
 - [ ] Student uploads the finalized report.md. No course upload, merge or deployment has been performed.

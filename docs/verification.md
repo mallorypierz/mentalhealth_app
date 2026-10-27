@@ -1,3 +1,19 @@
+## Figma Option A comparison — October 27, 2026
+
+Comparison scope: approved read-only application/browser comparison and four documentation updates; no application, dependency, runtime configuration or database mutation. No commit/push occurred during comparison. The student subsequently reviewed and explicitly approved the documentation commit/push. Baseline at start: clean codex/profiles-calendar, HEAD175fc28ecadb5d0a50bf48a39208d44e10ef6014; published source aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8 unchanged.
+
+- Previous authorized design increment: browser editor created 17 native text/vector frames on Part 2 — Updated app, preserved Page 1, corrected clipped desktop voice frame (replacement37:2), and visually inspected seven phone references plus desktop voice and state notes. Native Text/Typography controls were checked on a final library layer; this is sampled editability evidence, not an audit of every layer or reusable component semantics.
+- Student explicitly selected A. This turn re-read the saved 17-frame inventory and preserved Page 1 in the signed-in editor. Exact links and limitations are in [design comparison](design-pipeline.md#selected-figma-design-and-browser-comparison--october-27-2026).
+- Browser app inspection at available551×688: top/wrapping navigation; idle practice; library availability; calendar loading→empty and timezone; guest profile; existing selected-profile fields; voice mock-mode controls/typed input/history; support opened/closed without activating resource links. Profile data was neither changed nor copied into design frames.
+- Entry chooser checked in ProfileGate.vue only. No identity switch/exit, exercise start, new conversation/message, audio playback, microphone or paid call. This was not a new SmokeTest, ownership audit or timing run. Opening existing history is not evidence of a new live response.
+- Differences: Figma month grid versus Vue event list; simplified Figma profile and voice states; Inter versus Arial/Georgia; different header spacing and identity control; stale Optional chat wording on Vue profile. No fixes silently implemented.
+- No exact390px/1440px browser comparison, landscape/zoom/focus audit, fresh failure injection, device test, provider health investigation or instructor-account access check. Figma support resource notes do not replace the app's actual links.
+- Documentation checks passed: `git diff --check`; exactly the four approved documents changed; all local Markdown file targets exist; 17 unique current frame links plus the page link appear in the new design section; removed frame31:558 is not linked. These are local structure/link-target checks, not anonymous Figma access checks. Automated application tests were not rerun because this increment changes documentation only; historical77 backend/26 frontend/build results below retain their original scope.
+
+Earlier static-only/no-Figma-edit statements below are historical and superseded by this browser-created design evidence, not by a successful MCP capture. A selected-frame-to-Vue implementation remains unperformed.
+
+---
+
 ## Latest publication — October27,2026
 
 The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.
