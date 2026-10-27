@@ -1,6 +1,6 @@
 # Current handoff — October27,2026
 
-Working directory: /Users/mallorypierz/mentalhealth_app. Branch codex/profiles-calendar; HEAD6f995d4ff1c7e60de72ce42ac62f1ab301d25e3e. Many approved voice source/tests changes and updated docs are uncommitted; preserve them. User has now explicitly approved commit and push for this updated milestone. Publication verification follows below.
+Working directory: /Users/mallorypierz/mentalhealth_app. Branch codex/profiles-calendar; HEAD6f995d4ff1c7e60de72ce42ac62f1ab301d25e3e. Approved voice source/tests and evidence are now published at1b7b834978c78051655bb25e273ff58101e3e4a7; publication details below supersede the earlier HEAD. User has now explicitly approved commit and push for this updated milestone. Publication verification follows below.
 
 The student explicitly verified the chatbot and approved all completed additions for the updated Part2 documents. report.md now consolidates profile/guest access, calendar, library placeholders, responsive styles and real voice/typed chat. Original Part2 source080ad63/reportf133bf99 and Part1e958bdcf remain preserved. docs/later-milestone-report.md points to the consolidated report.
 
@@ -8,6 +8,11 @@ Current checks:74 backend tests,26 frontend tests and production build passed; w
 
 Voice is hands-free turn-taking with gaps, not duplex realtime. Capture starts explicitly, stops on support/hide/profile switch, ignores frames during reply playback, and resumes listening only within an active visible session. Typed input remains. Actual text is saved before speech; retries and state guards prevent duplicate/stale results. General wellbeing discussion is allowed under educational boundaries; personal-history claims require records. Rejected SQL remains blocked, but an explicitly empty context permits general answers. No raw SQL/private values in rejection diagnostics.
 
-Submission steps still needed: student review of revised report/disclosure; separate source commit and push approvals; record actual new hash; replace relative report evidence links with verified commit-specific hosted links; publish finalized report; student uploads. No new hash or remote access claimed yet. Figma editable round trip remains unverified; comprehensive phone/accessibility checks, saved still-cue preference and clean-checkout reproduction remain incomplete. Part3 evaluation/recordings are not claimed complete. See report.md and docs/evidence/voice-update.md.
+Submission steps: source commit/push/hash and hosted evidence checks completed; final report review and student upload remain. No new hash or remote access claimed yet. Figma editable round trip remains unverified; comprehensive phone/accessibility checks, saved still-cue preference and clean-checkout reproduction remain incomplete. Part3 evaluation/recordings are not claimed complete. See report.md and docs/evidence/voice-update.md.
 
 No application source, runtime configuration, Figma or Git state changed during this final document-preparation task. No merge/deployment/course upload. Next action: complete authorized commit/push and pin report evidence links. Figma get_metadata is blocked by Starter-plan MCP quota; do not claim an update. Do not spend calls to verify chat again.
+
+
+## Publication result — October27
+
+User explicitly approved commit/push of all completed changes. Source/evidence commit1b7b834978c78051655bb25e273ff58101e3e4a7 was pushed to codex/profiles-calendar and git ls-remote matched exactly. Original codex/part2f133bf99 and part1-submissione958bdcf remote hashes remained unchanged. All9 report-linked files were verified publicly readable at the new source commit using certificate-verified system curl (Python’s separate local certificate store failed). Report links now pin that source snapshot. Earlier pending/uncommitted wording is historical and superseded here. This documentation follow-up finalizes publication evidence. No merge, deployment or course upload. Figma metadata was blocked by Starter-plan MCP quota; no Figma edit occurred.

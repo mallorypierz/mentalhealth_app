@@ -1,12 +1,12 @@
 # Current disclosure status — October27,2026
 
-The student now explicitly verifies the chatbot and approves completed additions for updated Part2. Earlier dated sections below are a historical trail; their mock-only/disabled/pending-verification claims do not describe the latest app. No exact serving-agent snapshot is asserted. New submitted commit is still pending.
+The student now explicitly verifies the chatbot and approves completed additions for updated Part2. Earlier dated sections below are a historical trail; their mock-only/disabled/pending-verification claims do not describe the latest app. No exact serving-agent snapshot is asserted. Updated submitted source commit:1b7b834978c78051655bb25e273ff58101e3e4a7, pushed and verified.
 
 Live voice uses OpenAI gpt-4o-mini-transcribe, gpt-5.4-mini-2026-03-17 (SQL planning/answer), and gpt-4o-mini-tts with marin. Codex generated adapters, microphone capture, ownership-scoped voice persistence, retry/budget handling, tests and documentation under student-approved increments. Mock fixtures remain for automated tests; live results and student feedback are recorded separately in [updated evidence](docs/evidence/voice-update.md). The agent did not make paid calls during final documentation preparation.
 
 Revisions include valid PCM-to-WAV packaging after failed speech validation, explicit playback interruption after a suspected echo cutoff, and broader educational answers with honest unavailable-history context after rejected queries. These do not establish clinical safety or reliable distress detection. The student selected scope, approved costs/changes, tried the chatbot and explicitly confirmed completion; we do not attribute every agent-run test to the student.74 backend/26 frontend tests and production build passed during this preparation. Official prompt guidance consulted: https://developers.openai.com/api/docs/guides/prompting .
 
-The retained short-demo speech model's deprecation was disclosed before activation. The local65-call cumulative allowance is not the assignment's50-call peer-session enforcement; peer testing must remain mocked pending a compliant session-cap change. Current voice work and revised documentation are uncommitted. [Report](report.md) states remaining Figma, accessibility, preference and publication gaps. No source was copied from a therapy dataset and no clinical study was conducted.
+The retained short-demo speech model's deprecation was disclosed before activation. The local65-call cumulative allowance is not the assignment's50-call peer-session enforcement; peer testing must remain mocked pending a compliant session-cap change. Current voice source/evidence is committed and pushed; publication verification is recorded below. [Report](report.md) states remaining Figma, accessibility, preference and publication gaps. No source was copied from a therapy dataset and no clinical study was conducted.
 
 ---
 
@@ -77,3 +77,8 @@ Following user approval, the agent implemented concern wording, held-input state
 ### Disabled live-voice capability — October 26
 
 Agent extended browser microphone capture and provider adapters under explicit approval, with no new packages or paid calls. Official OpenAI documentation checked for audio endpoints/pricing; discovered approved speech model deprecation and disclosed it without substitution. Generated a durable reservation ledger and mocked HTTP/SQLite tests, preserving old records.68backend/23frontend tests and build passed. Runtime browser remains mock; real-device recognition/spoken fidelity and live invoice bounds remain unverified. User verified the preceding crisis wording, not this new implementation yet.
+
+
+## Publication result — October27
+
+User explicitly approved commit/push of all completed changes. Source/evidence commit1b7b834978c78051655bb25e273ff58101e3e4a7 was pushed to codex/profiles-calendar and git ls-remote matched exactly. Original codex/part2f133bf99 and part1-submissione958bdcf remote hashes remained unchanged. All9 report-linked files were verified publicly readable at the new source commit using certificate-verified system curl (Python’s separate local certificate store failed). Report links now pin that source snapshot. Earlier pending/uncommitted wording is historical and superseded here. This documentation follow-up finalizes publication evidence. No merge, deployment or course upload. Figma metadata was blocked by Starter-plan MCP quota; no Figma edit occurred.

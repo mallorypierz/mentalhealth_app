@@ -374,3 +374,8 @@ October27 budget-only increment:8 mocked live-adapter/budget tests passed and di
 
 
 October27 publication follow-up: user explicitly approved committing/pushing all completed changes and updating the existing Assignment-3 Figma file. Figma create_session succeeded, but get_metadata returned the Starter-plan MCP tool-call limit. No design read/edit or frame verification succeeded; no Figma changes were made. This remains an external-access blocker, not completed design work.
+
+
+## Publication result — October27
+
+User explicitly approved commit/push of all completed changes. Source/evidence commit1b7b834978c78051655bb25e273ff58101e3e4a7 was pushed to codex/profiles-calendar and git ls-remote matched exactly. Original codex/part2f133bf99 and part1-submissione958bdcf remote hashes remained unchanged. All9 report-linked files were verified publicly readable at the new source commit using certificate-verified system curl (Python’s separate local certificate store failed). Report links now pin that source snapshot. Earlier pending/uncommitted wording is historical and superseded here. This documentation follow-up finalizes publication evidence. No merge, deployment or course upload. Figma metadata was blocked by Starter-plan MCP quota; no Figma edit occurred.
