@@ -1,3 +1,7 @@
+## Latest publication — October27,2026
+
+The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.
+
 # A little space — updated Assignment 3 Part 2
 
 Localhost coursework prototype using Vue, FastAPI and SQLite. Available skill: six cycles of4-second inhalation and6-second exhalation. Profiles/guest access, saved session history, a completed-session calendar, names-only exercise library and optional live voice/typed chat extend the original Part2 milestone. This is not therapy, diagnosis, monitoring or a crisis service. Use fictional scenarios for testing.

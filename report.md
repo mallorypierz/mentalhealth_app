@@ -6,11 +6,11 @@ Prepared October 27, 2026. The student explicitly confirmed “the chatbot is al
 | --- | --- |
 | Repository | [mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) |
 | Current branch | `codex/profiles-calendar` |
-| Updated submitted source commit | [`1b7b834978c78051655bb25e273ff58101e3e4a7`](https://github.com/mallorypierz/mentalhealth_app/commit/1b7b834978c78051655bb25e273ff58101e3e4a7) — verified on remote `codex/profiles-calendar`. |
+| Updated submitted source commit | [`aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8`](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) — verified on remote `codex/profiles-calendar`. |
 | Prior published expansion | [e593a522b7a1b0718e1a19987ac133e66cfbc36b](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b) — profiles/calendar/library |
 | Original Part 2 | [Source080ad639](https://github.com/mallorypierz/mentalhealth_app/commit/080ad6393a2ade204f6f2b417b422a5778a8ed4c), [reportf133bf99](https://github.com/mallorypierz/mentalhealth_app/blob/f133bf99804246fe4fa34f090db37b196abf69c8/report.md) preserved |
 | Part 1 | [Reporte958bdcf](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md) preserved |
-| Evidence access | All9 linked source/document/evidence files below were verified publicly readable without authentication at the new commit on October27. This is not a check from the instructor’s device. |
+| Evidence access | All10 linked source/document/evidence files below were verified publicly readable without authentication at the new commit on October27. This is not a check from the instructor’s device. |
 
 ## Experience and completed scope
 
@@ -24,14 +24,14 @@ The calendar derives events from the active identity's completed SQLite sessions
 
 | Part 2 requirement | Evidence and status |
 | --- | --- |
-| Complete at least one chosen skill | Six-cycle paced breathing implemented; [completion evidence](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/evidence/part2-final-completed.png), timing and tests |
-| Model contribution with relevant context | Two-call SQL RAG plus actual live transcription, answer generation and speech; [evidence categories](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/evidence/voice-update.md) distinguish agent observations, mocks and student verification |
-| Conversation/session persistence and history | Stable IDs/order/timestamps, parameterized transactions, actual saved replies, session table, calendar; [original browser/API/SQLite extract](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/evidence/part2-final-records.json) and [verification](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/verification.md) |
+| Complete at least one chosen skill | Six-cycle paced breathing implemented; [completion evidence](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/part2-final-completed.png), timing and tests |
+| Model contribution with relevant context | Two-call SQL RAG plus actual live transcription, answer generation and speech; [evidence categories](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/voice-update.md) distinguish agent observations, mocks and student verification |
+| Conversation/session persistence and history | Stable IDs/order/timestamps, parameterized transactions, actual saved replies, session table, calendar; [original browser/API/SQLite extract](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/part2-final-records.json) and [verification](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/verification.md) |
 | Guided exercise no longer than90 seconds | Historical measured bounds below90 seconds; sequence remains unchanged; timing detail below |
 | Independent crisis-support route | Application-controlled support accessible without microphone/model/classifier/database/budget; historical backend-outage checks; no service contacted |
 | Request failure and leaving exercise | Saved/failed/unknown states, retry idempotency, stopped/interrupted records, pause/recovery; voice audio failure separate from text persistence |
-| Research rationale and control | R1–R4/D1–D6 tradeoffs below and [design contracts](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/design-pipeline.md) |
-| Report, accessible evidence, source commit, disclosure | Source committed/pushed, hash recorded and9 hosted evidence links verified; [AI disclosure](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/AI-USE.md) |
+| Research rationale and control | R1–R4/D1–D6 tradeoffs below and [design contracts](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/design-pipeline.md) |
+| Report, accessible evidence, source commit, disclosure | Source committed/pushed, hash recorded and10 hosted evidence links verified; [AI disclosure](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/AI-USE.md) |
 | Class Figma workflow in AGENTS.md | Not fully verified; draft access/tool-limit evidence does not prove editable capture, alternative selection and Vue round-trip fidelity |
 
 Profiles, calendar, exercise placeholders and speech are optional additions to the assignment. Implementing all four skills is not required. The supplied assignment permits honest unfinished work in Part2. Part3's fifteen fictional scenarios, three explicit behavior checks, varied live evaluation, clean-checkout reproduction and final demonstration/process recordings are not claimed complete here. No recording is attached.
@@ -56,7 +56,7 @@ SQLite keeps identities, sessions, conversations, ordered user/assistant message
 
 ## Verification and timing
 
-[Verification notes](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/docs/verification.md) provide dated commands and separate mock, live, historical and untested evidence. The October27 preparation checks are recorded there. No new paid call was made for document preparation. The student's current message explicitly verifies the chatbot; it does not establish every physical-device/browser combination or clinical quality.
+[Verification notes](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/verification.md) provide dated commands and separate mock, live, historical and untested evidence. The October27 preparation checks are recorded there. No new paid call was made for document preparation. The student's current message explicitly verifies the chatbot; it does not establish every physical-device/browser combination or clinical quality.
 
 Historical final Part2 measurement: setup5.036s separately; pre-Start-click to completed UI72.336s, conservatively including observation overhead and application delays. First instruction was observed1.091s after click, so that bound covers the full guided sequence. No voluntary pauses/support were excluded. SQLite stored60000ms active with60.001s wall span; the capped timer alone is not the measurement. Later profile-enabled measurement was bounded by72.082s from guest entry through completed/saved state, with entry/setup observation bound3.770s. These are historical runs, not a new voice-era timing measurement; six-cycle timer tests still pass and voice remains outside timed practice.
 
@@ -70,7 +70,7 @@ First, the mock audio was intentionally a tone, not speech; the student requeste
 
 A second revision addressed overly restrictive app-only answers and rejected retrieval. The approved educational prompt now permits general discussion; a failed lookup supplies empty context rather than preventing all answers. Mock tests verify rejected writes do not execute, no foreign citations pass, actual fallback replies are saved and failure statuses remain distinct.
 
-Generated code example: [reader.py](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/backend/app/rag/reader.py) takes a validated `Query`, maps approved fields to physical columns, adds owner/conversation scope with bound parameters, and opens SQLite read-only with an authorizer. The model cannot provide ownership predicates or write data. [pipeline.py](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/backend/app/rag/pipeline.py) preserves retrieval status when context is unavailable, checks returned citations and response boundaries, then returns actual content for the repository to save. [microphone.js](https://github.com/mallorypierz/mentalhealth_app/blob/1b7b834978c78051655bb25e273ff58101e3e4a7/frontend/src/microphone.js) rejects frames during playback/processing/hidden states so speaker audio does not become a new turn. These checks are software boundaries, not guarantees of medical safety or perfect recognition.
+Generated code example: [reader.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/reader.py) takes a validated `Query`, maps approved fields to physical columns, adds owner/conversation scope with bound parameters, and opens SQLite read-only with an authorizer. The model cannot provide ownership predicates or write data. [pipeline.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/pipeline.py) preserves retrieval status when context is unavailable, checks returned citations and response boundaries, then returns actual content for the repository to save. [microphone.js](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/frontend/src/microphone.js) rejects frames during playback/processing/hidden states so speaker audio does not become a new turn. These checks are software boundaries, not guarantees of medical safety or perfect recognition.
 
 ## Remaining work and submission checklist
 
@@ -78,7 +78,7 @@ Unfinished: saved still-cue preferences; fully verified editable Figma round tri
 
 October27 compliance follow-up: live testing now uses explicit host-created sessions capped at50 calls/$2.50 reservations each. All49 prior voice attempts remain historical/unassigned and are not charged to a new session counter. Refresh/restart/profile changes never reset the selected session. New sessions and live activation require explicit host approval. The template and peer-test default remain mocked. After offline verification, the student separately approved a24-call/$1.20 live demo session; activation used0 paid calls. Historical65-call authorization is superseded. Subsequent live sessions still require explicit approval. Speech model migration remains a separate decision.
 
-The approved [manual Figma fallback](docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. These are simplified source-informed references, not exact captures or editable Figma components; the MCP quota still blocks direct updates. The student has explicitly approved publication of this follow-up; its final source hash and hosted links are being finalized. Prior reportf93bc0d remains preserved.
+The approved [manual Figma fallback](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. These are simplified source-informed references, not exact captures or editable Figma components; the MCP quota still blocks direct updates. This follow-up is committed and pushed; the source hash above includes testing-session budgets and the static reference pack. Prior reportf93bc0d remains preserved.
 
 - [x] Student explicitly verified chatbot completion and approved documentation inclusion.
 - [x] Current implementation, optional features and remaining limitations documented.
@@ -91,5 +91,5 @@ The approved [manual Figma fallback](docs/figma-fallback/README.md) provides14 s
 - [x] Replaced local evidence links with verified commit-specific hosted links. Finalized report is published as a documentation follow-up.
 - [x] Use mocked peer testing and enforce an explicit50-call maximum per approved testing session.
 - [x] Prepare approved static Figma fallback; disclose that editable workflow remains incomplete.
-- [ ] Commit/push this follow-up and pin its new fallback evidence link before uploading this report version.
+- [x] Committed/pushed this follow-up and pinned its fallback evidence link.
 - [ ] Student uploads the finalized report.md. No course upload, merge or deployment has been performed.

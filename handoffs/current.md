@@ -1,3 +1,7 @@
+## Latest publication — October27,2026
+
+The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.
+
 # Current handoff — October27,2026
 
 Working directory: /Users/mallorypierz/mentalhealth_app. Branch codex/profiles-calendar; HEAD6f995d4ff1c7e60de72ce42ac62f1ab301d25e3e. Approved voice source/tests and evidence are now published at1b7b834978c78051655bb25e273ff58101e3e4a7; publication details below supersede the earlier HEAD. User has now explicitly approved commit and push for this updated milestone. Publication verification follows below.
