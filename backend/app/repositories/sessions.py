@@ -3,9 +3,14 @@ import json
 from datetime import datetime, timezone
 from ..db import connect
 from ..identity import owner, validate_context
+from ..exercises import EXERCISES
 
 
 class Conflict(Exception):
+    pass
+
+
+class InvalidDuration(Exception):
     pass
 
 
@@ -99,6 +104,9 @@ def update(path, session_id, request):
                 return {'session': json.loads(previous['result_json']), 'persistence': 'saved', 'replayed': True}
             if row['status'] != 'in_progress' or row['revision'] != request.expected_revision:
                 raise Conflict('Session changed. Read its saved state before retrying.')
+            duration = EXERCISES[row['skill_key']][1]
+            if request.active_duration_ms > duration or (request.status == 'completed' and row['skill_key'] != 'sensory_grounding_5_4_3_2_1' and request.active_duration_ms != duration):
+                raise InvalidDuration('Duration does not match the saved exercise sequence.')
             if request.active_duration_ms < row['active_duration_ms'] or request.paused_duration_ms < row['paused_duration_ms']:
                 raise Conflict('Confirmed durations cannot decrease.')
             if request.ended_at and request.ended_at < datetime.fromisoformat(row['started_at']):

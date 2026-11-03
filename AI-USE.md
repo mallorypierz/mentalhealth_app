@@ -1,3 +1,29 @@
+November 3: Codex prepared the recording outline and narration from actual source/evidence and reran three mocked identity-recovery tests. No video captured or new live calls made.
+
+November 3: Codex fixed stale local identity recovery after database switching, with bounded401-only rebootstrap tests. No saved data or provider allowance reset.
+
+November 3: Student requested grounding Next/checkmarks. Codex updated UI, separate scheduled/elapsed clock accounting, grounding-only completion validation and regression tests. Mock browser/SQLite verification; no paid calls.
+
+Student-requested copy edit, November 3: Codex simplified the second reframe prompt while retaining its meaning and timing.
+
+## Quiz simplification — November 3, 2026
+
+Codex revised the approved quiz presentation at the student’s request: one question per step, shorter copy and collapsed supporting sections. Existing mapping/data contracts retained. Agent ran 33 frontend checks/build and guest browser edits/skip/retake checks. No new live calls.
+
+# Part 3 AI-use disclosure — November 3, 2026
+
+Codex assisted with approved exercise implementations, deterministic quiz/preferences, tests, browser/database inspection, README and evaluation writing. Student supplied scope and approved reviewed instructions/timing, quiz flow, top navigation, installation and the 12-call sample. Agent-run checks are not attributed to the student. Exact coding-agent serving snapshot is not asserted.
+
+Tools used: local Git/Python/Node tools, FastAPI TestClient and fictional SQLite, browser automation, and the OpenAI Docs skill to verify the configured model snapshot. Live provider `gpt-5.4-mini-2026-03-17` ran six typed trials/12 calls; routine tests used mocked responses. Ledger reservations were preserved, not reset. See [evaluation](docs/part3-evaluation.md) and [live comparison](docs/evidence/part3/live/comparison.md). No private transcript or credentials were copied to the clean environment.
+
+Revised approaches: corrected test-helper import in an earlier increment; retained explicit choice rather than arbitrary recommendation ties; separated rejected SQL from whether a general answer can be returned; used approved localhost escalation after sandbox binding failure. Clean tests passed without application changes. The clean local candidate is not a published milestone; final documents are newer than that candidate.
+
+Figma correction supersedes older static-only summaries below: 17 historical browser-created native text/vector frames with sampled editability, selected top-nav Option A, but no successful MCP capture, wired prototype or verified Figma-to-Vue implementation. No new Figma work or recordings performed here. Remaining checks are disclosed, not inferred passed.
+
+Earlier dated entries below are historical.
+
+---
+
 ## Latest publication — October27,2026
 
 The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.
@@ -92,3 +118,12 @@ October27 approved fallback: generated source-informed annotated desktop/390px r
 
 
 Approved explicit testing-session accounting replaces cumulative-only budget. Agent generated migration, host-only CLI, atomic per-session reservations, runtime mode selection and mocked tests. Historical calls are preserved without attributing them to a person; no real session or paid calls created during implementation.
+
+
+November 2 Part 3 increment: Codex inspected source, drafted source-based exercise wording, obtained explicit student approval, implemented exercise/quiz/data integration, and ran mocked tests. NHS/VA sources and timing adaptations are recorded in design-pipeline.md. Tools: terminal, apply_patch, web lookup, hotline lookup, browser UI. No paid provider calls. Initial browser test origin was rejected; retained origin protection and used the allowed port. Browser verification remains partial; no clinical outcome or full evaluation claimed.
+
+Quiz refinement: deterministic decision table, explicit invalid/unavailable fallbacks, answer-based explanations, and matrix tests generated and checked by Codex. No model calls in the quiz; no fresh browser interaction evidence claimed.
+
+November 2 preference integration: Codex implemented explicit profile-only persistence and transparent history, mocked transaction/retry/isolation tests, and a real-browser preference save/read comparison against HTTP and read-only SQLite. No model calls, generated therapeutic instructions or changes to RAG access. Test-discovery import failure corrected and full checks rerun.
+
+Part 3.3 evaluation: Codex wrote expected results before execution, ran existing mock suites/build, operated the real browser and inspected fictional SQLite with mode=ro. Preserved logs, matrix, screenshot and AX snapshots. No provider calls. S15 combined failure/support marked not-run rather than inferred from separate tests. No application fixes or clinical claims.

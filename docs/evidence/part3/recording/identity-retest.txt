@@ -1,0 +1,11 @@
+✔ revoked browser access is cleared once and returns a fresh chooser without replaying writes (3.112166ms)
+✔ network and server failures preserve credentials and do not bootstrap (0.264916ms)
+✔ valid identity is retained; failed bootstrap is not retried in a loop (0.146875ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.745584

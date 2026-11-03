@@ -1,20 +1,21 @@
 from typing import Literal
 from uuid import UUID
 from pydantic import AwareDatetime, BaseModel, ConfigDict
+from .exercises import SkillKey
 
 
 class SessionCreate(BaseModel):
     model_config = ConfigDict(extra='forbid')
     session_id: UUID
     operation_id: UUID
-    skill_key: Literal['paced_breathing_4_6']
+    skill_key: SkillKey
     started_at: AwareDatetime
     owner_token: UUID | None = None
 
 
 class SessionRecord(BaseModel):
     id: UUID
-    skill_key: Literal['paced_breathing_4_6']
+    skill_key: SkillKey
     status: Literal['in_progress', 'completed', 'stopped', 'interrupted']
     started_at: AwareDatetime
     ended_at: AwareDatetime | None
@@ -40,7 +41,7 @@ class SessionUpdate(BaseModel):
     owner_token: UUID
     expected_revision: int = Field(ge=1)
     status: Literal['in_progress', 'completed', 'stopped', 'interrupted']
-    active_duration_ms: int = Field(ge=0, le=60000, strict=True)
+    active_duration_ms: int = Field(ge=0, le=75000, strict=True)
     paused_duration_ms: int = Field(ge=0, strict=True)
     ended_at: AwareDatetime | None = None
 
@@ -48,8 +49,6 @@ class SessionUpdate(BaseModel):
     def consistent(self):
         if (self.status == 'in_progress') != (self.ended_at is None):
             raise ValueError('Terminal sessions require an end time.')
-        if self.status == 'completed' and self.active_duration_ms != 60000:
-            raise ValueError('Completion requires all six cycles.')
         return self
 
 

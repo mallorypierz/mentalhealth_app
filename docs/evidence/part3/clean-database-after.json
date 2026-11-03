@@ -1,0 +1,12 @@
+{
+  "sessions": [
+    {
+      "id": "7a52c388-0797-414b-b75d-d3a9c06a2ba9",
+      "skill_key": "cognitive_reframe",
+      "status": "completed",
+      "active_duration_ms": 60000
+    }
+  ],
+  "integrity": "ok",
+  "foreign_keys": []
+}

@@ -1,3 +1,72 @@
+## Invalid local access recovery — November 3, 2026
+
+After switching from isolated mock data to the original live database, the user's browser retained an identity token unknown to that database. Boot previously retried the same rejected token indefinitely. Added bounded recovery on HTTP401 during identity restore: clear only browser access, request a fresh chooser identity, and let the user explicitly select a profile/guest. No saved database records, outbox entries, or usage ledger are deleted; no pending mutation is replayed. Network/403/500 failures retain credentials and report failure. A failed bootstrap does not loop.
+
+Verification:37 frontend tests/build passed, including401 recovery, valid identity, other failures and bounded failed bootstrap. Existing browser handles could not be reacquired (browser-control error); recovery in the user's existing tab is not claimed browser-verified. User should refresh. No paid calls, backend restart or credential/configuration change.
+
+## Grounding Next step and tracking — November 3, 2026
+
+Student requested manual advancement and checkmarks. Grounding now has optional numbered checkboxes (5/4/3/2/1), Next step and Finish exercise. The existing automatic 15-second steps remain as fallback; Pause/Stop/support remain available. Checkmarks are local, reset on restart, never required and never saved or interpreted as wellbeing. Reviewed instruction text unchanged. Setup separate; active guided sequence remains at most75s, excluding voluntary pauses. Explicit Next may shorten it.
+
+Contract change: grounding completed duration may be 0–75000ms; other exercises still require their full planned duration. Repository validates against the stored skill; request schema cannot do that without the saved record. No database migration required. Frontend tracks skipped scheduled time separately from actual elapsed time; saves actual active duration and last confirmed interruption checkpoint. Manual advancement is disabled while paused/support open; late boundary clicks cannot skip an extra step.
+
+Checks: 83 backend tests,34 frontend tests,build passed. New tests cover early completion/replay, timing/pauses/restart/automatic boundary and non-grounding exclusion. Browser: two checkmarks, Next through4/3/2/1, Finish → saved completed15s. Read-only SQLite actual ID/duration in docs/evidence/part3/grounding-next-record.json; screenshot grounding-checkmarks.png. No paid calls/dependencies. Updated project backend serves explicit mocks using the preserved isolated database on8000 (session46475); frontend5173. Clean candidate b3d8087 is historical and does not include this change. No commit/push.
+
+## Reframe wording — November 3, 2026
+
+At the student’s annotated request, simplified step 2 to “What makes this thought seem true? Could there be another way to explain what happened?” This preserves considering evidence and alternative explanations, the 20-second step and 60-second sequence. No other exercise instructions or behavior changed. Frontend exercise tests passed; no new live calls. This wording is newer than the clean-checkout candidate.
+
+## Quiz presentation refinement — November 3, 2026
+
+User requested less overwhelming UI and shorter wording. Two existing preference questions now appear one at a time with progress, Back, Skip question and Skip quiz. Kept two because additional questions do not yet have an approved meaningful mapping to the four exercises. Activity labels and fallback copy shortened; deterministic mapping and stored activity/breath values unchanged. Saved preferences and history are collapsed; history/library are hidden while answering. Result offers preview/another choice/edit/retake, never automatic Start. Step changes focus the heading. Reviewed steps, backend/data contracts, voice/chat and top navigation unchanged by this increment.
+
+Verification: 33 frontend tests and production build passed; browser guest surroundings/avoid produced grounding, Change preserved answers, Skip cleared each answer, both skipped gave no match, retake reset selections. Support remained visible. Screenshot: docs/evidence/part3/quiz-simplified.png. Full saved-profile browser and physical-device checks not repeated. No new dependencies or paid calls. Serving project frontend on5173 (session56918), still connected to isolated mock backend8000; earlier clean checkout is preserved. This UI revision is newer than clean candidate b3d8087 and is not covered by that historical byte-equality result. No commit/push.
+
+## Integration status — November 3, 2026
+
+[Part 3 evaluation](part3-evaluation.md) reconciles initial choices and final behavior. [Clean-checkout evidence](evidence/part3/clean-checkout.md) records the exact local candidate and verified README flow. The remembered-preference contract below supersedes earlier transient-only statements; all suggestions remain deterministic, current-answer-driven, and independent of history counts. Later live evidence supersedes historical untested-live notes. No interface or Figma behavior changed in this documentation increment.
+
+## Part 3 evaluation evidence — November 2, 2026
+
+[18-scenario evaluation](evidence/part3/evaluation.md) records actual automated/browser scope. No application behavior changed during evaluation. Rejected retrieval may return a general answer with unavailable history disclosed; no rejected query executes. Completion counts still carry no effectiveness interpretation. One combined failure/support browser case remains unverified. The subsequently approved live variation sample is recorded separately in [live results](evidence/part3/live/comparison.md).
+
+## Remembered preferences — November 2, 2026
+
+GET /api/preferences returns selected-owner id, revision, answers or null, persistence. PUT accepts operation_id UUID, expected_revision, and validated answers or null (Forget). Responses use the same shape plus replayed. Identity is resolved from the token/context version, never a submitted owner ID. 401 missing identity, 409 stale context/revision/conflicting replay, 422 invalid answers or guest save, 503 database failure. Writes are transactional and retries reuse operation IDs. One row per profile; Forget clears answers while retaining a revision tombstone and content-free receipt hashes so delayed retries cannot resurrect forgotten answers. Profile deletion cascades these records.
+
+Guests may use the quiz but cannot remember answers: quiz state is temporary and is not transferred with guest activity. Profile users explicitly load remembered answers; background fetches never replace current choices. Remember is unchecked by default and Save is explicit. Current answers always drive the local decision table. Historical sessions are shown separately with IDs, durations and statuses; history never ranks or changes suggestions. RAG remains scoped/read-only and does not gain access to preference tables.
+
+## Quiz refinement contract — November 2, 2026
+
+Inputs: activity is an approved activity key, empty (skipped), or none (explicit no preference); breath is yes/avoid/unsure/none/empty. Unknown values return invalid, never an inferred suggestion. Output is status, reason, and an available exercise or null. Explicit activity takes precedence except breath-focus conflicts. Missing activity + yes suggests breathing; otherwise incomplete/no ranked winner. Ties show choices without a score. Unavailable matches return unavailable without substitution. Rules are local and work without providers; no quiz API, save, or automatic Start. Retake clears answers; Change preserves them; Skip/Reject returns to the library. Preview emits only an approved available key into the existing session flow. The previously verified STOP browser save establishes that integration; rerun backend save checks before connecting the refined quiz.
+
+## Part 3 exercise and quiz contract — November 2, 2026
+
+Approved this session: all three existing placeholders, the short optional quiz, top navigation, and the existing class-principle rationale. The student explicitly approved the following source-based instructions/timings before implementation. These are coursework adaptations, not clinically validated 60/75-second treatments.
+
+- Grounding: five 15-second prompts: notice 5 things seen, 4 felt, 3 heard, 2 smelled, 1 tasted. Nothing must be fetched or consumed. Pause/Stop available throughout. Total 75 active seconds.
+- STOP: four 15-second prompts: pause before reacting; step back and take a breath; observe thoughts, feelings and surroundings; consider the goal and choose the next action deliberately. Total 60 active seconds. Classified as breath-focused for recommendations.
+- Cognitive reframe: three 20-second prompts: notice a thought; consider evidence and other explanations; try a balanced alternative without requiring the thought to change. Total 60 active seconds. No writing or personal thought storage.
+- Breathing stays six 4/6 cycles, 60 seconds.
+
+Sources reviewed: [NHS grounding](https://www.nhsinform.scot/healthy-living/mental-wellbeing/breathing-and-relaxation-exercises/grounding-exercises/), [NHS reframing](https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/self-help-cbt-techniques/reframing-unhelpful-thoughts/), [VA STOP handout](https://www.mentalhealth.va.gov/quit-tobacco/docs/TUT_Group_Manual_508.pdf). Timing and interface are application design decisions, not source claims. Completed means the guided sequence elapsed, not that the person performed each activity or improved. The result remains visible; no forced exit. Pauses/support time are excluded, entry/quiz/preview setup is measured separately. The first actionable exercise instruction appears at Start; preview describes the activity without beginning its steps.
+
+Class rationale uses the existing supplied R1–R4/D1–D6 mapping: short sequences (R1), independent support (R2/D4), skip/override/Stop (R3/R4), one step at a time (D1/D2), no required typing or quiz (D3), explicit transient preference choices (D5), neutral copy and still cues (D6). This increment does not claim persisted preferences or clinical assessment.
+
+### Inputs, outputs and failure behavior
+
+POST /api/sessions keeps its existing shape but accepts skill_key paced_breathing_4_6, sensory_grounding_5_4_3_2_1, stop, cognitive_reframe. PUT keeps its shape; confirmed active milliseconds must be within the saved skill's duration and completed must equal that duration (75000 for grounding, 60000 otherwise). Wrong duration returns 422 invalid_input; stale/ownership conflicts remain 409. Existing receipts/revisions/owner scoping remain intact. GET history includes the actual skill_key; calendar includes all completed skills with skill_key and exercise_name. No model controls these operations. Migration 008 preserves old rows and receipts and checks foreign keys transactionally.
+
+Worked API example: create a grounding session with stable session/operation/owner UUIDs; finalize completed/75000; replay the same final operation returns the same session, replayed=true. completed/60000 is rejected without updating its revision. An interrupted session retains only its last confirmed checkpoint. Stopped and interrupted sessions are excluded from the calendar.
+
+Quiz: two optional multiple-choice questions (activity and comfort with breath focus); new exercises use still text cues. Rules are local and deterministic. Explicit activity wins unless it conflicts with Avoid/Not sure for a breath-focused skill. No activity + Yes to breathing suggests breathing. Conflicting or insufficient choices show an unranked available list and a reason, not an invented best match. Skips are unknown; No preference is explicitly neutral. User can accept, change answers, skip, or select another exercise; Start is always separate. Answers remain in memory for this component visit and are not saved or sent to a provider. System reduced motion takes precedence. No new dependency or paid call is needed.
+
+### Implementation / verification status
+
+Work in progress on codex/exercise-quiz; see verification and handoff for checks actually completed. Historical sections below retain their dates and may describe the earlier one-exercise application.
+
+---
+
 ## Selected Figma design and browser comparison — October 27, 2026
 
 The student selected **Option A: top navigation** and approved a comparison/documentation-only increment. This supersedes earlier bottom-bar selection and static-only Figma status. No application implementation was requested or performed in this increment.

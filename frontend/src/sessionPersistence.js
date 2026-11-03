@@ -15,8 +15,8 @@ export class SessionPersistence {
     job.state = state;
     this.notify({ id: job.id, state, message: message + (job.journalFailed ? ' Browser recovery unavailable; keep this tab open to retry.' : '') });
   }
-  async begin(id, started) {
-    const job = { id, data: { create: { session_id: id, operation_id: uuid(), owner_token: uuid(), skill_key: 'paced_breathing_4_6', started_at: started }, saved: null, pending: null, desired: null }, busy: false };
+  async begin(id, started, skillKey = 'paced_breathing_4_6') {
+    const job = { id, data: { create: { session_id: id, operation_id: uuid(), owner_token: uuid(), skill_key: skillKey, started_at: started }, saved: null, pending: null, desired: null }, busy: false };
     this.jobs.set(id, job);
     this.persist(job);
     if (navigator.locks) {

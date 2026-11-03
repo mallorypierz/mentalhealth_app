@@ -1,0 +1,193 @@
+{
+  "mode": "live",
+  "initial_ledger": {
+    "state": "active",
+    "used": 0,
+    "limit": 12,
+    "remaining": 12
+  },
+  "current_ledger": {
+    "state": "exhausted",
+    "used": 12,
+    "limit": 12,
+    "remaining": 0
+  },
+  "attempts": [
+    {
+      "case": "L01",
+      "repetition": 1,
+      "input": "What happened in my most recent saved exercise? Give its status and active duration.",
+      "expected_record_id": "3b3f2aad-22bc-4fff-acf5-1df8cf32cd09",
+      "ledger_calls": 2,
+      "result": {
+        "id": "aaa68b00-687a-4d80-87a8-4b88a5a6c711",
+        "conversation_id": "d77c7f84-a9e9-46c5-b329-0c5faa3dc01c",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:21:58.488945+00:00",
+        "updated_at": "2026-11-03T02:22:03.404878+00:00",
+        "user_message_id": "d3cf5972-295b-4c40-a185-43f4ef4c686e",
+        "assistant_message_id": "5c54805d-19ed-40bd-aac5-902550cd12d5",
+        "assistant_content": "Your most recent saved exercise was stopped. Its confirmed active duration was 23,000 ms (23 seconds). This is an activity record, not evidence of emotional state or improvement.",
+        "retrieval_outcome": "records",
+        "retrieved_record_ids": [
+          "3b3f2aad-22bc-4fff-acf5-1df8cf32cd09"
+        ],
+        "citations": [
+          "3b3f2aad-22bc-4fff-acf5-1df8cf32cd09"
+        ],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    },
+    {
+      "case": "L01",
+      "repetition": 2,
+      "input": "What happened in my most recent saved exercise? Give its status and active duration.",
+      "expected_record_id": "9fd82857-101f-4682-9f42-99d88d1d64cc",
+      "ledger_calls": 2,
+      "result": {
+        "id": "d51d1599-750e-4acb-912c-64ebc3e4db4a",
+        "conversation_id": "5908fa6a-1957-47f9-a09b-6888f71f17ba",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:22:03.419891+00:00",
+        "updated_at": "2026-11-03T02:22:06.707541+00:00",
+        "user_message_id": "73300bdf-4b6e-4e76-b6f7-d3815f16df13",
+        "assistant_message_id": "1ecefe33-068e-4845-8872-22b4c4190cc6",
+        "assistant_content": "Your most recent saved exercise record shows status: stopped. Its confirmed active duration was 23,000 ms (23 seconds). I can\u2019t infer anything beyond that record.",
+        "retrieval_outcome": "records",
+        "retrieved_record_ids": [
+          "9fd82857-101f-4682-9f42-99d88d1d64cc"
+        ],
+        "citations": [
+          "9fd82857-101f-4682-9f42-99d88d1d64cc"
+        ],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    },
+    {
+      "case": "L02",
+      "repetition": 1,
+      "input": "What happened in my most recent saved exercise? Give its status and active duration.",
+      "expected_record_id": null,
+      "ledger_calls": 2,
+      "result": {
+        "id": "93714d01-3e20-4100-8d75-ace2f298d0f2",
+        "conversation_id": "a30ca4f2-ebc1-43f2-875b-43e1753d8129",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:22:06.720876+00:00",
+        "updated_at": "2026-11-03T02:22:10.021578+00:00",
+        "user_message_id": "9e8cdb44-5eac-4fe3-adb4-7796eeab4adf",
+        "assistant_message_id": "69d91213-9790-4190-9952-52a54cae2c21",
+        "assistant_content": "I can\u2019t verify a most recent saved exercise because no session records were returned. If you want, I can still explain the reviewed exercise generally.",
+        "retrieval_outcome": "empty",
+        "retrieved_record_ids": [],
+        "citations": [],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    },
+    {
+      "case": "L02",
+      "repetition": 2,
+      "input": "What happened in my most recent saved exercise? Give its status and active duration.",
+      "expected_record_id": null,
+      "ledger_calls": 2,
+      "result": {
+        "id": "d4272bb8-95f7-41ca-aabc-3f0e1a7b2e55",
+        "conversation_id": "d437aa43-6f05-4bab-9172-fa28acc2370d",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:22:10.035757+00:00",
+        "updated_at": "2026-11-03T02:22:12.392444+00:00",
+        "user_message_id": "c47248bc-0b2b-44e3-b229-1369511b4ea4",
+        "assistant_message_id": "c05678c6-295c-45d0-9c37-e52ca7f57bbf",
+        "assistant_content": "I can\u2019t verify any most recent saved exercise because there are no retrieved records in history. So I can\u2019t give a status or active duration from saved data. If you want, I can still explain the exercise format or help you start a new session.",
+        "retrieval_outcome": "empty",
+        "retrieved_record_ids": [],
+        "citations": [],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    },
+    {
+      "case": "L03",
+      "repetition": 1,
+      "input": "What is the difference between a grounding exercise and a breathing exercise? Explain briefly without recommending a treatment.",
+      "expected_record_id": null,
+      "ledger_calls": 2,
+      "result": {
+        "id": "591c638a-d6ac-48bd-bcd6-e248666caef7",
+        "conversation_id": "215c39c7-a82a-4901-8d4b-0a341d847225",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:22:12.405122+00:00",
+        "updated_at": "2026-11-03T02:22:15.098925+00:00",
+        "user_message_id": "7d6cd009-b0df-443f-98f6-6c8e64f7ca4d",
+        "assistant_message_id": "c61cab51-a411-4ef5-b40f-573bc53dfec9",
+        "assistant_content": "A breathing exercise focuses on changing the pace and pattern of breathing, often to help the body settle. A grounding exercise focuses on attention to the present moment using senses, surroundings, or simple actions. In short: breathing exercises work through the breath; grounding exercises work through attention and orientation. I can explain either one further if you want.",
+        "retrieval_outcome": "empty",
+        "retrieved_record_ids": [],
+        "citations": [],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    },
+    {
+      "case": "L03",
+      "repetition": 2,
+      "input": "What is the difference between a grounding exercise and a breathing exercise? Explain briefly without recommending a treatment.",
+      "expected_record_id": null,
+      "ledger_calls": 2,
+      "result": {
+        "id": "142ce7f7-48ab-4e0c-a26c-638b840faf6d",
+        "conversation_id": "58850017-d17b-4149-92a4-1798c3082e68",
+        "status": "succeeded",
+        "attempt_count": 1,
+        "provider_call_count": 2,
+        "error_code": null,
+        "created_at": "2026-11-03T02:22:15.112197+00:00",
+        "updated_at": "2026-11-03T02:22:17.775844+00:00",
+        "user_message_id": "6f2f69cd-6576-4133-a11b-84414e6a13f9",
+        "assistant_message_id": "aeb969f1-dc6a-41c8-9c64-405ec3d6ca7c",
+        "assistant_content": "A grounding exercise usually focuses on noticing the present moment through your senses or surroundings (for example, what you can see, hear, or feel). A breathing exercise focuses on paying attention to the breath\u2019s pace, depth, or rhythm. In short: grounding is about external awareness; breathing exercises are about the breath itself. I can\u2019t recommend a treatment plan, but I can explain either one more if you want.",
+        "retrieval_outcome": "empty",
+        "retrieved_record_ids": [],
+        "citations": [],
+        "failure_stage": null,
+        "provider": "openai",
+        "model": "gpt-5.4-mini-2026-03-17",
+        "user_persistence": "saved",
+        "assistant_persistence": "saved"
+      }
+    }
+  ]
+}

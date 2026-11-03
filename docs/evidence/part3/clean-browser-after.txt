@@ -1,0 +1,3 @@
+Browser tab: 9, Title: "A little space · Coursework prototype", URL: "http://127.0.0.1:5173/".
+There has been no change in the accessibility tree.
+The focused UI element is 25 heading Your practice, recorded., Value: 1

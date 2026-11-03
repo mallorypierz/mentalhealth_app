@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted, onUnmounted, nextTick } from 'vue';
 import { Exercise, LatestRequest } from './exercise.js';
+import { exerciseByKey } from './exercises.js';
 import { api } from './api.js';
 import SupportContent from './components/SupportContent.vue';
 import ExerciseLibrary from './components/ExerciseLibrary.vue';
@@ -19,7 +20,13 @@ async function readySwitch() {
   catch (e) { switchError.value = e.message; }
 }
 async function stopAndSwitch() { stop(); await readySwitch(); }
-const engine = new Exercise();
+let engine = new Exercise();
+const selectedKey = ref('paced_breathing_4_6');
+const selectedExercise = computed(() => exerciseByKey(selectedKey.value));
+const isGrounding = computed(() => selectedKey.value === 'sensory_grounding_5_4_3_2_1');
+const groundingChecks = ref([[], [], [], [], []]);
+function nextGroundingStep() { if (support.value) return; engine.nextStep(); sync(); if (active.value) checkpoint(); }
+const isBreathing = computed(() => selectedKey.value === 'paced_breathing_4_6');
 const exercise = ref(engine.snapshot());
 const view = ref('practice');
 const support = ref(false);
@@ -86,11 +93,12 @@ async function loadHistory(more = false) {
     nextCursor.value = value.next_cursor; historyState.value = 'success';
   });
 }
-let sessionId, started, recorded = false, timer, checkpointTimer;
-const currentSave = computed(() => saveStates.value[sessionId]);
+const sessionId = ref(null);
+let started, recorded = false, timer, checkpointTimer;
+const currentSave = computed(() => saveStates.value[sessionId.value]);
 const unresolved = computed(() => Object.values(saveStates.value).filter(item => ['failed', 'unknown'].includes(item.state)));
 const hiddenPause = ref(false);
-function checkpoint(ended = null) { persistence.checkpoint(sessionId, engine.snapshot(), ended); }
+function checkpoint(ended = null) { persistence.checkpoint(sessionId.value, engine.snapshot(), ended); }
 function visibilityChanged() {
   if (document.hidden && engine.state === 'running') { hiddenPause.value = true; pause(); }
 }
@@ -108,9 +116,11 @@ function sync() {
   }
 }
 function start() {
+  if (active.value || support.value) return;
   clearInterval(timer); clearInterval(checkpointTimer); recorded = false; hiddenPause.value = false;
-  sessionId = crypto.randomUUID(); started = new Date().toISOString();
-  persistence.begin(sessionId, started);
+  sessionId.value = crypto.randomUUID(); started = new Date().toISOString();
+  persistence.begin(sessionId.value, started, selectedKey.value);
+  groundingChecks.value = [[], [], [], [], []];
   engine.start(); sync(); view.value = 'practice';
   timer = setInterval(() => { engine.tick(); sync(); }, 50);
   checkpointTimer = setInterval(() => { if (active.value) checkpoint(); }, 5000); focusHeading();
@@ -124,7 +134,14 @@ async function openSupport(event) {
   support.value = true; await nextTick(); supportHeading.value?.focus();
 }
 async function closeSupport() { support.value = false; await nextTick(); supportTrigger?.focus(); }
-function navigate(destination) { if (fullscreen.value) minimizePractice(); view.value = destination; if (destination === 'history') loadHistory(); focusHeading(); }
+function selectExercise(key) {
+  if (active.value || !exerciseByKey(key)) return;
+  clearInterval(timer); clearInterval(checkpointTimer);
+  selectedKey.value = key; engine = new Exercise(undefined, key);
+  exercise.value = engine.snapshot(); sessionId.value = null; recorded = false; hiddenPause.value = false;
+  navigate('practice');
+}
+function navigate(destination) { if (active.value && destination !== 'practice') return; if (fullscreen.value) minimizePractice(); view.value = destination; if (destination === 'history') loadHistory(); focusHeading(); }
 onUnmounted(() => { clearInterval(timer); clearInterval(checkpointTimer); historyRequests.cancel(); document.removeEventListener('visibilitychange', visibilityChanged); document.removeEventListener('fullscreenchange', fullscreenChanged); document.removeEventListener('keydown', fullscreenKey); });
 </script>
 
@@ -160,10 +177,44 @@ onUnmounted(() => { clearInterval(timer); clearInterval(checkpointTimer); histor
         <section v-if="switching" class="history-card" role="group" aria-label="Switch profile during practice"><p>Practice paused. Stop and save it before switching?</p><button class="primary" @click="switching = false; resume()">Continue practice</button><button class="stop" @click="stopAndSwitch">Stop and switch</button></section>
         <p v-if="switchError" role="alert">{{ switchError }}</p>
         <template v-if="view === 'practice'">
-          <div class="title-block"><h1 ref="heading" tabindex="-1">{{ active ? 'One breath at a time.' : finished ? (exercise.state === 'completed' ? 'Practice completed.' : 'Practice stopped.') : 'Make a little space.' }}</h1><p>{{ active ? 'Follow the cue. Pause or stop whenever you choose.' : finished ? 'You choose what comes next.' : 'A short breathing practice, with room to go at your own pace.' }}</p></div>
+          <div class="title-block"><h1 ref="heading" tabindex="-1">{{ active ? (isBreathing ? 'One breath at a time.' : 'One step at a time.') : finished ? (exercise.state === 'completed' ? 'Practice completed.' : 'Practice stopped.') : 'Make a little space.' }}</h1><p>{{ active ? 'Follow the cue. Pause or stop whenever you choose.' : finished ? 'You choose what comes next.' : 'A short practice, with room to go at your own pace.' }}</p></div>
           <p v-if="hiddenPause" role="status">Practice paused when this tab was hidden. Resume when you choose.</p>
           <p v-if="fullscreenNotice" role="status">{{ fullscreenNotice }}</p>
-          <section class="practice-card" aria-label="Breathing practice">
+          <section v-if="!isBreathing" class="practice-card guided-card" :aria-label="selectedExercise.name">
+            <div class="card-meta"><span class="pill">{{ active ? 'IN PRACTICE' : finished ? 'SESSION RESULT' : 'GUIDED PRACTICE' }}</span><span>{{ isGrounding ? 'Up to ' : '' }}{{ selectedExercise.duration / 1000 }} seconds</span></div>
+            <div class="guided-content">
+              <h2>{{ selectedExercise.name }}</h2>
+              <template v-if="!active && !finished">
+                <p>{{ selectedExercise.summary }}</p>
+                <p>{{ isGrounding ? 'Use Next step when ready, or follow the 15-second steps. Checkmarks are optional.' : 'The steps advance automatically. Pause or stop whenever you choose. Nothing to type or submit.' }}</p>
+                <button class="primary" :disabled="support" @click="start">Start practice</button>
+                <button class="secondary" @click="navigate('library')">Choose another exercise</button>
+              </template>
+              <template v-else-if="active">
+                <p class="eyebrow">Step {{ exercise.stepIndex + 1 }} of {{ selectedExercise.steps.length }}</p>
+                <div role="status" aria-live="polite" aria-atomic="true"><h3>{{ exercise.state === 'paused' ? 'Paused' : exercise.step.title }}</h3><p>{{ exercise.state === 'paused' ? 'Resume only when you choose.' : exercise.step.text }}</p></div>
+                <div v-if="isGrounding" class="grounding-tracker">
+                  <p>Mark each thing you notice (optional).</p>
+                  <div class="grounding-checks">
+                    <label v-for="item in 5 - exercise.stepIndex" :key="`${exercise.stepIndex}-${item}`"><input type="checkbox" v-model="groundingChecks[exercise.stepIndex]" :value="item" :disabled="exercise.state !== 'running' || support" :aria-label="`Thing ${item} of ${5 - exercise.stepIndex}`"><span>{{ item }}</span></label>
+                  </div>
+                  <p>{{ groundingChecks[exercise.stepIndex].length }} of {{ 5 - exercise.stepIndex }} marked</p>
+                  <button class="primary" :disabled="exercise.state !== 'running' || support" @click="nextGroundingStep">{{ exercise.stepIndex === 4 ? 'Finish exercise' : 'Next step' }}</button>
+                </div>
+                <p>{{ exercise.remaining }} seconds remaining{{ isGrounding ? ' · Steps also advance automatically' : '' }}</p>
+                <div class="exercise-actions"><button v-if="exercise.state === 'running'" class="primary" @click="pause">Pause</button><button v-else class="primary" :disabled="support" @click="resume">Resume</button><button class="stop" @click="stop">Stop practice</button></div>
+                <p v-if="support">Close support to enable Resume.</p>
+              </template>
+              <template v-else>
+                <h3>{{ exercise.state === 'completed' ? 'Guided sequence completed.' : 'Stopped, on your terms.' }}</h3>
+                <p>{{ Math.floor(exercise.elapsed / 1000) }} seconds of active practice. This records the sequence, not whether you performed each activity or how you feel.</p>
+                <div class="exercise-actions"><button class="primary" :disabled="support" @click="start">Practice again</button><button class="secondary" @click="navigate('library')">Choose another exercise</button><button class="secondary" @click="navigate('history')">View history</button></div>
+              </template>
+              <p class="small muted">Still text cues · No animation. You can pause for more time or stop if a prompt does not suit you.</p>
+              <p v-if="currentSave" role="status">{{ currentSave.message }}</p>
+            </div>
+          </section>
+          <section v-else class="practice-card" aria-label="Breathing practice">
             <div class="fullscreen-control"><button ref="fullscreenButton" class="secondary fullscreen-icon" :aria-expanded="fullscreen" :aria-label="fullscreen ? 'Minimize' : 'Full screen'" :title="fullscreen ? 'Minimize' : 'Full screen'" @click="toggleFullscreen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path :d="fullscreen ? 'M4 4l6 6M4 10h6V4M20 20l-6-6M14 20v-6h6' : 'M10 10 4 4M4 10V4h6M14 14l6 6M14 20h6v-6'" /></svg></button></div>
             <div class="card-meta"><span class="pill">{{ active ? 'IN PRACTICE' : finished ? 'SESSION RESULT' : 'PACED BREATHING' }}</span><span class="small muted">{{ active ? `Cycle ${exercise.cycle} of 6` : '60 seconds · 6 cycles' }}</span></div>
             <div class="practice-body">
@@ -181,17 +232,24 @@ onUnmounted(() => { clearInterval(timer); clearInterval(checkpointTimer); histor
           <section v-if="unresolved.length" aria-label="Unsaved sessions" class="intro-card"><h2>Sessions needing attention</h2><p>These local outcomes are separate from saved history.</p><div v-for="item in unresolved" :key="item.id"><p>{{ item.message }} <code>{{ item.id }}</code></p><button class="secondary" @click="persistence.retry(item.id)">Retry save</button></div></section>
 
         </template>
-        <ExerciseLibrary v-else-if="view === 'library'" @practice="navigate('practice')" />
+        <ExerciseLibrary v-else-if="view === 'library'" @practice="selectExercise" />
         <CalendarView v-else-if="view === 'calendar'" />
         <ProfileView v-else-if="view === 'profile'" :identity="identity" @choose="requestSwitch" @leave="emit('leave')" @delete="revision => emit('delete', revision)" @updated="name => emit('updated', name)" />
         <ChatView ref="chatView" :suspended="support" v-else-if="view === 'chat'" @support="openSupport" />
-        <template v-else><div class="title-block"><h1 ref="heading" tabindex="-1">Your practice, recorded.</h1><p>Duration and status only. These records don’t measure wellbeing.</p></div><section class="history-card"><div class="panel-heading"><h2>Session history</h2><span class="pill">SAVED FICTIONAL RECORDS</span></div><p v-if="historyState === 'loading'" role="status">Loading saved history…</p><p v-if="historyState === 'failed'" role="alert">Could not load saved history. Previously displayed rows may be out of date.</p><p v-if="historyState === 'success' && !history.length">No saved sessions yet.</p><button class="secondary" :disabled="historyState === 'loading'" @click="loadHistory()">Refresh history</button><div class="table-scroll"><table><caption class="small muted">Saved records for the active fictional profile or guest. Interrupted duration is the last confirmed checkpoint.</caption><thead><tr><th scope="col">Session</th><th scope="col">Duration</th><th scope="col">Status</th></tr></thead><tbody><tr v-for="row in history" :key="row.id"><td>{{ new Date(row.started_at).toLocaleString() }}<small>{{ row.is_fixture ? 'Fictional fixture' : 'Breathing session · saved' }}</small></td><td>{{ Math.floor(row.active_duration_ms / 1000) }}s</td><td><span class="status-chip">{{ row.status }}</span></td></tr></tbody></table></div><button v-if="nextCursor !== null" class="secondary" :disabled="historyState === 'loading'" @click="loadHistory(true)">Load more</button><button class="secondary" @click="navigate('practice')">Back to practice</button></section></template>
+        <template v-else><div class="title-block"><h1 ref="heading" tabindex="-1">Your practice, recorded.</h1><p>Duration and status only. These records don’t measure wellbeing.</p></div><section class="history-card"><div class="panel-heading"><h2>Session history</h2><span class="pill">SAVED FICTIONAL RECORDS</span></div><p v-if="historyState === 'loading'" role="status">Loading saved history…</p><p v-if="historyState === 'failed'" role="alert">Could not load saved history. Previously displayed rows may be out of date.</p><p v-if="historyState === 'success' && !history.length">No saved sessions yet.</p><button class="secondary" :disabled="historyState === 'loading'" @click="loadHistory()">Refresh history</button><div class="table-scroll"><table><caption class="small muted">Saved records for the active fictional profile or guest. Interrupted duration is the last confirmed checkpoint.</caption><thead><tr><th scope="col">Session</th><th scope="col">Duration</th><th scope="col">Status</th></tr></thead><tbody><tr v-for="row in history" :key="row.id" :data-session-id="row.id"><td>{{ new Date(row.started_at).toLocaleString() }}<small>{{ row.is_fixture ? 'Fictional fixture' : `${exerciseByKey(row.skill_key)?.name || row.skill_key} · saved` }}</small></td><td>{{ Math.floor(row.active_duration_ms / 1000) }}s</td><td><span class="status-chip">{{ row.status }}</span></td></tr></tbody></table></div><button v-if="nextCursor !== null" class="secondary" :disabled="historyState === 'loading'" @click="loadHistory(true)">Load more</button><button class="secondary" @click="navigate('practice')">Back to practice</button></section></template>
       </main>
     </div>
   </div>
 </template>
 
 <style scoped>
+.grounding-checks { display: flex; flex-wrap: wrap; gap: .75rem; }
+.grounding-checks label { display: flex; align-items: center; gap: .5rem; padding: .75rem; border: 1px solid #78846f; border-radius: .5rem; cursor: pointer; }
+.grounding-checks input { width: 1.3rem; height: 1.3rem; accent-color: #315744; }
+.guided-content { padding: 0 24px 24px; }
+.guided-content h3 { font-size: 1.5rem; }
+.guided-content > button { margin: 4px; }
+.guided-content p { line-height: 1.6; }
 .phase-count-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
 .save-status { margin:0; padding:0 20px 14px; font-size:11px; line-height:1.5; color:#59675e; overflow-wrap:anywhere; }
 .save-status code { font-size:inherit; }

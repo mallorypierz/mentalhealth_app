@@ -1,6 +1,7 @@
 """Reviewed retrieval surface; ownership and private fields are never model-selectable."""
 FIELDS = {
     'sessions': {
+        'skill_key': 'Exercise identifier: paced_breathing_4_6, sensory_grounding_5_4_3_2_1, stop, or cognitive_reframe; not a recommendation or outcome',
         'id': 'Stable session ID', 'status': 'in_progress, completed, stopped or interrupted; not an emotional assessment',
         'active_duration_ms': 'Confirmed active practice milliseconds', 'paused_duration_ms': 'Confirmed paused milliseconds',
         'started_at': 'UTC start time', 'ended_at': 'UTC end time or null',

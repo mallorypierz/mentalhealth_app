@@ -1,0 +1,8 @@
+/private/tmp/mentalhealth-part3-clean/backend/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+Retrieval rejected: Unsupported SQL structure.
+Retrieval rejected: Unsupported SQL structure.
+----------------------------------------------------------------------
+Ran 82 tests in 17.016s
+
+OK

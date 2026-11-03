@@ -1,0 +1,45 @@
+
+> coursework-breathing-prototype@0.1.0 test
+> node --test tests/*.test.js
+
+✔ all reviewed steps appear in order and each sequence completes at its duration (0.75325ms)
+✔ preferences never automatically recommend breath focus when avoided or uncertain (1.316959ms)
+✔ reviewed phrases match case and whitespace variants (0.775ms)
+✔ rule limitations remain explicit: negation matches, indirect wording can miss (0.1ms)
+✔ approved indirect wording and apostrophe variants match; misrecognition is not assumed safe (0.173375ms)
+✔ six 4/6 cycles complete at exactly 60 seconds (0.781875ms)
+✔ pause excludes elapsed time, stop is final, restart resets time (0.243917ms)
+✔ late responses cannot update state after cancellation or replacement (1.896875ms)
+✔ provider failure is reported without an invented response (0.1715ms)
+✔ pause accounting survives repeated pause calls and stops once (0.128708ms)
+✔ PCM WAV is mono 16kHz 16-bit with bounded sample values (0.700333ms)
+✔ silence does not submit and a short silence ends one voiced utterance (6.777042ms)
+✔ turn duration is bounded and reset discards unsubmitted audio (24.782875ms)
+✔ stop during permission prompt closes a late microphone without starting capture (0.351ms)
+✔ reply loading/playback blocks capture; finish or manual stop resumes only an active visible session (0.162667ms)
+✔ late preference response is rejected after identity changes (0.996042ms)
+✔ every activity/comfort combination obeys precedence and exclusions (1.67525ms)
+✔ skips and neutral answers never fabricate an activity preference (1.356125ms)
+✔ invalid and unavailable answers fail closed without arbitrary substitution (0.23275ms)
+✔ changed answers produce a new decision without changing exercise instructions (0.18475ms)
+✔ offline final outcome remains retryable and is saved once (25.257625ms)
+✔ lost commit response reuses exact operation instead of duplicating (16.500916ms)
+✔ abandoned session uses only the database checkpoint and skips a live owner (1.734208ms)
+✔ explicit start only, fixed automatic turn submission and duplicate click guard (2.73425ms)
+✔ late events cannot change view after stop or profile change (0.362334ms)
+✔ speech failure does not turn a saved reply into a failed save (0.267417ms)
+✔ next automatic mock turn continues to accept events on the same socket (0.162208ms)
+✔ provisional recognition concern stops transport and holds words without claiming a save (0.180667ms)
+✔ server-confirmed held transcript keeps not-saved distinct from uncertainty (0.153208ms)
+✔ live transport accepts one audio turn, waits during processing and rejects late submission after stop (0.340125ms)
+✔ live start refuses a mock backend instead of sending microphone audio (0.116375ms)
+✔ restoring voice controls never opens microphone/socket and ignores a late owner response (0.199291ms)
+✔ budget failure accurately reports whether the message was saved (0.330417ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.717209

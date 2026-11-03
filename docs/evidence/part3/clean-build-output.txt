@@ -1,0 +1,13 @@
+
+> coursework-breathing-prototype@0.1.0 build
+> vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 30 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.42 kB │ gzip:  0.30 kB
+dist/assets/index-DkNvG4Np.css   15.75 kB │ gzip:  4.17 kB
+dist/assets/index-B-0Cq6U0.js   147.58 kB │ gzip: 51.66 kB
+✓ built in 467ms

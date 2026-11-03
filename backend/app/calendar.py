@@ -9,11 +9,13 @@ from pydantic import AwareDatetime, BaseModel
 
 from .db import connect
 from .identity import owner, validate_context, IdentityError
+from .exercises import EXERCISES, SkillKey
 
 
 class Event(BaseModel):
     session_id: UUID
-    exercise_name: Literal['Paced breathing (4–6)'] = 'Paced breathing (4–6)'
+    exercise_name: str
+    skill_key: SkillKey
     completed_at: AwareDatetime
     local_date: str
     local_time: str
@@ -48,8 +50,8 @@ def events(path, month, zone, cursor, limit):
     try:
         validate_context(db)
         # julianday handles historical stored offsets as well as normalized UTC.
-        rows = db.execute("SELECT id,ended_at,active_duration_ms,is_fixture FROM exercise_sessions "
-                          "WHERE demo_user_id=? AND status='completed' AND skill_key='paced_breathing_4_6' "
+        rows = db.execute("SELECT id,skill_key,ended_at,active_duration_ms,is_fixture FROM exercise_sessions "
+                          "WHERE demo_user_id=? AND status='completed' "
                           "AND julianday(ended_at)>=julianday(?) AND julianday(ended_at)<julianday(?) "
                           "ORDER BY julianday(ended_at),id LIMIT ? OFFSET ?",
                           (owner(), start.isoformat(), end.isoformat(), limit+1, cursor)).fetchall()
@@ -58,6 +60,7 @@ def events(path, month, zone, cursor, limit):
             instant = datetime.fromisoformat(row['ended_at'])
             local = instant.astimezone(tz)
             result.append(dict(session_id=row['id'], completed_at=instant.astimezone(timezone.utc),
+                               skill_key=row['skill_key'], exercise_name=EXERCISES[row['skill_key']][0],
                                local_date=local.date().isoformat(), local_time=local.isoformat(),
                                active_duration_ms=row['active_duration_ms'], is_fixture=bool(row['is_fixture'])))
         return dict(month=month, timezone=zone, events=result,

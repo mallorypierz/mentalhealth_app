@@ -1,0 +1,218 @@
+[
+  {
+    "id": "S01",
+    "fictional_input": "First-time guest skips quiz",
+    "setup": "New fictional guest; choose Find a suggestion then Skip quiz",
+    "expected": "Library remains usable; no exercise starts or saves.",
+    "observed": "Browser: new guest opened quiz, skipped, returned to available library; no Start invoked.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-notes.md"
+    ]
+  },
+  {
+    "id": "S02",
+    "fictional_input": "Quiz suggests breathing",
+    "setup": "Choose breathing rhythm + Yes",
+    "expected": "Breathing suggestion explains the chosen activity; preview requires Start.",
+    "observed": "Browser: breathing + Yes showed breathing and \u201cYou chose Follow a breathing rhythm\u201d; separate Continue action. Mapping cross-product passed.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-notes.md"
+    ]
+  },
+  {
+    "id": "S03",
+    "fictional_input": "Quiz suggests alternative",
+    "setup": "Choose surroundings + Avoid",
+    "expected": "Grounding suggested; instructions unchanged.",
+    "observed": "Browser: restored surroundings/Avoid produced grounding and explained non-breath-focus. Mapping test passed.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-notes.md"
+    ]
+  },
+  {
+    "id": "S04",
+    "fictional_input": "Breath activity uncomfortable",
+    "setup": "Choose STOP + Avoid",
+    "expected": "No breath-focused suggestion; conflict explained and alternatives available.",
+    "observed": "Automated decision cross-product: STOP/breathing with Avoid or Not sure returns conflict and no suggestion. Browser conflict screen not separately replayed.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "frontend-output.txt"
+    ]
+  },
+  {
+    "id": "S05",
+    "fictional_input": "No clear preference",
+    "setup": "Select No preference for both answers",
+    "expected": "No ranked winner; choice list remains available.",
+    "observed": "Automated skips/neutral cases return no exercise; no arbitrary tie-breaker. Browser no-preference case not separately replayed.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "frontend-output.txt"
+    ]
+  },
+  {
+    "id": "S06",
+    "fictional_input": "Reject suggestion",
+    "setup": "Reject breathing suggestion; manually open reframe",
+    "expected": "Reframe preview opens without automatic start.",
+    "observed": "Browser: rejected breathing recommendation, opened reframe preview; Start still required.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-notes.md"
+    ]
+  },
+  {
+    "id": "S07",
+    "fictional_input": "Load remembered preferences",
+    "setup": "Fictional profile saves surroundings/Avoid; reload and Use saved answers",
+    "expected": "Saved values restored only by explicit action.",
+    "observed": "Browser fresh profile selection and explicit Use saved answers restored surroundings/Avoid.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-preferences.txt"
+    ]
+  },
+  {
+    "id": "S08",
+    "fictional_input": "Change or forget preferences",
+    "setup": "Change saved answers then Forget; replay older save",
+    "expected": "Answers cleared; old retry cannot resurrect them.",
+    "observed": "Automated test_preferences_isolation_retry_forget_restart saved then forgot; replay of original save left answers null.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S09",
+    "fictional_input": "Profile isolation",
+    "setup": "Fictional A has records; switch/read as Fictional B",
+    "expected": "B cannot read A preferences/activity; stale requests rejected.",
+    "observed": "Automated preferences/identity/calendar/voice tests enforce owner scope and stale context; unrelated profile has no preference answers.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S10",
+    "fictional_input": "Completed exercise history",
+    "setup": "Run a guided sequence to completion",
+    "expected": "Correct exercise ID, completed status and duration saved once and displayed.",
+    "observed": "Browser reframe completed and saved; Vue history data-session-id 0ceca131-a343-4098-963c-73c78e1c5777 matches SQLite completed/60000. Start-to-observed completion upper bound 65854ms; setup not timed.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-history.txt"
+    ]
+  },
+  {
+    "id": "S11",
+    "fictional_input": "Stop partway",
+    "setup": "Start STOP, then Stop",
+    "expected": "Stopped status and actual active duration saved, not completed.",
+    "observed": "Browser reframe stopped/36427ms (Vue floors to 36s); new ID f5d08ef6-bab3-4896-a562-c2f7cb38a0ba. Automated alternatives test also covers STOP stop.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "database-after.json"
+    ]
+  },
+  {
+    "id": "S12",
+    "fictional_input": "Refresh interrupts",
+    "setup": "Refresh an unfinished practice after a checkpoint",
+    "expected": "Recovered interrupted record uses last confirmed checkpoint; no duplicates.",
+    "observed": "Browser reload recovered interrupted/29615ms, ID 47b8c6b8-eadf-4c69-ac19-ea93d6b03f9e; Vue shows 29s. Outbox test confirms last confirmed checkpoint and no duplicate recovery.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "browser-history.txt"
+    ]
+  },
+  {
+    "id": "S13",
+    "fictional_input": "Failed save retry",
+    "setup": "Inject receipt failure or lose commit response; retry same operation",
+    "expected": "Honest failed/unknown state; rollback or idempotent replay; one record.",
+    "observed": "Mocked receipt failure rolled back; retry saved one preference row. Outbox lost-response test replayed same operation without duplication.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S14",
+    "fictional_input": "Delayed response",
+    "setup": "Resolve request after switching identity or leaving screen",
+    "expected": "Old response ignored; new identity/view unaffected.",
+    "observed": "Frontend late preference response rejected after identity change; LatestRequest and voice tests ignore cancelled/replaced responses.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "frontend-output.txt"
+    ]
+  },
+  {
+    "id": "S15",
+    "fictional_input": "Model failure and support",
+    "setup": "Inject failed provider request; open support",
+    "expected": "No invented reply; support independently accessible.",
+    "observed": "Provider-failure automated checks passed, but support access in the same failed-model browser state was not executed in this evaluation. Combined case not-run; do not infer pass from separate checks.",
+    "mode": "mock",
+    "status": "not-run",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S16",
+    "fictional_input": "Scoped history RAG",
+    "setup": "Ask fictional latest-practice question with two owners",
+    "expected": "Only active owner records retrieved; actual answer grounded in IDs.",
+    "observed": "RAG tests returned owned stopped/23s record with matching source/citation IDs, denied foreign owner, and scoped guest among two profiles.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S17",
+    "fictional_input": "Empty retrieval",
+    "setup": "Ask history question with no saved matches",
+    "expected": "Empty outcome and insufficient-history reply; no invented records.",
+    "observed": "test_empty_is_distinct_from_rejection returned empty and no matching saved records reply, with no citations.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  },
+  {
+    "id": "S18",
+    "fictional_input": "Untrusted write query",
+    "setup": "Mock planner proposes DELETE FROM exercise_sessions",
+    "expected": "Rejected before execution; stored rows unchanged; rejection distinguishable.",
+    "observed": "Parser rejects write structures; pipeline rejected-query test asserts retrieval never called; read-only authorizer denies DELETE; fixture remains readable.",
+    "mode": "mock",
+    "status": "pass",
+    "evidence": [
+      "backend-output.txt"
+    ]
+  }
+]

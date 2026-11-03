@@ -1,3 +1,5 @@
+> Current Part 3.3 results are in [the integration and evaluation report](docs/part3-evaluation.md). The Part 1/2 report below is historical; its pending-feature and static-only Figma statements are not the current status.
+
 # Assignment 3.2 — Part 2: Updated working prototype
 
 Prepared October 27, 2026. The student explicitly confirmed “the chatbot is all finished and verified” and approved inclusion of all completed additions. This report describes the current local implementation, not just the earlier submission. **Published source:** updated source/evidence commit is pushed and its linked files verified publicly readable. This finalized report is a subsequent documentation-only update. A subsequent browser-based Figma design update and student selection are documented below. The student reviewed these latest report edits and explicitly approved their commit and push; the submitted application source commit is unchanged.

@@ -1,0 +1,32 @@
+{
+  "sessions": [
+    {
+      "id": "272b145e-fb2d-4416-8848-0242491910ec",
+      "skill_key": "stop",
+      "status": "stopped",
+      "active_duration_ms": 13990,
+      "paused_duration_ms": 0,
+      "started_at": "2026-11-03T01:54:02.824000+00:00",
+      "ended_at": "2026-11-03T01:54:16.815000+00:00"
+    },
+    {
+      "id": "0ceca131-a343-4098-963c-73c78e1c5777",
+      "skill_key": "cognitive_reframe",
+      "status": "in_progress",
+      "active_duration_ms": 45001,
+      "paused_duration_ms": 0,
+      "started_at": "2026-11-03T02:10:43.269000+00:00",
+      "ended_at": null
+    }
+  ],
+  "preferences": [
+    {
+      "owner_id": "1296fb51-3fb2-44c2-a6a3-b180d183b43e",
+      "revision": 1,
+      "answers": "{\"activity\":\"sensory_grounding_5_4_3_2_1\",\"breath\":\"avoid\"}"
+    }
+  ],
+  "foreign_key_violations": [],
+  "integrity": "ok",
+  "provider_attempts": 0
+}

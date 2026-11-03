@@ -42,8 +42,36 @@ def initialize(path: Path, enable_profiles=False):
             migrate_voice(db)
             migrate_voice_budget(db)
             migrate_live_test_sessions(db)
+        migrate_exercises(db)
+        db.executescript((Path(__file__).parent / "migrations" / "009_preferences.sql").read_text())
     finally:
         db.close()
+
+
+def migrate_exercises(db):
+    # SQLite requires FK enforcement to be disabled before beginning a table
+    # rebuild. Validate the entire graph before commit and restore it on failure.
+    db.execute('PRAGMA foreign_keys=OFF')
+    try:
+        with db:
+            db.execute('BEGIN IMMEDIATE')
+            db.execute('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY)')
+            if db.execute('SELECT 1 FROM schema_migrations WHERE version=8').fetchone():
+                return
+            source = (Path(__file__).parent / 'migrations' / '008_exercises.sql').read_text()
+            statement = ''
+            for line in source.splitlines(keepends=True):
+                statement += line
+                if sqlite3.complete_statement(statement):
+                    db.execute(statement)
+                    statement = ''
+            if statement.strip():
+                raise ValueError('Incomplete exercise migration.')
+            if db.execute('PRAGMA foreign_key_check').fetchone():
+                raise ValueError('Exercise migration violates existing relationships.')
+            db.execute('INSERT INTO schema_migrations(version) VALUES (8)')
+    finally:
+        db.execute('PRAGMA foreign_keys=ON')
 
 
 def migrate_identities(db):

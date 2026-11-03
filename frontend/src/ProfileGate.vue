@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import App from './App.vue';
 import SupportContent from './components/SupportContent.vue';
 import { api } from './api.js';
+import { restoreIdentity } from './identityRecovery.js';
 import { getAccess, setAccess } from './identityAccess.js';
 const identity = ref(null), chooser = ref(true), profiles = ref([]), busy = ref(false), error = ref(''), support = ref(false);
 const name = ref(''), age = ref(''), gender = ref(''), disposition = ref(''), exitConfirm = ref(false);
@@ -20,8 +21,7 @@ async function listing() { profiles.value = (await api('/profiles')).profiles; }
 async function boot() {
   busy.value = true; error.value = '';
   try {
-    if (!getAccess()?.access_token) apply(await api('/identity/bootstrap', 'POST', { bootstrap_id: crypto.randomUUID() }));
-    else apply(await api('/identity'));
+    apply(await restoreIdentity(api, getAccess, () => { setAccess(null); identity.value = null; profiles.value = []; pending.value = null; chooser.value = true; }));
     await listing();
   } catch (e) { error.value = e.message; }
   finally { busy.value = false; }

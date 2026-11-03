@@ -1,22 +1,18 @@
-## Latest publication — October27,2026
+# A little space — Part 3 coursework prototype
 
-The student approved committing/pushing all updates. Published source/evidence: [aaa6fce](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) on `codex/profiles-calendar`, including explicit testing-session budgets and14 desktop/phone static reference PNGs plus SVGs. All10 report-linked files and14 reference PNGs verified publicly readable without authentication. The report now pins this source version. Previous uncommitted/pending-publication statements below are historical and superseded here. Tests for this source:77 backend,26 frontend and production build passed; no paid publication checks. Figma is still a static manual-import fallback, not an editable MCP update. No merge, deployment or course upload.
+A local Vue/JavaScript frontend, Python/FastAPI backend, and SQLite application using fictional data. It is not therapy, diagnosis, monitoring, or a crisis service. Exercise timing, Stop, support, saving, and quiz rules are application-owned, not model-controlled.
 
-# A little space — updated Assignment 3 Part 2
+## Current features
 
-Localhost coursework prototype using Vue, FastAPI and SQLite. Available skill: six cycles of4-second inhalation and6-second exhalation. Profiles/guest access, saved session history, a completed-session calendar, names-only exercise library and optional live voice/typed chat extend the original Part2 milestone. This is not therapy, diagnosis, monitoring or a crisis service. Use fictional scenarios for testing.
+- Paced breathing: six 4/6 cycles, 60 seconds.
+- Sensory grounding: five prompts, up to 75 seconds, with optional checkmarks and Next step; STOP: four prompts, 60 seconds; cognitive reframe: three prompts, 60 seconds. Student-reviewed coursework adaptations; elapsed completion does not establish effectiveness or participation.
+- Optional two-question deterministic quiz shown one question at a time, explanations, skip/change/retake/reject, and explicit Start after preview.
+- Local profiles and guests, saved sessions/history/calendar, typed/voice chat, scoped read-only SQL RAG.
+- Profiles can explicitly remember, reuse, change, and forget quiz answers in Exercises. Guests cannot persist quiz answers. Current explicit answers take priority; history is shown separately and does not rank suggestions. Still-cue display choice remains temporary.
 
-**October27 status:** student explicitly states the chatbot is finished and verified and approves the completed work for updated Part2 documentation. Voice source/evidence is published at [1b7b834](https://github.com/mallorypierz/mentalhealth_app/commit/1b7b834978c78051655bb25e273ff58101e3e4a7). The updated [report](report.md) pins verified evidence links; the Figma gap remains disclosed. This confirmation does not imply the student ran every automated or physical-device check.
+## Clean setup (repository root)
 
-**Preserved history:** original Part2 [source080ad63](https://github.com/mallorypierz/mentalhealth_app/commit/080ad6393a2ade204f6f2b417b422a5778a8ed4c), [reportf133bf9](https://github.com/mallorypierz/mentalhealth_app/blob/f133bf99804246fe4fa34f090db37b196abf69c8/report.md), and [Part1 report](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md). Working branch: `codex/profiles-calendar`; prior published profiles/calendar sourcee593a52, prior documentation HEAD6f995d4. No submitted commit was rewritten.
-
-Voice chat replaces Optional chat in the same tab. Explicit Start requests microphone permission; silence submits a turn, with typed input always available. Text is saved before speech generation. Microphone frames are ignored during playback; Stop speaking is explicit, then listening can resume within the active session. Hiding/leaving/support/profile changes stop capture; it never silently restarts. General educational wellbeing discussion is allowed; personal-history claims require scoped evidence. This is turn-based speech processing with gaps, not a duplex realtime model.
-
-## Run locally
-
-Verified installed environment: Python 3.12.5, SQLite 3.45.3, Node 24.20.0, npm 11.19.0, Vue 3.5.44, Vite 7.3.7, FastAPI 0.158.1, Uvicorn 0.54.0, HTTPX 0.28.1. Dependencies are declared in `backend/requirements.txt` and `frontend/package-lock.json`.
-
-From the repository root, initial setup on a new checkout:
+Use Python 3.12 and Node 24/npm11 to match the development environment. Check `python3 --version`, `node --version`, and `npm --version` first. Network access to PyPI/npm is needed for installation. Coding agents must obtain installation approval under AGENTS.md.
 
 ```sh
 python3 -m venv backend/.venv
@@ -24,53 +20,32 @@ backend/.venv/bin/python -m pip install -r backend/requirements.txt
 npm --prefix frontend ci
 ```
 
-Use Python 3.12 and Node 24 to match the verified environment. These clean-checkout reinstall commands have not been independently reproduced; installed-environment imports/tests/build and server commands were verified. Do not replace an existing environment or install packages in an agent session without the required approval.
+Do not copy an existing environment, node_modules, database, or private .env into a clean checkout. No credentials or .env are required for the default mock app. Backend requirements are pinned; npm ci uses frontend/package-lock.json.
 
-Run in two terminals:
+## Start in mock mode without credentials
+
+On a new checkout with no backend/.env, run in two terminals from the root:
 
 ```sh
 backend/.venv/bin/python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
 
 ```sh
-npm --prefix frontend run dev -- --port 5173
+npm --prefix frontend run dev -- --port 5173 --strictPort
 ```
 
-Open http://127.0.0.1:5173/ consistently. Vite proxies `/api` to port 8000. Stop each server with Ctrl+C. Use one Uvicorn worker: startup marks abandoned pending chat requests interrupted instead of silently retrying them. SQLite initializes at project-relative `data/app.sqlite3`; startup preserves activity records. Local browser recovery metadata is origin-specific, so `localhost` and `127.0.0.1` are different for recovery.
+Open [the local app](http://127.0.0.1:5173/). Use this exact origin consistently; origin protection permits the documented frontend port. Vite proxies /api to8000. Check [API health](http://127.0.0.1:8000/api/health): provider must be mock and voice_enabled false for routine/peer testing. Health does not make a model call. Stop servers with Ctrl+C. If a port is occupied, stop your earlier test server rather than disabling origin protection.
 
-## Configuration and data
+Startup creates data/app.sqlite3 relative to the project, independent of terminal location, and applies idempotent migrations. Existing checkout users should back up their database before upgrading. Do not reseed or delete records at startup. Use one backend worker; restart marks abandoned pending requests interrupted without automatically retrying them.
 
-Configuration is explicitly loaded from ignored `backend/.env` at startup. Without approved live configuration the profile-enabled app uses labeled mocks. The template defaults to mock mode for peer testing. The student separately activated a24-call/$1.20 local live session on October27; it is isolated from historical usage. Keys stay on the backend. Never overwrite an existing environment file or paste credentials into chat.
+## Try and verify
 
-Live voice uses `gpt-4o-mini-transcribe`, two `gpt-5.4-mini-2026-03-17` RAG calls and `gpt-4o-mini-tts` with voice `marin`. Speech model deprecation was disclosed and retained by the student for the short demo. Each attempted stage reserves $0.05 locally, including failures; reservations are not an actual invoice. The historical six-call ledger is separate from the voice ledger. Each explicitly host-created testing session has its own limit (maximum50 calls/$2.50 reservations). Historical attempts remain unassigned and do not count against a new session. The selected session persists through refresh/restart; no automatic reset. Do not reset ledgers or automatically replenish allowances. Equivalent explicit ceiling command (live still requires separate activation; current local configuration selects the separately approved24-call session):
-
-```sh
-backend/.venv/bin/python -c 'from dataclasses import replace; from backend.app.config import load; from backend.app.main import create_app; import uvicorn; uvicorn.run(create_app(settings=replace(load(),voice_call_limit=50,voice_budget_microdollars=2500000),enable_profiles=True),host="127.0.0.1",port=8000)'
-```
-
-For coursework peer testing, use mocks by default. The assignment permits no more than50 live model calls per peer-testing session; each selected testing session is hard-limited to at most50 calls. Peer testing should remain mocked by default; the separately approved student demo session has24 calls. No live peer-testing session is claimed.
-
-Once entered, the exercise timer runs without awaiting the API/model. Initial identity bootstrap and profile/guest selection require the backend; the chooser still exposes static support. Saves are asynchronous and honestly show pending/saved/failed states with retry. Five-second checkpoints support same-origin recovery to interrupted after refresh/closure; only confirmed saved duration is retained. Cleared browser storage, another browser, and legacy ownerless records cannot be automatically recovered. Display choice is temporary; preference persistence is unfinished.
-
-## Files and responsibilities
-
-| Path | Responsibility |
-| --- | --- |
-| `frontend/src/App.vue`, `exercise.js` | Views, six-cycle pacing, controls, fullscreen and independent support |
-| `frontend/src/sessionPersistence.js`, `api.js` | Browser recovery journal and HTTP/JSON requests |
-| `frontend/src/ProfileGate.vue`, `identityAccess.js`, `components/ProfileView.vue` | Local chooser, identity state and approved profile fields |
-| `frontend/src/components/CalendarView.vue`, `ExerciseLibrary.vue` | Saved completion events and unavailable skill placeholders |
-| `backend/app/identity.py`, `api/identities.py`, `repositories/identities.py`, `calendar.py` | Identity validation, transactions, ownership and read-only calendar projection |
-| `frontend/src/components/ChatView.vue` | Voice chat, typed alternative, playback and saved conversation history |
-| `backend/app/main.py`, `api/`, `controllers/` | Validation, routes and generation coordination |
-| `backend/app/repositories/`, `db.py`, `migrations/` | Parameterized transactions, relationships and SQLite initialization |
-| `backend/app/rag/`, `providers/`, `context/` | Validated read-only retrieval and mock/live generation |
-| `data/` | Ignored runtime database; no private or clinical datasets |
-| `docs/`, `handoffs/current.md`, `AI-USE.md` | Contracts, evidence, current state and disclosure |
-
-Only backend code opens SQLite and contacts the provider. The model cannot control timing, saving, exits or support.
-
-## Checks
+1. Continue as guest. Open Exercises; skip the quiz or answer it. A suggestion opens a preview; Start is separate.
+2. Start an exercise. Pause/Stop and Crisis support remain application controls. Opening support pauses practice; closing does not resume it.
+3. Check Session history for the exercise name, duration, and status. Completed sessions appear in Calendar; stopped/interrupted sessions remain in history.
+4. Start another exercise, wait for a checkpoint, then refresh. Recovery should retain the last confirmed checkpoint as interrupted. Retry an uncertain save explicitly.
+5. Create/select a fictional profile. In Exercises, choose answers, check Remember, and Save preferences. Refresh/reselect, then Use saved answers. Forget removes remembered answers; it does not erase current unsaved choices.
+6. Stop/restart both services; verify saved records still appear. Local chooser profiles are not secure authentication.
 
 ```sh
 backend/.venv/bin/python -m unittest discover -s backend/tests -q
@@ -79,20 +54,29 @@ npm --prefix frontend run build
 git diff --check
 ```
 
-Current checks and dated historical evidence are recorded in [verification](docs/verification.md). A fresh browser guest run completed and showed saved within a conservative 72.082 seconds of guest entry, including setup and observation delays (entry/setup upper bound 3.770 seconds). Browser/API/SQLite verification includes a completed practice, stopped practice, mock history answer, exact replay without duplication, refresh and backend restart. Full details and historical failure/live evidence are in [verification](docs/verification.md).
+Run the retained mock evaluation with `sh docs/evidence/part3/run_checks.sh`. It records test/build output; browser scenarios require the steps and observed evidence in the [evaluation guide](docs/evidence/part3/README.md). Unit/API tests do not replace browser verification.
 
-## Remaining work
+## Configuration and paid calls
 
-Full fresh phone/landscape/zoom/keyboard/failure checks, final Figma editability and viewport comparison, explicit preference remembering/forgetting, and clean-checkout reproduction remain unfinished. The normal-view support/active Stop header is now sticky in source; comprehensive failure-state reachability is not verified. Navigation wraps in document flow rather than matching the selected draft's bottom bar.
+Only the backend reads ignored backend/.env; backend/.env.example contains variable names and dummy values. Never overwrite an existing .env, expose keys in Vue, or assume an older checkout is in mock mode. Configuration loads at process startup and changes require restart. The public health endpoint reports configuration presence, not secret values or proof of provider success.
 
-Paced breathing (4–6) is the only usable skill. 5-4-3-2-1 sensory grounding, STOP and One-minute cognitive reframe are noninteractive Coming later placeholders. No clinical effectiveness, complete accessibility audit, physical-device validation, native app, PWA, real authentication, deployment or full Part 3 evaluation is claimed.
+Peer testing defaults to mocks. Live testing requires a host-approved session allowance, explicit session selection and activation. Each session has a maximum50 calls; planning, answering, transcription, speech, failed attempts, and retries count. No ledger resets or automatic replenishment. New requests use labeled mocks when allowance is unavailable/exhausted; a blocked in-flight live turn reports failure honestly. Local monetary reservations are not invoice guarantees. Do not run the one-off live evaluation script as a routine test.
 
+## Architecture and files
 
-[Manual Figma reference pack](docs/figma-fallback/README.md): desktop/390px PNG boards, SVG sources and flow notes. Static source-informed references, not verified editable Figma capture.
+| Location | Responsibility |
+|---|---|
+| frontend/src | Vue views, quiz decisions, local exercise timer, API calls, recovery journal |
+| backend/app/api, controllers, schemas | HTTP validation and request coordination |
+| backend/app/repositories, preferences.py, db.py, migrations | Application-owned SQLite reads/writes and persistence contracts |
+| backend/app/rag, providers, context | Validated read-only scoped retrieval and bounded mock/live generation |
+| data | Ignored runtime SQLite and backups; backend access only |
+| docs/design-pipeline.md | Contracts, approved skill sources, design rationale and Figma links |
+| docs/verification.md, docs/evidence/part3 | Actual checks, limits, mock/live evaluation evidence |
+| handoffs/current.md, AI-USE.md, prompts | Current work state and AI-use disclosure |
 
+## Design and evidence status
 
-## Explicit testing sessions
+Selected Figma alternative: Option A, top navigation. Historical browser-editor work created17 native text/vector frames with sampled editability checks. It was not a successful MCP capture, wired prototype, or verified Figma-to-Vue implementation. Exact viewport matching and instructor access remain unverified. The static PNG/SVG fallback is historical; it does not supersede the later editable browser-created references. See [design notes](docs/design-pipeline.md) for links and differences (including calendar event list versus design grid).
 
-Live activation remains separate from session creation. No new live testing session was opened during implementation; afterward the student separately approved and activated a24-call/$1.20 session. A host must approve the call/spending allowance, explicitly create a UUID-labeled session with `backend/.venv/bin/python -m backend.app.testing_session create --id <UUID> --label <label> --calls <1-to-50> --reservation-cents <approved-cents>`, then select that UUID in ignored `backend/.env` using `VOICE_TEST_SESSION_ID`. Live flags/key still require separate approval and a restart. Do not paste credentials in chat. Only one active testing session is permitted; explicitly close it using `python -m backend.app.testing_session close --id <UUID>` from the backend project interpreter before creating another. Reusing the same ID is idempotent, not a reset. There is no browser endpoint that grants calls.
-
-Failed attempts, transcription, both RAG calls, speech and retries count. On exhaustion, new typed requests and new voice sessions use labeled mocks; an in-flight live turn can finish only stages already reserved and reports any later blocked stage honestly. It is never silently turned into a fabricated live reply. Health exposes `testing_session` usage/remaining separately from legacy six-call counters. Start refreshes health before microphone permission. Opening/refreshing/switching profiles cannot create a session. Old ledger entries remain for accounting, with no guessed attribution to the agent or student.
+Source revision, clean-install outcomes and unresolved checks are recorded in [clean-checkout evidence](docs/evidence/part3/clean-checkout.md). The new Part3 features remain uncommitted in the working repository until separately checkpointed; a historical published commit does not contain them. See [Part3 evaluation](docs/part3-evaluation.md) for scenario results, changes from the initial rationale, live variation and remaining limitations. Recordings and course submission are not claimed complete.

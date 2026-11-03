@@ -55,12 +55,14 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
         app.include_router(voice_router(database_path, tasks, voice_settings))
         app.include_router(identity_router(database_path))
         app.include_router(calendar_router(database_path))
+        from .preferences import router as preferences_router
+        app.include_router(preferences_router(database_path))
 
         @app.middleware('http')
         async def identity_scope(request, call_next):
             path = request.url.path
             protected = path == '/api/calendar' or any(path == prefix or path.startswith(prefix+'/')
-                for prefix in ('/api/sessions', '/api/conversations', '/api/requests', '/api/voice'))
+                for prefix in ('/api/sessions', '/api/conversations', '/api/requests', '/api/voice', '/api/preferences'))
             token = None
             try:
                 if protected:
@@ -140,6 +142,8 @@ def create_app(database_path: Path = DATABASE_PATH, settings=None, enable_profil
             result = sessions.update(database_path, session_id, body)
         except sessions.Conflict as exc:
             return error(409, 'operation_conflict', str(exc))
+        except sessions.InvalidDuration as exc:
+            return error(422, 'invalid_input', str(exc))
         if result is None:
             return error(404, 'session_not_found', 'Session not found.')
         return result
