@@ -1,3 +1,7 @@
+## Combined process recording — November 3, 2026
+
+Appended the supplied38.305s explanation clip to the122.125s process/test clip, preserving both originals in ignored recordings/process-original.mov and process-explanation-original.mov. Native AVFoundation export produced recordings/process-demonstration.mov at1920×1080,160.433s,0 audio tracks. Sampled output decoded and showed appended evidence/code section. No narration invented; report identifies silent retrospective evidence, not original-error footage. Selected combined video tracked for publication; larger originals stay local. Added direct commit-pinned report link. No provider calls/application changes.
+
 ## Standalone report links — November 3, 2026
 
 Converted report.md relative evidence links to absolute commit-pinned GitHub links so a separately submitted Markdown file can reach its artifacts. Prominent frontend video download, error/fix evidence and retained test-output links added. Process video remains pending; written evidence explicitly distinguished. No application/data changes.
