@@ -16,3 +16,4 @@ data/*.sqlite3*
 # Preserve large original locally; publish only the selected submission copy
 recordings/*.mov
 !recordings/Screen Recording 2026-11-03 at 6.58.39 PM.mov
+!recordings/process-demonstration.mov
