@@ -1,3 +1,7 @@
+## Standalone report links — November 3, 2026
+
+Converted report.md relative evidence links to absolute commit-pinned GitHub links so a separately submitted Markdown file can reach its artifacts. Prominent frontend video download, error/fix evidence and retained test-output links added. Process video remains pending; written evidence explicitly distinguished. No application/data changes.
+
 ## Selected recording publication — November 3, 2026
 
 User explicitly requested Git upload of the selected74MiB Screen Recording MOV. Added a narrow ignore exception for that file and included the updated submission report/recording evidence. Larger112MiB original, credentials and runtime databases remain ignored. Relative report link resolves to the selected movie. Newer copy has not been independently reviewed for full content/audio; original inspection limitations remain. Publishing on codex/exercise-quiz, no merge/course upload.
