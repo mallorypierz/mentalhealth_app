@@ -80,3 +80,7 @@ Peer testing defaults to mocks. Live testing requires a host-approved session al
 Selected Figma alternative: Option A, top navigation. Historical browser-editor work created17 native text/vector frames with sampled editability checks. It was not a successful MCP capture, wired prototype, or verified Figma-to-Vue implementation. Exact viewport matching and instructor access remain unverified. The static PNG/SVG fallback is historical; it does not supersede the later editable browser-created references. See [design notes](docs/design-pipeline.md) for links and differences (including calendar event list versus design grid).
 
 Source revision, clean-install outcomes and unresolved checks are recorded in [clean-checkout evidence](docs/evidence/part3/clean-checkout.md). The new Part3 features remain uncommitted in the working repository until separately checkpointed; a historical published commit does not contain them. See [Part3 evaluation](docs/part3-evaluation.md) for scenario results, changes from the initial rationale, live variation and remaining limitations. Recordings and course submission are not claimed complete.
+
+## Final submission audit
+
+Revision `c6d8377ce4782abd5e3467e78e03eddf25e74d6b` was reproduced in a fresh isolated checkout on November 3: 83 backend tests, 37 frontend tests and build passed. Mock browser checks covered startup, quiz, preferences, exercise/history, refresh, restart and failure recovery. See [audit evidence](docs/evidence/part3/final-audit/results.md). Later audit changes are documentation/evidence only.

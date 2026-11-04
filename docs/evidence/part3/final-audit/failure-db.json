@@ -1,0 +1,33 @@
+{
+  "messages": [
+    {
+      "id": "5d76af38-12f0-4de0-99ef-297abd58d288",
+      "conversation_id": "e158905a-fd84-4e6b-b536-e85c130b10bc",
+      "request_id": "4803abb8-1ddc-4c46-9a20-91f3b7886f7d",
+      "role": "user",
+      "content": "Fictional audit: what is my latest saved practice?",
+      "sequence": 1,
+      "created_at": "2026-11-04T00:54:21.925120+00:00"
+    }
+  ],
+  "requests": [
+    {
+      "id": "4803abb8-1ddc-4c46-9a20-91f3b7886f7d",
+      "conversation_id": "e158905a-fd84-4e6b-b536-e85c130b10bc",
+      "input_hash": "7c621984535d84e27a2435ae0af610dd3dee0e16a8f3735ba3def0521dd443f1",
+      "status": "failed",
+      "attempt_count": 1,
+      "provider_call_count": 1,
+      "mock_mode": "success",
+      "error_code": "provider_failure",
+      "created_at": "2026-11-04T00:54:21.924758+00:00",
+      "updated_at": "2026-11-04T00:54:21.928395+00:00",
+      "retrieval_outcome": "provider_failure",
+      "retrieved_ids_json": "[]",
+      "citations_json": "[]",
+      "failure_stage": "planning",
+      "provider": "mock",
+      "model": null
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+
+> coursework-breathing-prototype@0.1.0 test
+> node --test tests/*.test.js
+
+✔ all reviewed steps appear in order and each sequence completes at its duration (2.747917ms)
+✔ preferences never automatically recommend breath focus when avoided or uncertain (4.247333ms)
+✔ grounding next steps preserve actual time, pause, restart and timer boundary (0.312917ms)
+✔ reviewed phrases match case and whitespace variants (1.37775ms)
+✔ rule limitations remain explicit: negation matches, indirect wording can miss (0.528542ms)
+✔ approved indirect wording and apostrophe variants match; misrecognition is not assumed safe (1.035291ms)
+✔ six 4/6 cycles complete at exactly 60 seconds (2.162542ms)
+✔ pause excludes elapsed time, stop is final, restart resets time (0.293542ms)
+✔ late responses cannot update state after cancellation or replacement (22.4665ms)
+✔ provider failure is reported without an invented response (0.463666ms)
+✔ pause accounting survives repeated pause calls and stops once (0.332166ms)
+✔ revoked browser access is cleared once and returns a fresh chooser without replaying writes (31.837542ms)
+✔ network and server failures preserve credentials and do not bootstrap (0.69425ms)
+✔ valid identity is retained; failed bootstrap is not retried in a loop (0.196334ms)
+✔ PCM WAV is mono 16kHz 16-bit with bounded sample values (2.023791ms)
+✔ silence does not submit and a short silence ends one voiced utterance (31.556708ms)
+✔ turn duration is bounded and reset discards unsubmitted audio (35.75075ms)
+✔ stop during permission prompt closes a late microphone without starting capture (0.374708ms)
+✔ reply loading/playback blocks capture; finish or manual stop resumes only an active visible session (0.16875ms)
+✔ late preference response is rejected after identity changes (2.487541ms)
+✔ every activity/comfort combination obeys precedence and exclusions (3.386083ms)
+✔ skips and neutral answers never fabricate an activity preference (7.380667ms)
+✔ invalid and unavailable answers fail closed without arbitrary substitution (0.172083ms)
+✔ changed answers produce a new decision without changing exercise instructions (0.120667ms)
+✔ offline final outcome remains retryable and is saved once (23.10325ms)
+✔ lost commit response reuses exact operation instead of duplicating (19.211375ms)
+✔ abandoned session uses only the database checkpoint and skips a live owner (1.982375ms)
+✔ explicit start only, fixed automatic turn submission and duplicate click guard (3.019958ms)
+✔ late events cannot change view after stop or profile change (0.512292ms)
+✔ speech failure does not turn a saved reply into a failed save (0.626709ms)
+✔ next automatic mock turn continues to accept events on the same socket (0.3775ms)
+✔ provisional recognition concern stops transport and holds words without claiming a save (0.374916ms)
+✔ server-confirmed held transcript keeps not-saved distinct from uncertainty (0.301583ms)
+✔ live transport accepts one audio turn, waits during processing and rejects late submission after stop (0.552292ms)
+✔ live start refuses a mock backend instead of sending microphone audio (0.228916ms)
+✔ restoring voice controls never opens microphone/socket and ignores a late owner response (0.396959ms)
+✔ budget failure accurately reports whether the message was saved (0.390958ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 270.845041

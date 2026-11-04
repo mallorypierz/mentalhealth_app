@@ -1,0 +1,39 @@
+{
+  "api": {
+    "sessions": [
+      {
+        "id": "0a9d7220-b2f0-4147-90b3-fdff0612b5e3",
+        "skill_key": "sensory_grounding_5_4_3_2_1",
+        "status": "completed",
+        "started_at": "2026-11-04T00:55:46.607000Z",
+        "ended_at": "2026-11-04T00:55:55.398000Z",
+        "active_duration_ms": 8789,
+        "paused_duration_ms": 0,
+        "last_checkpoint_at": "2026-11-04T00:55:55.414426Z",
+        "revision": 7,
+        "is_fixture": false
+      }
+    ],
+    "next_cursor": null
+  },
+  "sqlite": [
+    {
+      "id": "0a9d7220-b2f0-4147-90b3-fdff0612b5e3",
+      "skill_key": "sensory_grounding_5_4_3_2_1",
+      "status": "completed",
+      "active_duration_ms": 8789,
+      "started_at": "2026-11-04T00:55:46.607000+00:00",
+      "ended_at": "2026-11-04T00:55:55.398000+00:00"
+    }
+  ],
+  "preferences": {
+    "id": "866a6d51-d300-4b32-8140-fe5ba266e006",
+    "revision": 1,
+    "answers": {
+      "activity": "sensory_grounding_5_4_3_2_1",
+      "breath": "avoid"
+    },
+    "persistence": "saved",
+    "replayed": false
+  }
+}

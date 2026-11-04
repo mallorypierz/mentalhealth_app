@@ -1,3 +1,7 @@
+## Final audit — November 3, 2026 (supersedes earlier current-status gaps)
+
+See [final audit](docs/evidence/part3/final-audit/results.md) for exact expected/observed checks. On codex/exercise-quiz, source c6d8377 passed fresh README checkout:83 backend/37 frontend/build. S15 combined browser failure/support now passed with mocks; invalid-access browser recovery, preference outage/retry, restart and ID trace verified. Figma MCP reads succeeded and approved sharing is Anyone can view; no design round trip claimed. Published video coverage reviewed at two-second intervals plus selected visual frames. No paid calls, source edits, private data copies or budget reset. Codex performed these checks and documentation; student provided recordings and sharing approval. Remaining device/live-failure/design limitations retained. Evidence/report publication is the current task. Older entries below are historical.
+
 November3 submission preparation: Codex consolidated report.md using retained source, scenario matrix, test/live evidence and sampled video inspection. It explicitly identifies pending video hosting/process recording/final-checkout checks; no results invented or new paid calls made. Student final review remains required.
 
 November 3: Codex prepared the recording outline and narration from actual source/evidence and reran three mocked identity-recovery tests. No video captured or new live calls made.

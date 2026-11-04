@@ -1,0 +1,26 @@
+{
+  "preferences": [
+    {
+      "owner_id": "866a6d51-d300-4b32-8140-fe5ba266e006",
+      "revision": 2,
+      "answers": "{\"activity\":\"paced_breathing_4_6\",\"breath\":\"yes\"}"
+    }
+  ],
+  "preference_operations": [
+    {
+      "owner_id": "866a6d51-d300-4b32-8140-fe5ba266e006",
+      "operation_id": "db737cd4-ac9e-41f8-9ad1-28119b12a1f6",
+      "fingerprint": "11871215ce12a366a510ec30437a3555f20625900c52f16d976666453b376c1d"
+    },
+    {
+      "owner_id": "866a6d51-d300-4b32-8140-fe5ba266e006",
+      "operation_id": "1b91fbcc-7ee8-402a-bd8d-b9ca90d3b105",
+      "fingerprint": "043c1efcc47f971acd9f9e922d91ff345190b7964f99c3fa4247ef87ccbc0f62"
+    }
+  ],
+  "counts": {
+    "messages": 2,
+    "requests": 1,
+    "exercise_sessions": 2
+  }
+}
