@@ -1,0 +1,6 @@
+## Frontend recording received — November 3, 2026
+
+User supplied Screen Recording 2026-11-03 at6.58.39PM.mov. Preserved a byte-identical copy at recordings/part3-recording-2026-11-03.mov (117573632 bytes; SHA25627c7ebf4ddb0036e678b8af3eb5385b5d217ac0bbe066a058ccaabf6c7fc6323). Original remains intact. Large local movie excluded from Git; no upload performed. Native AVFoundation inspection reports301.7167seconds and0 audio tracks. Sandboxed frame decoding initially failed; native decoding with approved escalation succeeded. Do not characterize the file as damaged.
+
+Seven sampled frames at6.03,54.31,105.60,156.89,208.18,259.48,292.67seconds show profile chooser, breathing/still cue, typed chat, grounding/checkmarks, STOP, voice controls and profile creation. This is sampled visual review, not complete playback or verification of every action/requirement. No recorded narration/audio present. No process section confirmed by the sampled frames; process recording and full coverage/accessibility review remain pending. Quiz paths, remembering preferences, support opening and history coverage are not established by this sample. Recording must be shared separately with reviewer access checked.
+

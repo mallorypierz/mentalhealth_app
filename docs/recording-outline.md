@@ -1,11 +1,11 @@
 # Part 3.3 recording outline
 
-**Recordings: PENDING.** Prepared November 3, 2026. No video was captured. Use one recording with the two title cards below, or two files. Suggested total: 7–9 minutes. Rehearse first; pause recording while navigating files. All demonstrations use fictional data. No new paid calls are needed.
+**Frontend recording received; process recording pending.** Updated November 3, 2026. Received a5:02 silent frontend recording; see evidence/part3/recording/received-video.md for storage and sampled review. Full requirement coverage remains unverified. Use one recording with the two title cards below, or two files. Suggested total: 7–9 minutes. Rehearse first; pause recording while navigating files. All demonstrations use fictional data. No new paid calls are needed.
 
 ## Before recording
 
-1. Save unfinished work. Current source is branch `codex/exercise-quiz`, base `016d251a957870f9196de4a9b96e705801c644d5` plus uncommitted changes. Show `git status --short` and explain that base alone does not contain this implementation. Record the final submitted commit once one exists.
-2. The currently running backend was restored to LIVE. Do **not** assume it is mocked or submit a test message there. For the recording, stop the existing backend using Ctrl+C in its terminal, then run the explicit mock command below from the project root. It uses a fresh temporary database and existing dependencies; do not copy `.env`, databases or dependency folders. Keep the frontend on5173. Stop any previous process occupying8000 before starting; do not run both backends on that port.
+1. Save unfinished work. Published implementation is branch `codex/exercise-quiz`, commit `bdf3f84c72a9a27c27b10646d4ec2605f5982a81` (remote verified). Show `git status --short` and `git rev-parse HEAD`; disclose any later changes. This outline publication-status refresh is newer than that commit.
+2. The last verified running backend was restored to LIVE; recheck its current health. Do **not** assume it is mocked or submit a test message there. For the recording, stop the existing backend using Ctrl+C in its terminal, then run the explicit mock command below from the project root. It uses a fresh temporary database and existing dependencies; do not copy `.env`, databases or dependency folders. Keep the frontend on5173. Stop any previous process occupying8000 before starting; do not run both backends on that port.
 3. Open a fresh browser tab at `http://127.0.0.1:5173/`. Check `/api/health`: require `provider: mock`, `voice_enabled: false`, zero live usage for this temporary database. If not, stop and correct the server. The quiz and exercise controls are deterministic application code even when chat is live.
 4. Close private tabs/notifications and terminals displaying credentials. Do not show `.env`, request Authorization headers, browser storage, or raw identity bootstrap responses. Show only fictional record fields. Keep microphone off in the app. Enable your recorder's narration microphone only.
 5. On macOS press Shift–Command–5, choose Record Selected Portion, frame only the app/editor area, choose your narration microphone under Options, then Record. Stop with the menu-bar stop control or Command–Control–Escape. Rename outputs `part3-demo.mov` and `part3-process.mov` (or one `part3-demo-and-process.mov` with marked chapters). Review audio, readable text, secrets and start/end frames before sharing.
@@ -48,7 +48,7 @@ Title card: **Process evidence — actual invalid-session failure; mocked automa
 
 1. **Actual failure:** display the recorded user report “Local access is invalid or revoked.” from the conversation, cropped to that report, or the dated Invalid local access recovery entry in `docs/verification.md`. Narration: “After I switched from the isolated mock database to the original live database, the browser still held the previous local identity. The user reported being unable to enter.” There is no retained original failure screenshot or HTTP trace; do not invent one or portray a reconstruction as original footage.
 2. **Expected:** “The app should offer a usable profile chooser when its saved local credential is rejected. A temporary network failure should not discard valid access.”
-3. **Evidence:** show the ProfileGate change with `git diff -- frontend/src/ProfileGate.vue`, then `frontend/src/identityRecovery.js`. The previous boot path retried `/identity` with the same stored credential; the new helper handles401 explicitly. The database switch and browser report support the diagnosis; there was no record-by-record database trace proving the rejected token. Do not open or display credentials to manufacture that proof.
+3. **Evidence:** show the ProfileGate change with `git diff bdf3f84^ bdf3f84 -- frontend/src/ProfileGate.vue`, then `frontend/src/identityRecovery.js`. The previous boot path retried `/identity` with the same stored credential; the new helper handles401 explicitly. The database switch and browser report support the diagnosis; there was no record-by-record database trace proving the rejected token. Do not open or display credentials to manufacture that proof.
 4. **Decision/fix:** “On401 only, clear the browser access reference and bootstrap once. Return to the chooser without deleting records, resetting the usage ledger, replaying a pending save or choosing a profile automatically. Network,403 and500 failures remain errors.” Show `restoreIdentity(request, getAccess, clearAccess)` and the call in ProfileGate's `boot()`.
 5. **Retest:** run `node --test frontend/tests/identityRecovery.test.js` in a clean terminal. Point to the three passing tests: rejected identity becomes chooser; other failures retain access; valid identity and bounded bootstrap. Retained output: `docs/evidence/part3/recording/identity-retest.txt` (3 passed during outline preparation). Say: “This is a mocked regression test, not a paid request. The original affected browser tab could not be reacquired by automation, so that exact browser recovery remains unverified.” Do not equate a new guest tab with reproducing that stale-token case.
 
@@ -79,7 +79,7 @@ Optional read-only ID verification: use the printed recording database path with
 
 ## Submission checklist
 
-Completed artifacts (available locally; not a claim of published final source):
+Completed artifacts (implementation and original evidence published in bdf3f84):
 
 - [x] Implemented quiz, reviewed exercises, explicit preferences, session history and scoped read-only RAG.
 - [x] README, architecture/contracts, verification notes, AI-USE and current handoff.
@@ -88,6 +88,7 @@ Completed artifacts (available locally; not a claim of published final source):
 - [x] Separate approved live variation sample/results (12 calls), preserved ledger.
 - [x] Clean-checkout evidence for exact local candidate b3d8087; later quiz/grounding/recovery changes explicitly excluded from that claim.
 - [x] This outline, narration and retained mocked identity-retest output.
+- [x] Source committed and pushed to codex/exercise-quiz; remote hash verified as bdf3f84.
 
 Still missing or needing final review:
 
@@ -98,4 +99,4 @@ Still missing or needing final review:
 - [ ] Full physical-device/keyboard/timing evidence; setup-time measurement separate from exercise active time. Keep untested limits explicit.
 - [ ] Figma workflow limitations remain: no verified MCP capture/implementation round trip, exact viewport parity or instructor-access check. Do not describe browser-created references as completed MCP workflow.
 - [ ] Student review of narration/code explanation and final Part3 report reflecting later grounding/identity changes.
-- [ ] Review diff, commit/publish the intended final source when authorized, record exact revision, and verify reviewer access. No final source publication/course submission performed here.
+- [ ] Review any changes after bdf3f84, record the exact submission revision, and verify reviewer access to source/video links. Course submission remains pending.

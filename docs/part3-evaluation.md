@@ -1,3 +1,5 @@
+> Historical evaluation summary: see [report.md](../report.md) for the consolidated current submission, including later grounding controls, identity recovery and received frontend video. The dated results below retain their original scope.
+
 # Part 3.3 integration and evaluation
 
 Updated November 3, 2026. This is an agent-executed evaluation using fictional data, not a clinical study or evidence of emotional improvement. The student approved the exercise adaptations, quiz scope, top navigation and the bounded live sample. Recordings and final student submission review remain unfinished.

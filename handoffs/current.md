@@ -1,3 +1,33 @@
+## Selected recording publication — November 3, 2026
+
+User explicitly requested Git upload of the selected74MiB Screen Recording MOV. Added a narrow ignore exception for that file and included the updated submission report/recording evidence. Larger112MiB original, credentials and runtime databases remain ignored. Relative report link resolves to the selected movie. Newer copy has not been independently reviewed for full content/audio; original inspection limitations remain. Publishing on codex/exercise-quiz, no merge/course upload.
+
+## Local recording link — November 3, 2026
+
+Student added a74MiB Screen Recording MOV under recordings. report.md now links that exact file with a URL-encoded relative path. File existence verified; new copy not re-inspected. Original112MiB inspected recording preserved. Both movies remain Git-ignored and unuploaded; link works only with the accompanying folder, not on GitHub yet. No commit/push.
+
+## Consolidated Part 3.3 submission report — November 3, 2026
+
+Replaced historical Part2 report.md with the current Part3.3 submission report. Earlier report remains linked in Git history. Includes implementation/quiz/personalization, actual class rationale revisions, architecture/SQL RAG, all18 expected/observed scenarios with mode/status/evidence, behavior checks, bounded live variation, exact clean-checkout scope, actual invalid-access failure/retest, generated decide function explanation, Figma limits, AI disclosure and final checklist. Added received5:02 silent frontend video status; no hosted video or completed process recording claimed. Notes desktop recording navigation rail versus selected Figma top-nav intent. Local report links resolve and all18 scenarios are present; diff whitespace check passed. Documentation only; no new runtime tests, provider calls, recording or publication. Published application remains bdf3f84; this report and subsequent evidence edits await publication/student review.
+
+## Frontend recording received — November 3, 2026
+
+User supplied Screen Recording 2026-11-03 at6.58.39PM.mov. Preserved a byte-identical copy at recordings/part3-recording-2026-11-03.mov (117573632 bytes; SHA25627c7ebf4ddb0036e678b8af3eb5385b5d217ac0bbe066a058ccaabf6c7fc6323). Original remains intact. Large local movie excluded from Git; no upload performed. Native AVFoundation inspection reports301.7167seconds and0 audio tracks. Sandboxed frame decoding initially failed; native decoding with approved escalation succeeded. Do not characterize the file as damaged.
+
+Seven sampled frames at6.03,54.31,105.60,156.89,208.18,259.48,292.67seconds show profile chooser, breathing/still cue, typed chat, grounding/checkmarks, STOP, voice controls and profile creation. This is sampled visual review, not complete playback or verification of every action/requirement. No recorded narration/audio present. No process section confirmed by the sampled frames; process recording and full coverage/accessibility review remain pending. Quiz paths, remembering preferences, support opening and history coverage are not established by this sample. Recording must be shared separately with reviewer access checked.
+
+## Process evidence packet — November 3, 2026
+
+Created docs/evidence/part3/recording/error-evidence.md from the actual user error report, published recovery code and retained3-pass mocked test output. Includes a short narration, provenance and original browser-trace/screenshot limitations. No new tests, live calls or recordings; working app unchanged.
+
+## Recording readiness — November 3, 2026
+
+User preparing to record. Both servers were stopped; restarted normal configured backend8000 (session27222) and frontend5173 (session38405). Proxied health confirms provider=openai, voice_enabled=true, selected session14/24 used,10 remaining. No paid readiness call was made; physical microphone/playback and a fresh provider reply are not verified by health. Existing ledger/configuration preserved. Recommend original invalid-access report plus mocked identity-recovery regression test for process evidence; no deliberate disruption of live app. Current readiness supersedes earlier12-remaining observation.
+
+## Recording-outline publication refresh — November 3, 2026
+
+Updated docs/recording-outline.md to identify published implementation bdf3f84c72a9a27c27b10646d4ec2605f5982a81 on codex/exercise-quiz and use a historical diff for process evidence. Prior push verified matching remote hash. Recordings, final-revision clean-checkout and other disclosed gaps remain pending. Documentation-only; no new calls, recordings, server changes or test execution.
+
 ## Saved project checkpoint — November 3, 2026
 
 User requested saving all work. Checkpoint includes Part3 implementation, tests, evaluation evidence, README/design/verification updates, AI-use disclosure and recording outline on codex/exercise-quiz. Credentials, runtime SQLite, installed dependencies and temporary environments remain local/ignored. No remote push requested. Latest checks:83 backend tests,37 frontend tests,production build; identity-recovery targeted retest3 passed. Recordings and other documented limitations remain pending. Use git log for this checkpoint hash; older uncommitted statements below describe earlier stages.

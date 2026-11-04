@@ -1,107 +1,224 @@
-> Current Part 3.3 results are in [the integration and evaluation report](docs/part3-evaluation.md). The Part 1/2 report below is historical; its pending-feature and static-only Figma statements are not the current status.
+# Assignment 3 — Part 3.3: Integration, Evaluation, and Demonstration
 
-# Assignment 3.2 — Part 2: Updated working prototype
+**Project:** A little space · **Student:** Mallory Pierz · **Updated:** November 3, 2026
 
-Prepared October 27, 2026. The student explicitly confirmed “the chatbot is all finished and verified” and approved inclusion of all completed additions. This report describes the current local implementation, not just the earlier submission. **Published source:** updated source/evidence commit is pushed and its linked files verified publicly readable. This finalized report is a subsequent documentation-only update. A subsequent browser-based Figma design update and student selection are documented below. The student reviewed these latest report edits and explicitly approved their commit and push; the submitted application source commit is unchanged.
+This coursework prototype offers short, reviewed exercises, an optional preference quiz, local profiles and saved activity, and optional typed/voice AI conversation. Vue owns the interface, FastAPI applies business rules, and SQLite stores scoped records. It uses fictional data for evaluation. It is not therapy, diagnosis, safety monitoring or evidence of clinical effectiveness.
 
-| Submission field | Value |
-| --- | --- |
-| Repository | [mallorypierz/mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) |
-| Current branch | `codex/profiles-calendar` |
-| Updated submitted source commit | [`aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8`](https://github.com/mallorypierz/mentalhealth_app/commit/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8) — verified on remote `codex/profiles-calendar`. |
-| Prior published expansion | [e593a522b7a1b0718e1a19987ac133e66cfbc36b](https://github.com/mallorypierz/mentalhealth_app/commit/e593a522b7a1b0718e1a19987ac133e66cfbc36b) — profiles/calendar/library |
-| Original Part 2 | [Source080ad639](https://github.com/mallorypierz/mentalhealth_app/commit/080ad6393a2ade204f6f2b417b422a5778a8ed4c), [reportf133bf99](https://github.com/mallorypierz/mentalhealth_app/blob/f133bf99804246fe4fa34f090db37b196abf69c8/report.md) preserved |
-| Part 1 | [Reporte958bdcf](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md) preserved |
-| Evidence access | All10 linked source/document/evidence files below were verified publicly readable without authentication at the new commit on October27. This is not a check from the instructor’s device. |
+## Submission links and status
 
-## Experience and completed scope
+| Artifact | Location and status |
+|---|---|
+| Repository | [mentalhealth_app](https://github.com/mallorypierz/mentalhealth_app) |
+| Published implementation | [Commit bdf3f84c72a9a27c27b10646d4ec2605f5982a81](https://github.com/mallorypierz/mentalhealth_app/commit/bdf3f84c72a9a27c27b10646d4ec2605f5982a81), branch `codex/exercise-quiz`; push and remote hash verified. This revised report, selected recording and later evidence are published as a subsequent submission update; the implementation commit remains the source reference. |
+| Setup | [README](README.md), with credential-free mock setup and documented tests |
+| Frontend demonstration | [Watch/download the frontend recording](recordings/Screen%20Recording%202026-11-03%20at%206.58.39%E2%80%AFPM.mov). This relative link works when the report and `recordings` folder are provided together. The newly added file is 73.6 MiB and has not been independently re-inspected. The separately preserved original is **5:02 with no audio track**; [inspection record](docs/evidence/part3/recording/received-video.md). The selected submission copy is included in this branch; the larger original remains local. GitHub may offer download rather than inline playback. |
+| Process demonstration | **Recording pending.** [Actual failure/fix evidence](docs/evidence/part3/recording/error-evidence.md) and [recording outline/narration](docs/recording-outline.md) are prepared. Written evidence does not replace the required process screencast. |
+| Evaluation | [18-case matrix](docs/evidence/part3/scenarios.json), [mock results](docs/evidence/part3/evaluation.md), [live results](docs/evidence/part3/live/comparison.md), [verification log](docs/verification.md) |
+| Disclosure and handoff | [AI-USE.md](AI-USE.md), [current handoff](handoffs/current.md) |
+| Earlier submissions | [Part 3.1/Part 1 rationale](https://github.com/mallorypierz/mentalhealth_app/blob/e958bdcf11e69b5c4451f986742989acd01b497e/report.md); [historical Part 2 report](https://github.com/mallorypierz/mentalhealth_app/blob/bdf3f84c72a9a27c27b10646d4ec2605f5982a81/report.md) |
 
-A person can choose a local profile or continue directly as guest, practice paced breathing, review saved activity and calendar events, or use optional voice/typed chat. Display name is required only when creating a profile; age and gender are optional. Profiles have no passwords and are not secure authentication. Guest history survives refresh/navigation; explicit Exit guest or confirmed discard clears it, while explicit transfer can attach it to a selected profile. Switching during practice offers continuation or Stop and switch. Profile deletion requires confirmation. Legacy records remain under their original owner.
+The report consolidates completed work and evidence; it does not claim that every submission requirement is finished. Outstanding items are listed at the end.
 
-Paced breathing (4–6) is the only completed skill: six cycles with Pause, explicit Resume, Stop, still cue, fullscreen and neutral results. The exercise library opens this existing exercise without auto-start. 5-4-3-2-1 sensory grounding, STOP and One-minute cognitive reframe are names-only, unavailable Coming later entries. No generated instructions or fabricated completions are provided for them.
+## Finished application and behavior
 
-The calendar derives events from the active identity's completed SQLite sessions, placed at completion time in the device's timezone. Stopped/interrupted sessions remain visible in history but are excluded from the calendar. Activity counts do not indicate wellbeing or improvement. This is a responsive website, not a native application or PWA.
+People may enter as a guest or select a local fictional profile. Profiles have no password and are not secure authentication. Guest activity can be explicitly transferred to a profile or discarded through the existing confirmation flow. Quiz answers for guests are temporary and are not transferred with activity.
 
-## Assignment audit
+| Exercise | Planned sequence and controls |
+|---|---|
+| Paced breathing | Six 4-second inhale/6-second exhale cycles,60 active seconds; Pause, Resume, Stop and optional still cue |
+| 5-4-3-2-1 sensory grounding | Five15-second prompts, up to75 active seconds; optional5/4/3/2/1 checkmarks, Next step and final Finish exercise. Automatic progression remains a fallback. Early advancement saves actual active duration. |
+| STOP | Four15-second prompts,60 active seconds; includes a breath-focused step |
+| Cognitive reframe | Three20-second prompts,60 active seconds; no required writing or sharing of thoughts |
 
-| Part 2 requirement | Evidence and status |
-| --- | --- |
-| Complete at least one chosen skill | Six-cycle paced breathing implemented; [completion evidence](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/part2-final-completed.png), timing and tests |
-| Model contribution with relevant context | Two-call SQL RAG plus actual live transcription, answer generation and speech; [evidence categories](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/voice-update.md) distinguish agent observations, mocks and student verification |
-| Conversation/session persistence and history | Stable IDs/order/timestamps, parameterized transactions, actual saved replies, session table, calendar; [original browser/API/SQLite extract](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/evidence/part2-final-records.json) and [verification](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/verification.md) |
-| Guided exercise no longer than90 seconds | Historical measured bounds below90 seconds; sequence remains unchanged; timing detail below |
-| Independent crisis-support route | Application-controlled support accessible without microphone/model/classifier/database/budget; historical backend-outage checks; no service contacted |
-| Request failure and leaving exercise | Saved/failed/unknown states, retry idempotency, stopped/interrupted records, pause/recovery; voice audio failure separate from text persistence |
-| Research rationale and control | R1–R4/D1–D6 tradeoffs below and [design contracts](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/design-pipeline.md) |
-| Report, accessible evidence, source commit, disclosure | Source committed/pushed, hash recorded and10 hosted evidence links verified; [AI disclosure](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/AI-USE.md) |
-| Class Figma workflow in AGENTS.md | Browser-created editable reference frames and explicit Option A selection now verified; qualitative Vue comparison completed. MCP capture, new selected-frame implementation and matched-viewport fidelity remain incomplete. |
+The student explicitly approved the source-based adaptations before implementation. Grounding and reframe sources were NHS guidance, and STOP came from the VA toolkit; exact source links and contracts are in [design notes](docs/design-pipeline.md). Later wording and grounding controls were requested by the student. Reframe's second prompt now reads, “What makes this thought seem true? Could there be another way to explain what happened?” These brief adaptations do not claim the entire underlying skill must be accomplished within a timer.
 
-Profiles, calendar, exercise placeholders and speech are optional additions to the assignment. Implementing all four skills is not required. The supplied assignment permits honest unfinished work in Part2. Part3's fifteen fictional scenarios, three explicit behavior checks, varied live evaluation, clean-checkout reproduction and final demonstration/process recordings are not claimed complete here. No recording is attached.
+Application code controls steps, timers, exits and support. Models cannot select arbitrary exercises or change instructions. Stop remains available; old timers are cleared on restart/leaving. Opening support pauses practice, and closing it does not automatically resume. The support route does not require model output, a questionnaire or a classifier. No support service was contacted during checks. The last exercise-implementation support lookup is recorded in verification notes; this report does not claim a new resource lookup today.
 
-## Research rationale
+Results distinguish stopped, completed and interrupted sessions. Completion records the sequence ending, not improved mood or proof the person performed each activity. Calendar events derive from completed records; stopped/interrupted records remain in history. Grounding checkmarks are temporary UI state and are not stored as wellbeing measurements.
 
-The supplied study reports15 patients,13 clinicians and15 prototype evaluations. Mention counts are design concerns, not clinical effect sizes. R1 and D1/D2 motivate one short, fixed, atomic exercise with minimal setup. R3/R4 motivate direct guest access, explicit Start/Stop, pause-before-switch and reversible optional choices. D3 motivates optional age/gender and a typed alternative to speech. D5 motivates saved profile activity and explicit guest transfer instead of silently assigning data; the tradeoff is a chooser and visible profile-selection privacy limits. Still-cue preference itself remains temporary, not persisted. R2/D4 motivate independent support even when chat fails. D6 motivates neutral language, restrained motion and no clinical claims.
+## Quiz, preferences and transparent history
 
-Voice lowers typing effort but introduces recognition errors, latency, privacy and cost. We chose automatic silence-based turns only after explicit Start. Playback no longer supports automatic spoken interruption because the microphone could mistake speaker output for user speech; explicit Stop speaking remains. Saved text and typed input preserve access when audio fails. The student selected Option A (top navigation), superseding the earlier mobile bottom-bar draft. Vue already wraps navigation at the top; comprehensive phone/zoom/keyboard verification remains incomplete.
+The optional quiz displays one question at a time: preferred activity, then comfort with breath focus. Users can skip a question or the quiz, choose No preference, go back, change answers, retake, reject a suggestion or choose another exercise. Preview and Start remain separate.
 
-## Model contribution and data flow
+| Answer condition | Deterministic output |
+|---|---|
+| Explicit available activity, no breath conflict | Suggest that exercise and explain the activity answer |
+| Breathing or STOP plus Avoid/Not sure | Conflict; no recommendation; invite another choice |
+| Skipped/neutral activity plus Yes to breathing | Suggest breathing and explain the Yes answer |
+| No clear preference otherwise | No ranked winner; choose manually |
+| Unrecognized input or unavailable match | Invalid/unavailable fallback; no arbitrary replacement |
 
-Vue talks to FastAPI; only backend code accesses project-relative SQLite or provider credentials. Application code owns skill timing, exits, support and writes. The model may discuss general educational wellbeing topics such as stress, emotions, coping, relationships and seeking professional help. It must not diagnose, prescribe treatment or medication changes, promise improvement, invent therapeutic exercises, or imply monitoring. This is a fictional-scenario coursework demonstration, not a support service.
+Example1: breathing rhythm + Yes suggests breathing. Example2: surroundings + Avoid suggests grounding. Both examples use actual preferences, not a clinical score or a promise of maximum benefit.
 
-The voice pipeline is speech-to-text → SQL planning → answer generation → speech synthesis, using `gpt-4o-mini-transcribe`, `gpt-5.4-mini-2026-03-17` for both RAG calls, and `gpt-4o-mini-tts`/`marin`. It is continuous turn-taking with processing gaps, not duplex realtime audio. Typed input uses the same scoped RAG and persistence flow.
+Profiles can explicitly check Remember and Save preferences, choose Use saved answers, update them, or Forget. Background loads never silently replace current choices. Current explicit answers take priority over older saved answers. Previous exercises appear separately and **never influence suggestion ranking**. There is no hidden completion-count inference.
 
-The first model proposes SQL using reviewed schema. Backend structural validation restricts fields/tables/grammar, reconstructs parameterized SQL and adds ownership itself. A read-only connection, authorizer and row/time/context limits bound retrieval. Raw model SQL is never executed. The second model receives only permitted records plus reviewed instructions. Stored text remains data, not instructions. Citations must belong to retrieved IDs, although membership alone cannot prove semantic correctness.
+Preferences use owner scope, revisions and stable operation IDs. Forget retains a revision tombstone/receipt so an old retry cannot restore forgotten answers. Delayed responses are ignored after identity/context changes or component departure. Saved/failed/unknown outcomes are shown distinctly and retries reuse operation IDs.
 
-Rejected SQL never runs. Rejected queries, database errors and timeouts can now reach answer generation with explicitly empty context and an unavailable-history status. General educational discussion may continue, while personal-history claims must be withheld and the limitation disclosed. This correction preserves retrieval outcomes rather than pretending retrieval succeeded. Configuration, provider or exhausted-budget failures remain failures. Actual accepted replies use normal application persistence before audio generation; an audio failure cannot erase a saved reply.
+## Architecture, persistence and SQL RAG
 
-SQLite keeps identities, sessions, conversations, ordered user/assistant messages, requests, voice turns/operations and durable attempt reservations. Ownership is checked using browser context tokens, not a client-supplied profile ID alone; the local chooser still is not secure authentication. Operation receipts and unique IDs prevent duplicate writes. Audio is transient in memory and expires; transcripts/replies follow profile/guest retention rules. Provider-side retention is outside this application's local discard guarantee.
+| Responsibility | Actual implementation |
+|---|---|
+| Views and interaction | `frontend/src/App.vue`, `ProfileGate.vue`, `components/ExerciseLibrary.vue`, chat/history/profile components |
+| Local exercise and quiz rules | `frontend/src/exercise.js`, `exercises.js`, `recommendation.js` |
+| HTTP and persistence coordination | `frontend/src/api.js`, `sessionPersistence.js`; FastAPI routes/controllers and typed `backend/app/schemas.py` |
+| Database/model responsibilities | `backend/app/repositories`, `preferences.py`, `db.py`, migrations008/009; SQLite under project-relative `data/app.sqlite3` |
+| Retrieval and providers | `backend/app/rag`, provider adapters and application-owned usage ledger |
 
-## Verification and timing
+Vue sends HTTP/JSON to FastAPI; only backend code opens SQLite or reads private provider configuration. Schema changes preserve existing records. Writes are parameterized, scoped and transactional where related rows must succeed together. Conversation/message/request IDs, roles, order, timestamps and actual reply content remain inspectable. Save retries cannot create duplicate records. A failed request does not fabricate an assistant reply.
 
-[Verification notes](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/verification.md) provide dated commands and separate mock, live, historical and untested evidence. The October27 preparation checks are recorded there. No new paid call was made for document preparation. The student's current message explicitly verifies the chatbot; it does not establish every physical-device/browser combination or clinical quality.
+For history questions, the first model call proposes retrieval SQL from the question/schema. Backend validation treats it as untrusted, restricts grammar/tables/fields, supplies owner scope and bound parameters, and executes only validated reads through a read-only connection with row/time/context bounds. The second model call receives retrieved records with IDs and field meanings plus reviewed context. Stored content is data, not instructions. Returned citations must belong to retrieved records, although citation membership does not prove semantic correctness. Actual accepted answers are saved before being returned with persistence status.
 
-Historical final Part2 measurement: setup5.036s separately; pre-Start-click to completed UI72.336s, conservatively including observation overhead and application delays. First instruction was observed1.091s after click, so that bound covers the full guided sequence. No voluntary pauses/support were excluded. SQLite stored60000ms active with60.001s wall span; the capped timer alone is not the measurement. Later profile-enabled measurement was bounded by72.082s from guest entry through completed/saved state, with entry/setup observation bound3.770s. These are historical runs, not a new voice-era timing measurement; six-cycle timer tests still pass and voice remains outside timed practice.
+Empty retrieval, rejected SQL, database failure and provider failure remain distinct. Rejected retrieval may permit a general educational answer with unavailable history disclosed, but cannot supply invented personal-history evidence. Voice adds transcription and speech synthesis around the same scoped planning/answer flow. Recognition/audio can fail independently of a saved text answer.
 
-Historical evidence covers stopped practice, support-induced pause, explicit Resume, Chrome hidden-tab pause, refresh recovery and backend restart. Failed provider requests retain submitted messages without fabricated replies. Failed saves expose uncertainty/retry. Voice errors distinguish transcription, submission and speech; budget failure can occur mid-turn after the question was saved.
+## Changes from the Part 3.1 rationale
 
-Required helpline lookup was last recorded October26; no service contacted. That dated lookup is not a claim of a new lookup today. Limited wording/transcript/output checks can miss indirect distress or flag quotations/negation and are not reliable detection or clinical assessment. The static support route is independent of them.
+These decisions use the class-principle mapping already supplied in the project, rather than inventing new principles.
 
-## Revised approaches and generated code
+| Earlier choice | Implementation/testing revision and rationale |
+|---|---|
+| One60-second breathing exercise | Three reviewed alternatives added at the student's request; breath avoidance excludes both breathing and STOP. R3/R4 support choice and control. |
+| Optional introduction | Removed after student review to reduce setup and reading. D3 supports low burden; quiz remains optional. |
+| One page containing both questions, preferences, history and library | Student found this overwhelming. One question per step, concise copy and collapsed supporting sections now reduce competing content (D1/D2/D3). Two useful questions retained rather than adding inputs with no meaningful mapping. |
+| Automatically timed grounding only | Student requested Next and checkmarks. Actual elapsed time is tracked separately from skipped scheduled time, and grounding-only completion accepts shorter duration. R1 preserves a bounded sequence; R3/R4 preserve agency. |
+| Optional remembered choices | Explicit profile-only Save/Use/Forget implemented, with current-answer precedence and no history-based effectiveness inference (D5). |
+| Proposed bottom navigation | Student selected Figma OptionA top navigation. The received desktop recording shows a left navigation rail; full breakpoint parity with that reference has not been established. The selection is design intent, not proof of visual equivalence. |
+| Voice interruption | Earlier playback cutoff led to explicit Stop speaking and microphone blocking during playback. Speaker echo remained a plausible diagnosis, not a proven historical cause. |
+| Reusing stored local access on startup | A real database-switching failure revealed that Retry reused rejected credentials. Bounded401 recovery now returns a fresh chooser while preserving records. |
 
-First, the mock audio was intentionally a tone, not speech; the student requested real voice. The first live speech response then failed local WAV validation despite HTTP success. The correction requests PCM and constructs a valid WAV header locally; a speech-only retry reused the saved answer without repeating transcription/RAG. Browser playback reached completion. The student later reported a two-word cutoff; inspection found automatic sound-onset interruption could react to speaker echo. Ignoring microphone frames during playback replaced it, and the student now confirms the chatbot is verified. Echo was a plausible cause, not independently proven for the earlier event.
+R2/D4 motivate independent support; D6 motivates restrained motion and neutral language. These are design rationales, not evidence of clinical effectiveness.
 
-A second revision addressed overly restrictive app-only answers and rejected retrieval. The approved educational prompt now permits general discussion; a failed lookup supplies empty context rather than preventing all answers. Mock tests verify rejected writes do not execute, no foreign citations pass, actual fallback replies are saved and failure statuses remain distinct.
+## Evaluation method and repeatable checks
 
-Generated code example: [reader.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/reader.py) takes a validated `Query`, maps approved fields to physical columns, adds owner/conversation scope with bound parameters, and opens SQLite read-only with an authorizer. The model cannot provide ownership predicates or write data. [pipeline.py](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/backend/app/rag/pipeline.py) preserves retrieval status when context is unavailable, checks returned citations and response boundaries, then returns actual content for the repository to save. [microphone.js](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/frontend/src/microphone.js) rejects frames during playback/processing/hidden states so speaker audio does not become a new turn. These checks are software boundaries, not guarantees of medical safety or perfect recognition.
+Expected results were recorded before execution in the18-case matrix. Fictional temporary databases and mocked responses are the routine default. Automated tests, real-browser interactions and read-only SQLite inspection supply different evidence and are identified below. **17 scenarios passed within their stated scope; S15 remains not-run as a combined browser case.** An automated pass is not relabeled as a browser pass.
 
-## Selected Figma design and comparison follow-up
+The original evaluation ran82 backend tests,33 frontend tests and a production build. Subsequent grounding changes passed83 backend tests; quiz/recovery changes reached37 frontend tests and a successful build. The identity-recovery subset was rerun with3 passes. These are dated runs, not one newly rerun final combined suite. [Verification notes](docs/verification.md) retain commands and limitations.
 
-The student explicitly selected **A: top navigation**. The agent used the approved browser-editor fallback to add17 frames on [Part 2 — Updated app](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-110), preserving Page1 baselines: seven desktop/390px view pairs, [experience flow](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-721), [state/tradeoff notes](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-773) and [unselected Option B](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-828). Sampled final text exposes native editable typography controls, with individual vector layers. The [selected practice reference](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-213) and [corrected desktop voice reference](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=37-2) are accessible in the student's signed-in browser. Instructor access is not yet verified.
+Repeat with existing approved dependencies:
 
-A qualitative comparison inspected the running app at551×688. Top wrapping navigation, the breathing/library scope, profile choices, typed voice alternative and independent support agree in intent. Differences remain: Figma uses Inter and simplified controls, shows a month grid where Vue uses an accessible event list, and summarizes selected-profile and voice states. Vue still has one Optional chat label on the profile page. Existing browser voice UI showed mock mode; no new live success is claimed. Support was opened without activating any resource link. Entry was source-inspected rather than resetting an existing identity.
+```sh
+backend/.venv/bin/python -m unittest discover -s backend/tests -q
+npm --prefix frontend test
+npm --prefix frontend run build
+sh docs/evidence/part3/run_checks.sh
+```
 
-The new Figma work is an editable design reference, not a pixel-perfect capture or wired prototype. Exact390px/1440px app comparison and a new Figma-to-Vue implementation were not performed. No source, configuration or saved records changed. Full links and observations are in the local [design comparison](docs/design-pipeline.md#selected-figma-design-and-browser-comparison--october-27-2026) and [verification notes](docs/verification.md); their previously pinned hosted versions remain historical; this approved documentation follow-up supplies the new comparison.
+The evaluation script uses mocks; the one-off live script is not a routine test command. Original scenario button labels below reflect the evaluated UI before later copy simplification.
 
-## Remaining work and submission checklist
+### Fictional scenarios: expected and observed
 
-Unfinished: saved still-cue preferences; exact-viewport Figma/Vue fidelity and a new selected-frame implementation; comprehensive phone/landscape/zoom/keyboard/accessibility and failure-state coverage; clean-checkout reproduction; broader live quality testing and final recordings. Browser-based Figma editing now works despite the MCP quota; instructor/anonymous access to the design file remains unverified. No missing result is treated as passed.
+| ID / fictional scenario and setup | Expected | Observed | Mode / status / evidence |
+|---|---|---|---|
+| S01 — First-time guest skips quiz. New fictional guest; choose Find a suggestion then Skip quiz | Library remains usable; no exercise starts or saves. | Browser: new guest opened quiz, skipped, returned to available library; no Start invoked. | mock · **pass** · [browser-notes.md](docs/evidence/part3/browser-notes.md) |
+| S02 — Quiz suggests breathing. Choose breathing rhythm + Yes | Breathing suggestion explains the chosen activity; preview requires Start. | Browser: breathing + Yes showed breathing and “You chose Follow a breathing rhythm”; separate Continue action. Mapping cross-product passed. | mock · **pass** · [browser-notes.md](docs/evidence/part3/browser-notes.md) |
+| S03 — Quiz suggests alternative. Choose surroundings + Avoid | Grounding suggested; instructions unchanged. | Browser: restored surroundings/Avoid produced grounding and explained non-breath-focus. Mapping test passed. | mock · **pass** · [browser-notes.md](docs/evidence/part3/browser-notes.md) |
+| S04 — Breath activity uncomfortable. Choose STOP + Avoid | No breath-focused suggestion; conflict explained and alternatives available. | Automated decision cross-product: STOP/breathing with Avoid or Not sure returns conflict and no suggestion. Browser conflict screen not separately replayed. | mock · **pass** · [frontend-output.txt](docs/evidence/part3/frontend-output.txt) |
+| S05 — No clear preference. Select No preference for both answers | No ranked winner; choice list remains available. | Automated skips/neutral cases return no exercise; no arbitrary tie-breaker. Browser no-preference case not separately replayed. | mock · **pass** · [frontend-output.txt](docs/evidence/part3/frontend-output.txt) |
+| S06 — Reject suggestion. Reject breathing suggestion; manually open reframe | Reframe preview opens without automatic start. | Browser: rejected breathing recommendation, opened reframe preview; Start still required. | mock · **pass** · [browser-notes.md](docs/evidence/part3/browser-notes.md) |
+| S07 — Load remembered preferences. Fictional profile saves surroundings/Avoid; reload and Use saved answers | Saved values restored only by explicit action. | Browser fresh profile selection and explicit Use saved answers restored surroundings/Avoid. | mock · **pass** · [browser-preferences.txt](docs/evidence/part3/browser-preferences.txt) |
+| S08 — Change or forget preferences. Change saved answers then Forget; replay older save | Answers cleared; old retry cannot resurrect them. | Automated test_preferences_isolation_retry_forget_restart saved then forgot; replay of original save left answers null. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S09 — Profile isolation. Fictional A has records; switch/read as Fictional B | B cannot read A preferences/activity; stale requests rejected. | Automated preferences/identity/calendar/voice tests enforce owner scope and stale context; unrelated profile has no preference answers. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S10 — Completed exercise history. Run a guided sequence to completion | Correct exercise ID, completed status and duration saved once and displayed. | Browser reframe completed and saved; Vue history data-session-id 0ceca131-a343-4098-963c-73c78e1c5777 matches SQLite completed/60000. Start-to-observed completion upper bound 65854ms; setup not timed. | mock · **pass** · [browser-history.txt](docs/evidence/part3/browser-history.txt) |
+| S11 — Stop partway. Start STOP, then Stop | Stopped status and actual active duration saved, not completed. | Browser reframe stopped/36427ms (Vue floors to 36s); new ID f5d08ef6-bab3-4896-a562-c2f7cb38a0ba. Automated alternatives test also covers STOP stop. | mock · **pass** · [database-after.json](docs/evidence/part3/database-after.json) |
+| S12 — Refresh interrupts. Refresh an unfinished practice after a checkpoint | Recovered interrupted record uses last confirmed checkpoint; no duplicates. | Browser reload recovered interrupted/29615ms, ID 47b8c6b8-eadf-4c69-ac19-ea93d6b03f9e; Vue shows 29s. Outbox test confirms last confirmed checkpoint and no duplicate recovery. | mock · **pass** · [browser-history.txt](docs/evidence/part3/browser-history.txt) |
+| S13 — Failed save retry. Inject receipt failure or lose commit response; retry same operation | Honest failed/unknown state; rollback or idempotent replay; one record. | Mocked receipt failure rolled back; retry saved one preference row. Outbox lost-response test replayed same operation without duplication. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S14 — Delayed response. Resolve request after switching identity or leaving screen | Old response ignored; new identity/view unaffected. | Frontend late preference response rejected after identity change; LatestRequest and voice tests ignore cancelled/replaced responses. | mock · **pass** · [frontend-output.txt](docs/evidence/part3/frontend-output.txt) |
+| S15 — Model failure and support. Inject failed provider request; open support | No invented reply; support independently accessible. | Provider-failure automated checks passed, but support access in the same failed-model browser state was not executed in this evaluation. Combined case not-run; do not infer pass from separate checks. | mock · **not-run** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S16 — Scoped history RAG. Ask fictional latest-practice question with two owners | Only active owner records retrieved; actual answer grounded in IDs. | RAG tests returned owned stopped/23s record with matching source/citation IDs, denied foreign owner, and scoped guest among two profiles. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S17 — Empty retrieval. Ask history question with no saved matches | Empty outcome and insufficient-history reply; no invented records. | test_empty_is_distinct_from_rejection returned empty and no matching saved records reply, with no citations. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
+| S18 — Untrusted write query. Mock planner proposes DELETE FROM exercise_sessions | Rejected before execution; stored rows unchanged; rejection distinguishable. | Parser rejects write structures; pipeline rejected-query test asserts retrieval never called; read-only authorizer denies DELETE; fixture remains readable. | mock · **pass** · [backend-output.txt](docs/evidence/part3/backend-output.txt) |
 
-October27 compliance follow-up: live testing now uses explicit host-created sessions capped at50 calls/$2.50 reservations each. All49 prior voice attempts remain historical/unassigned and are not charged to a new session counter. Refresh/restart/profile changes never reset the selected session. New sessions and live activation require explicit host approval. The template and peer-test default remain mocked. After offline verification, the student separately approved a24-call/$1.20 live demo session; activation used0 paid calls. Historical65-call authorization is superseded. Subsequent live sessions still require explicit approval. Speech model migration remains a separate decision.
+### Explicit behavior checks
 
-The approved [manual Figma fallback](https://github.com/mallorypierz/mentalhealth_app/blob/aaa6fce619ec3e1a4baaedcf6bc4fa64f0f354a8/docs/figma-fallback/README.md) provides14 static desktop/390px PNG boards, matching SVG sources and flow notes. Those earlier files are simplified static references. The later browser-based work described above created native editable Figma text/vector layers; it did not use MCP or turn the PNG pack into a verified capture. That earlier static-pack follow-up is committed and pushed; the source hash above includes testing-session budgets and the static reference pack. The student separately approved publication of the newest Figma comparison/documentation changes. Prior reportf93bc0d remains preserved.
+| Check | Evidence and result |
+|---|---|
+| B1: A suggestion never starts an exercise; conflicts/invalid/unavailable answers do not produce an arbitrary exercise | Decision cross-product tests plus browser preview/rejection: passed within those scopes |
+| B2: Persistence retains truthful status/duration and retry does not duplicate records or resurrect forgotten preferences | Transaction/replay/outbox/recovery tests plus browser saved-history evidence: passed |
+| B3: History remains owner-scoped and proposed writes never execute | SQL validation/reader/identity tests, empty/rejected retrieval and fixture checks: passed |
+| B4: Support remains usable in the same browser state after a model failure | Combined browser check **not-run**; separate failure tests and independent support observations do not establish this invariant |
 
-- [x] Student explicitly verified chatbot completion and approved documentation inclusion.
-- [x] Current implementation, optional features and remaining limitations documented.
-- [x] Original Part1 and Part2 commit references preserved.
-- [x] Student reviewed and approved this revised report and disclosures.
-- [x] Student separately approved committing all updated source/evidence.
-- [x] Created approved source/evidence commit; actual hash recorded above.
-- [x] Student separately approved pushing all updated changes.
-- [x] Verified exact source/evidence hash on remote after push.
-- [x] Replaced local evidence links with verified commit-specific hosted links. Finalized report is published as a documentation follow-up.
-- [x] Use mocked peer testing and enforce an explicit50-call maximum per approved testing session.
-- [x] Prepare static fallback, then browser-created editable references; student selected A.
-- [x] Record qualitative app comparison and disclose unfinished exact-viewport/implementation checks.
-- [x] Student reviewed and separately approved commit/push of this latest documentation increment.
-- [x] Committed/pushed the earlier static-pack follow-up and pinned its fallback evidence link.
-- [ ] Student uploads the finalized report.md. No course upload, merge or deployment has been performed.
+### Inspectable saved records
+
+Read-only SQLite queries (`mode=ro`) and Vue DOM history attributes matched reframe session `0ceca131-a343-4098-963c-73c78e1c5777`, completed/60000ms. Stopped and interrupted examples were36427ms and29615ms; the UI floors them to36s and29s. Fictional preference owner `1296fb51-3fb2-44c2-a6a3-b180d183b43e`, revision1, surroundings/avoid matched SQLite, GET `/api/preferences` and Vue `data-preference-id`. API inspection used a separate fictional identity without printing tokens. Later early-grounding completion `191cdf8a-5132-435d-b57e-5479160e7549` saved15859ms and displayed15s. These are different checks with different scopes, not one combined capture.
+
+Evidence: [database snapshot](docs/evidence/part3/database-after.json), [history UI](docs/evidence/part3/browser-history.txt), [preference UI](docs/evidence/part3/browser-preferences.txt), [early-grounding record](docs/evidence/part3/grounding-next-record.json). Integrity checks passed and foreign-key violations were absent in the inspected evaluation databases.
+
+### Separate live-model variation
+
+The host approved a12-call sample before execution. The existing ledger was inspected without resetting it. Three exact typed cases were repeated twice, with planning+answer counted separately:6 trials,12 calls total. No transcription, speech, retries or failed attempts occurred in this sample. Fictional contexts were isolated from working transcripts; fresh UUIDs prevented repetition contamination. The configured model snapshot was `gpt-5.4-mini-2026-03-17`.
+
+| Case | Exact input and setup | Observed across two repetitions |
+|---|---|---|
+| L01 grounded history | “What happened in my most recent saved exercise? Give its status and active duration.” Older owned completed breathing, latest owned STOP stopped23000ms, and a later foreign-owner record | Both cited their expected owned STOP record and answered stopped/23s; no improvement claim or foreign-owner evidence |
+| L02 insufficient history | Same question, fresh owner with no exercise history | Both acknowledged insufficient history; no invented status, duration or citation |
+| L03 education | “What is the difference between a grounding exercise and a breathing exercise? Explain briefly without recommending a treatment.” Fresh owner, approved context | Both distinguished the activities without inventing personal history. One used general benefit wording; another added an unnecessary treatment refusal and simplified grounding to external awareness. |
+
+All6 replies were saved. Wording varied while L01 facts stayed consistent. The general-benefit wording is a quality limitation, not evidence of effectiveness. Two repetitions cannot estimate reliability. No live failure occurred, so timeout/refusal/save-failure variation remains **untested**. Full responses, citations and calls are in [results.json](docs/evidence/part3/live/results.json) and [comparison](docs/evidence/part3/live/comparison.md).
+
+This12-call evaluation allowance was consumed. Later user demonstrations used the existing separate24-call session capacity; current remaining capacity must be read from the ledger, not inferred from a dated report. All planning, answer, transcription, speech, retries and failed attempts count. Sessions are host-approved and capped at50; exhausted/unavailable allowance returns new requests to labeled mocks. Peer testing defaults to mocks. Local cost reservations are not invoice guarantees.
+
+### Surprising finding and untested limitation
+
+An evidence-backed surprise was that rejecting unsafe retrieval need not prevent every useful reply. `test_rejected_and_failed_retrieval_can_answer_without_history` verifies a general fallback with unavailable history disclosed, while the rejected SQL never executes. Evaluation therefore checks non-execution, explicit uncertainty and absence of fabricated retrieved evidence, rather than requiring total silence after every rejected query.
+
+Physical mobile sleep and background timer throttling remain untested. Fake-clock tests establish planned60/75-second sequences. One real reframe run reached observed completion within65.854s after Start, including observation overhead. Setup time was not instrumented in that run and is reported separately as unmeasured. Early grounding's15859ms saved active time is not a comprehensive wall-clock performance study. Comprehensive keyboard/narrow-screen checks, all-skill real-time timing, simultaneous browser races, full browser save-outage coverage and live failure variation remain incomplete.
+
+## Clean-checkout reproduction
+
+README commands were followed in `/tmp/mentalhealth-part3-clean`, cloned from a source-only local candidate **b3d8087c3e16e16d880c8a6230e5d43976ac4d6c**. It represented base016d251 plus the then-uncommitted implementation. No credentials, working database, installed Python environment or node_modules were copied. The host approved the exact installations first. Python3.12.5, Node24.20.0 and npm11.19.0 were used; packages installed from declared pins/lockfile. Cached downloaded wheels were reused, so this was not a cold-network-cache test.
+
+Without `.env`, default startup initialized a fresh SQLite database and served mocks. Frontend-to-backend health, guest entry, quiz, separate preview/Start, completed reframe, history, refresh and both service restarts were verified. ID `7a52c388-0797-414b-b75d-d3a9c06a2ba9` remained one completed60000ms row after restart.82 backend tests,33 frontend tests, build and pip check passed. No tracked generated files appeared. [Exact commands, logs and before/after records](docs/evidence/part3/clean-checkout.md).
+
+This establishes agent reproduction using README, not independent human peer testing. Candidate b3d8087 predates the later quiz presentation, reframe copy, grounding Next/checkmarks and identity recovery. Those changes have their own tests/browser evidence, but the final published bdf3f84 source has **not** received a new full clean-checkout run. The revised report must not imply otherwise.
+
+## Actual failure, decision and retest
+
+The user reported: “why does it say that and wont let me on the pageLocal access is invalid or revoked.” This occurred after the backend changed from the isolated test database to the original live database. The browser retained the earlier local identity. Source inspection found that `ProfileGate.vue`'s startup and Retry reused that token. The expected behavior was a usable chooser after rejected local access, while transient connection failures should preserve valid access.
+
+The fix is `restoreIdentity(request, getAccess, clearAccess)` in [identityRecovery.js](frontend/src/identityRecovery.js). A401 response clears only browser access and makes one new bootstrap request. The chooser requires an explicit profile/guest selection. Other failures propagate; records, pending writes and provider ledger are not deleted or replayed.
+
+[Three mocked regression tests](frontend/tests/identityRecovery.test.js) verify401 recovery, retained access for network/403/500 failures, valid identity reuse and bounded failed bootstrap. [Retained output](docs/evidence/part3/recording/identity-retest.txt):3 passed,0 failed. The user later reported the error no longer appeared. No original screenshot/HTTP trace was retained, and automation could not reacquire the original affected tab; this is not a controlled end-to-end browser recovery pass. [Process evidence packet](docs/evidence/part3/recording/error-evidence.md) states those limits explicitly. The process screencast remains pending.
+
+## Explanation of generated code
+
+[frontend/src/recommendation.js](frontend/src/recommendation.js), function **`decide(activity, breath, available)`**, implements the quiz decision table.
+
+- **Inputs:** a finite activity key (or empty/none), breathing preference (`yes`, `avoid`, `unsure`, empty or none), and the list of available reviewed exercises.
+- **Output:** `{ status, reason, exercise }`; `exercise` is an available definition or null. Status distinguishes suggested, invalid, incomplete, unavailable and conflict.
+- **Rules:** validate both inputs; use explicit activity first; when activity is absent/neutral, Yes may choose breathing; check availability; reject breath-focused matches for Avoid/Not sure; generate an explanation from the actual answer.
+- **Safeguards:** no arbitrary tie-breaker, no model call, no score, no persistence and no timer start. Model output cannot inject an exercise or change reviewed instructions. Preview/Start is handled separately by the application.
+- **Limitations:** two preferences do not describe all needs or predict clinical benefit. The classification of STOP as breath-focused follows its reviewed breath step. A person can reject the match and choose manually.
+
+[Mapping tests](frontend/tests/recommendation.test.js) cover the activity/comfort cross-product, missing/invalid inputs, unavailable exercises, changed answers and unchanged instructions. Example: `decide('sensory_grounding_5_4_3_2_1', 'avoid')` returns grounding; `decide('stop', 'avoid')` returns conflict with null exercise.
+
+## Demonstration recording
+
+The student supplied a frontend screen recording on November3. A checksum-matched local copy is preserved at `recordings/part3-recording-2026-11-03.mov`:117573632 bytes,301.7167s,**zero audio tracks**. The student subsequently added a second copy, linked as [Watch/download the frontend recording](recordings/Screen%20Recording%202026-11-03%20at%206.58.39%E2%80%AFPM.mov). That newer file has not been independently re-inspected. The selected submission copy is included alongside this report for GitHub download; the larger original remains local. The relative link also works when the report and recording are downloaded together.
+
+Seven sample frames showed profile selection/creation, breathing with still cue, typed chat, grounding checkmarks, STOP and voice controls. This was a sampled review, not continuous playback. It does not establish that two quiz paths, rejection, remembered preferences, saved history and opened support are all demonstrated. Those items require full-video review or a short supplementary clip. No narration or AI speech was captured; add narration/captions or a separate explanation if required. No process section was confirmed.
+
+The [recording outline](docs/recording-outline.md) supplies two marked sections, concise narration and mode labels. Screens showing live controls are not proof of a successful new live reply. The controlled live evaluation above supplies separate evidence. The frontend recording and process screencast must not be labeled fully complete until their content and reviewer access are verified.
+
+## Figma status and AI-use disclosure
+
+The student selected OptionA (top navigation) in [Assignment3 Figma references](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-110). Historical browser-editor work created17 native text/vector frames with sampled editability checks. [Selected practice reference](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-213), [flow](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-721), and [alternativeB](https://www.figma.com/design/3fMOXNlHnM4ebWaFKI0CXi/Assignment-3?node-id=31-828) remain linked for review. Instructor access is unverified.
+
+This was not successful MCP capture, a wired prototype or a verified Figma-to-Vue implementation round trip. The static PNG/SVG fallback predates the editable browser references. Layout/typography/control differences remain, including calendar event list versus grid and the desktop recording's navigation rail. Do not describe them as pixel-matched. Full details are in [design-pipeline.md](docs/design-pipeline.md).
+
+Codex assisted with implementation, tests, evidence inspection, documentation and recording planning. The student supplied scope, approved reviewed exercise wording/timings, selected design preferences, tested the app, requested refinements and produced the frontend recording. Agent checks are not attributed to the student. Provider models and important revisions are disclosed in [AI-USE.md](AI-USE.md); no exact coding-agent serving snapshot is asserted. No clinical evaluation was conducted. This report was AI-assisted and needs the student's final review.
+
+## Final submission checklist
+
+- [x] Implementation, preferences, history, SQL RAG, source and tests published in bdf3f84.
+- [x] README, architecture/contracts, AI-use disclosure and handoff maintained.
+- [x] Eighteen fictional scenarios with expected/observed results and evidence;17 passes and1 not-run honestly identified.
+- [x] Three explicit behavior checks, surprising finding and untested limitation reported.
+- [x] Bounded live variation sample recorded separately from mocked checks.
+- [x] Earlier exact-candidate clean-checkout evidence and later-change limitation recorded.
+- [x] Frontend recording received and preserved locally.
+- [ ] Review full frontend video coverage; add mode labels/narration or supplementary footage as needed.
+- [x] Include the selected frontend video in the repository and link it from this report. Instructor-specific access still requires confirmation.
+- [ ] Record/upload the process screencast showing the actual reported failure, evidence, fix/retest and generated-code explanation.
+- [ ] Complete S15 combined failure/support browser check, or retain its not-run status.
+- [ ] Verify the final source from a clean checkout; retain timing/device/Figma limitations until tested.
+- [x] Prepare the revised report, selected recording and later evidence for publication together; use this file’s Git commit history for the documentation/submission revision.
+- [ ] Verify instructor access to repository, videos and Figma; submit the coursework. No course upload or merge has been performed.
